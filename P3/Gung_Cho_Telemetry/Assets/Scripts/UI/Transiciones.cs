@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections;
-using System.Runtime.InteropServices;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using game_telemetry;
 
 public class Transiciones : MonoBehaviour
 {
-    [DllImport("game_telemetry.dll")]
-    public static extern void telemetry_initialization();
-
-    [DllImport("game_telemetry.dll")]
-    public static extern int telemetry_track_event();
-
-    [DllImport("game_telemetry.dll")]
-    public static extern void telemetry_release();
-
     static public Transiciones instance = null;
     Animator transitions = null;
     bool noRepetir = true;
@@ -31,9 +20,10 @@ public class Transiciones : MonoBehaviour
     }
     void Start()
     {
-        telemetry_initialization();
-        Debug.Log(telemetry_track_event());
-        telemetry_release();
+        Telemetry.Instance.SessionID = UnityEngine.Analytics.AnalyticsSessionInfo.sessionId;
+        Telemetry.Instance.TrackEvent(new ExitLevelEvent(TelemetryEvent.EventType.DEFAULT, 76));
+        Telemetry.Instance.TrackEvent(new ExitLevelEvent(TelemetryEvent.EventType.NOT_DEFAULT, 123));
+        Telemetry.Instance.TrackEvent(new LandingEvent(TelemetryEvent.EventType.DEFAULT, 2, 3));
 
         transitions = GetComponentInChildren<Animator>();
     }
