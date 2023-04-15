@@ -1,0 +1,3 @@
+[submodule "P3/Gung_Cho_Telemetry/Telemetry"]
+	path = P3/Gung_Cho_Telemetry/Telemetry
+	url = https://github.com/aarontta-psk/Game_Telemetry
