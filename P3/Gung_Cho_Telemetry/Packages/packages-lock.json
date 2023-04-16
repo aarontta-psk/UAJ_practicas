@@ -1,11 +1,18 @@
 {
   "dependencies": {
-    "com.g02.game_telemetry_package": {
-      "version": "https://github.com/aarontta-psk/Game_Telemetry.git",
+    "com.coffee.upm-git-extension": {
+      "version": "https://github.com/mob-sakai/UpmGitExtension.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "c74516531d0b1d1e3e56b27e9d5822ca0ab81c2e"
+      "hash": "d0c1cbb5415f5accf6a1d49d1dc91cf7d4fb11b9"
+    },
+    "com.g02.game_telemetry_package": {
+      "version": "https://github.com/aarontta-psk/Game_Telemetry.git#main",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "d2ebf0964e3d3c69893e75a6447c3a14acfe04e9"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
