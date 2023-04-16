@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.g02.game_telemetry_package": {
+      "version": "https://github.com/aarontta-psk/Game_Telemetry.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "c74516531d0b1d1e3e56b27e9d5822ca0ab81c2e"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
