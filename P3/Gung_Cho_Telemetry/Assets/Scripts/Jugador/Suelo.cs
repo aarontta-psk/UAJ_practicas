@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using game_telemetry;
+using UnityEngine;
 
 //Comprobación de si el jugador se encuentra sobre una plataforma (trigger "PiesJugador")
 
@@ -20,6 +21,10 @@ public class Suelo : MonoBehaviour
 
         if (comp != null || (box != null && !box.isTrigger)) //si esa entidad es una plataforma (Layer 8 => plataformas7escenario)
         {
+
+            if (!enSuelo)
+                Telemetry.Instance.TrackEvent(new LandingEvent(TelemetryEvent.EventType.LANDING_EVENT, jugador.transform.position.x, jugador.transform.position.y));
+
             enSuelo = true; //actualizamos el booleano, pues está sobre alguna entidad
             jugador.RecargaSuelo(); //recargamos el dash y gancho (llamamos a RecargaSuelo de "Jugador")
         }

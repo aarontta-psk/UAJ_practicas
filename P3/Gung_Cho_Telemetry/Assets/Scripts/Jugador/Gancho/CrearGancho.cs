@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using game_telemetry;
 
 /* Este script es el responsable de crear los ganchos que puede lanzar el jugador
  * Tiene un método público, el cual recarga el gancho cuando "SUelo" ha encontrado una superficie
@@ -66,7 +67,13 @@ public class CrearGancho : MonoBehaviour
                 else
                 {
                     //instanciamos el gancho
+                    
                     GameObject gancho_nuevo = Instantiate(gancho, posicion, Quaternion.Euler(new Vector3(0, 0, angulo)), padreGancho);
+
+                    //telemetry
+                    //Vector3 raton = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    //Telemetry.Instance.TrackEvent(new ThrowHookEvent(TelemetryEvent.EventType.THROW_HOOK, posicion.x, posicion.y, raton.x, raton.y, cargasGancho));
+
                     gancho_nuevo.GetComponent<Gancho>().CreacionGancho(gameObject); //damos una referencia del jugador al gancho
                     estadoJugador.CambioEstado(estado.LanzamientoGancho); //pasamos al estado "LanzamientoGancho"
                     cargasGancho--; //restamos un gancho a los disponibles
