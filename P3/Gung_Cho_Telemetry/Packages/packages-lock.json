@@ -8,11 +8,11 @@
       "hash": "d0c1cbb5415f5accf6a1d49d1dc91cf7d4fb11b9"
     },
     "com.g02.game_telemetry_package": {
-      "version": "https://github.com/aarontta-psk/Game_Telemetry.git#main",
+      "version": "https://github.com/aarontta-psk/Game_Telemetry.git",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "4403edb9695fb19544d8b795d32d303c61f40917"
+      "hash": "9191301c28a45825ef066e28950ee6d9dc56fc60"
     },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
