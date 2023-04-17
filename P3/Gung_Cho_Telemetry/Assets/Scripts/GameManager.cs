@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
     SpriteRenderer spriteRenderer;
 
     //Instrumentalizacion
-    private int levelSection = -1; //para que empiece en 0 al hacer +1 en el primer checkpoint
+    private int levelSection = 1;
+    private int currentLevel;
 
 
     private void Awake() //singleton
@@ -68,8 +69,6 @@ public class GameManager : MonoBehaviour
         checkpoint = posicion;
         if (sumarTiempoCheckPoint)
             timer.SumarTiempo(tiempoAdicional);
-        levelSection++;
-
     }
 
     public Vector3 CheckPoint() //método para obtener el checkpoint actual
@@ -89,7 +88,7 @@ public class GameManager : MonoBehaviour
 
         if (vidas <= 0) //si está muerto, desactivamos al jugador
         {
-            Telemetry.Instance.TrackEvent(new DeathEvent(TelemetryEvent.EventType.DEATH, (int)transform.position.x, (int)transform.position.y, DeathEvent.DeathType.DAMAGE, GameManager.instance.getLevelSection()));
+            Telemetry.Instance.TrackEvent(new DeathEvent(TelemetryEvent.EventType.DEATH, (int)transform.position.x, (int)transform.position.y, DeathEvent.DeathType.DAMAGE, GameManager.instance.getCurrentLevel()));
             estados.CambioEstado(estado.Muerte);
             spriteRenderer.enabled = false;  //también lo hacemos invisible
         }
@@ -150,6 +149,12 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(int indice) //método de cambio de escena
     {
+        if((currentLevel == 1 || currentLevel == 2) && indice == 0)
+        {
+            Telemetry.Instance.TrackEvent(new ExitLevelEvent(TelemetryEvent.EventType.EXIT_LEVEL, currentLevel));
+        }
+
+        currentLevel = indice;
         Telemetry.Instance.TrackEvent(new StartLevelEvent(TelemetryEvent.EventType.START_LEVEL, indice));
         Transiciones.instance.MakeTransition(indice);
         Time.timeScale = 1;
@@ -232,9 +237,15 @@ public class GameManager : MonoBehaviour
         //Debug.Log("release");
         Telemetry.Release();
     }
-
-    public int getLevelSection()
+    
+    public int getCurrentLevel()
     {
-        return levelSection;
+        return currentLevel;
     }
+
+    public void setLevelSection(int section)
+    {
+        levelSection = section;
+    }
+
 }

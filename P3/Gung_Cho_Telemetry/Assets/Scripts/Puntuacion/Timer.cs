@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using game_telemetry;
 
 
 public class Timer : MonoBehaviour
@@ -53,6 +54,7 @@ public class Timer : MonoBehaviour
     {
         GameManager.instance.CheckPoint(Vector2.zero, 0);
         GameManager.instance.RecargaVidas();
+        Telemetry.Instance.TrackEvent(new LevelResetEvent(TelemetryEvent.EventType.LEVEL_RESET, transform.position.x, transform.position.y, GameManager.instance.getCurrentLevel()));
         Scene escena = SceneManager.GetActiveScene();
         Transiciones.instance.MakeTransition(escena.buildIndex);
     }
