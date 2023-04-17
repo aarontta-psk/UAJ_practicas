@@ -8,7 +8,7 @@
       "hash": "d0c1cbb5415f5accf6a1d49d1dc91cf7d4fb11b9"
     },
     "com.g02.game_telemetry_package": {
-      "version": "https://github.com/aarontta-psk/Game_Telemetry.git",
+      "version": "https://github.com/aarontta-psk/Game_Telemetry.git#main",
       "depth": 0,
       "source": "git",
       "dependencies": {},

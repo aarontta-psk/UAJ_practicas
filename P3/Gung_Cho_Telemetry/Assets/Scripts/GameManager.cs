@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using game_telemetry;
 
 //Comportamiento del GameManager
 
@@ -28,12 +29,15 @@ public class GameManager : MonoBehaviour
     //efectos visuales
     SpriteRenderer spriteRenderer;
 
+
     private void Awake() //singleton
     {
         if (instance == null) //si no hay instancia
         {
             instance = this; //la creamos
             DontDestroyOnLoad(gameObject); //evitamos que se destruya entre escenas
+            //
+            Telemetry.Init("Gung_Cho'", UnityEngine.Analytics.AnalyticsSessionInfo.sessionId);
         }
         else //en caso contrario
         {
@@ -51,6 +55,7 @@ public class GameManager : MonoBehaviour
         retrocederAlCheckPoint = Camera.main.GetComponent<RetrocederAlCheckPoint>();
         finalcam = Camera.main.GetComponent<SeguimientoJugador>();
         coleccionables = new bool[tamañoColeccionables]; //inicializamos el array con respecto al valor del editor
+
     }
 
     //CHECKPOINTS
@@ -147,7 +152,7 @@ public class GameManager : MonoBehaviour
     {
         Application.Quit();
     }
-    
+
     //PUNTUACION
     public void Puntuacion() //metodo que proporciona la informacion de las vidas, enemigos eliminados y los coleccionables obtenidos
     {
@@ -174,7 +179,7 @@ public class GameManager : MonoBehaviour
     void PararCamara() //metodo para parar la camara tras aparecer la puntuacion
     {
         Camera.main.GetComponent<SeguimientoJugador>().Parar();
-        theUIMan.ActivarBotonAvance(); 
+        theUIMan.ActivarBotonAvance();
     }
 
     public void ContadorEnemigosElim() //método que aumenta el contador en 1 al eliminar a un enemigo
@@ -212,4 +217,12 @@ public class GameManager : MonoBehaviour
     {
         retrocederAlCheckPoint = RaC;
     }
+
+    private void OnApplicationQuit()
+    {
+        //release de telemetry
+        //Debug.Log("release");
+        Telemetry.Release();
+    }
+
 }

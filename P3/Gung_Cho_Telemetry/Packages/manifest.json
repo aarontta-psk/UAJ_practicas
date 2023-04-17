@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "com.coffee.upm-git-extension": "https://github.com/mob-sakai/UpmGitExtension.git",
-    "com.g02.game_telemetry_package": "https://github.com/aarontta-psk/Game_Telemetry.git",
+    "com.g02.game_telemetry_package": "https://github.com/aarontta-psk/Game_Telemetry.git#main",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.2d.tilemap": "1.0.0",
     "com.unity.2d.tilemap.extras": "https://github.com/Unity-Technologies/2d-extras.git#master",
