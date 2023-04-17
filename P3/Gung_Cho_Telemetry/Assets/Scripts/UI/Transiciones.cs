@@ -20,10 +20,11 @@ public class Transiciones : MonoBehaviour
     }
     void Start()
     {
-        Telemetry.Instance.SessionID = UnityEngine.Analytics.AnalyticsSessionInfo.sessionId;
-        Telemetry.Instance.TrackEvent(new ExitLevelEvent(TelemetryEvent.EventType.DEFAULT, 76));
-        Telemetry.Instance.TrackEvent(new ExitLevelEvent(TelemetryEvent.EventType.NOT_DEFAULT, 123));
-        Telemetry.Instance.TrackEvent(new LandingEvent(TelemetryEvent.EventType.DEFAULT, 2, 3));
+        Telemetry.Init("Gung_Cho'", UnityEngine.Analytics.AnalyticsSessionInfo.sessionId);
+        Telemetry.Instance.TrackEvent(new ExitLevelEvent(TelemetryEvent.EventType.EXIT_LEVEL, 76));
+        Telemetry.Instance.TrackEvent(new ExitLevelEvent(TelemetryEvent.EventType.EXIT_LEVEL, 123));
+        Telemetry.Instance.TrackEvent(new LandingEvent(TelemetryEvent.EventType.LANDING_EVENT, 2, 3));
+        Telemetry.Release();
 
         transitions = GetComponentInChildren<Animator>();
     }
