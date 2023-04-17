@@ -29,6 +29,9 @@ public class GameManager : MonoBehaviour
     //efectos visuales
     SpriteRenderer spriteRenderer;
 
+    //Instrumentalizacion
+    private int levelSection = -1; //para que empiece en 0 al hacer +1 en el primer checkpoint
+
 
     private void Awake() //singleton
     {
@@ -65,6 +68,8 @@ public class GameManager : MonoBehaviour
         checkpoint = posicion;
         if (sumarTiempoCheckPoint)
             timer.SumarTiempo(tiempoAdicional);
+        levelSection++;
+
     }
 
     public Vector3 CheckPoint() //método para obtener el checkpoint actual
@@ -84,6 +89,7 @@ public class GameManager : MonoBehaviour
 
         if (vidas <= 0) //si está muerto, desactivamos al jugador
         {
+            Telemetry.Instance.TrackEvent(new DeathEvent(TelemetryEvent.EventType.DEATH, (int)transform.position.x, (int)transform.position.y, DeathEvent.DeathType.DAMAGE, GameManager.instance.getLevelSection()));
             estados.CambioEstado(estado.Muerte);
             spriteRenderer.enabled = false;  //también lo hacemos invisible
         }
@@ -219,6 +225,7 @@ public class GameManager : MonoBehaviour
         retrocederAlCheckPoint = RaC;
     }
 
+    //Instrumentalizacion
     private void OnApplicationQuit()
     {
         //release de telemetry
@@ -226,4 +233,8 @@ public class GameManager : MonoBehaviour
         Telemetry.Release();
     }
 
+    public int getLevelSection()
+    {
+        return levelSection;
+    }
 }

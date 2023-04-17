@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using game_telemetry;
 
 //Script que agita la cámara cuando el jugador recibe daño
 

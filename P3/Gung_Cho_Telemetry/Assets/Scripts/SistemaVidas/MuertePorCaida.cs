@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using game_telemetry;
 
 //Comportamiento de la DeathZone (hija de la cámara)
 
@@ -15,6 +16,7 @@ public class MuertePorCaida : MonoBehaviour
             if (jugador != null && jugador.Estado() != estado.Muerte) //en caso de que lo fuera
             {
                 jugador.CambioEstado(estado.Muerte); //cambiamos su estado a Muerte
+                Telemetry.Instance.TrackEvent(new DeathEvent(TelemetryEvent.EventType.DEATH, (int)transform.position.x, (int)transform.position.y, DeathEvent.DeathType.FELL, GameManager.instance.getLevelSection()));
                 aud.Play();
                 GameManager.instance.Muerte();
             }
