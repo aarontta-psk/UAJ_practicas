@@ -144,6 +144,7 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(int indice) //método de cambio de escena
     {
+        Telemetry.Instance.TrackEvent(new StartLevelEvent(TelemetryEvent.EventType.START_LEVEL, indice));
         Transiciones.instance.MakeTransition(indice);
         Time.timeScale = 1;
     }
