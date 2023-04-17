@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using game_telemetry;
+using UnityEngine;
 
 //Control del comportamiento del gancho a lo largo de su recorrido
 
@@ -59,6 +60,9 @@ public class Gancho : MonoBehaviour
                 Destroy(rb_gancho); //detenemos el movimiento del gancho
                 jugador.GetComponent<Jugador>().Gancho(gameObject); //guardamos una referencia del gancho
                 estadoJugador.CambioEstado(estado.MovimientoGancho); //cambiamos el estado a "MovimientoGancho"
+
+                //TODO
+                //Telemetry.Instance.TrackEvent(new HitHookEvent(TelemetryEvent.EventType.HIT_HOOK, jugador.transform.position.x, jugador.transform.position.y, direccion.x, direccion.y));
 
             }
             else if (colision.layer == 13)
