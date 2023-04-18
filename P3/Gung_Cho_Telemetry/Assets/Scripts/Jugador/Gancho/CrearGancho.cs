@@ -71,8 +71,8 @@ public class CrearGancho : MonoBehaviour
                     GameObject gancho_nuevo = Instantiate(gancho, posicion, Quaternion.Euler(new Vector3(0, 0, angulo)), padreGancho);
 
                     //telemetry
-                    //Vector3 raton = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                    //Telemetry.Instance.TrackEvent(new ThrowHookEvent(TelemetryEvent.EventType.THROW_HOOK, posicion.x, posicion.y, raton.x, raton.y, cargasGancho));
+                    Vector3 raton = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                    Telemetry.Instance.TrackEvent(new ThrowHookEvent(TelemetryEvent.EventType.THROW_HOOK, posicion.x, posicion.y, raton.x, raton.y, cargasGancho));
 
                     gancho_nuevo.GetComponent<Gancho>().CreacionGancho(gameObject); //damos una referencia del jugador al gancho
                     estadoJugador.CambioEstado(estado.LanzamientoGancho); //pasamos al estado "LanzamientoGancho"

@@ -20,7 +20,7 @@ public class CheckPoint : MonoBehaviour
         if (posicionJugador.position.y > transform.position.y)
         {
             GameManager.instance.setLevelSection(numero);
-            Telemetry.Instance.TrackEvent(new ArriveNewSectionEvent(TelemetryEvent.EventType.LANDING_EVENT, numero));
+            //Telemetry.Instance.TrackEvent(new ArriveNewSectionEvent(TelemetryEvent.EventType.ARRIVE_NEW_ZONE, numero));
 
             //se guarda como el nuevo checkpoint
             GameManager.instance.CheckPoint(transform.position, tiempoAdicional);

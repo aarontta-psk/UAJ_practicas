@@ -62,7 +62,7 @@ public class Gancho : MonoBehaviour
                 estadoJugador.CambioEstado(estado.MovimientoGancho); //cambiamos el estado a "MovimientoGancho"
 
                 //TODO
-                //Telemetry.Instance.TrackEvent(new HitHookEvent(TelemetryEvent.EventType.HIT_HOOK, jugador.transform.position.x, jugador.transform.position.y, direccion.x, direccion.y));
+                Telemetry.Instance.TrackEvent(new HitHookEvent(TelemetryEvent.EventType.HIT_HOOK, jugador.transform.position.x, jugador.transform.position.y, direccion.x, direccion.y));
 
             }
             else if (colision.layer == 13)

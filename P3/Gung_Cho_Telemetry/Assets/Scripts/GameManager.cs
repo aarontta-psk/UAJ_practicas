@@ -40,8 +40,13 @@ public class GameManager : MonoBehaviour
         {
             instance = this; //la creamos
             DontDestroyOnLoad(gameObject); //evitamos que se destruya entre escenas
-            //
-            Telemetry.Init("Gung_Cho'", UnityEngine.Analytics.AnalyticsSessionInfo.sessionId);
+                                           
+#if UNITY_EDITOR
+            Telemetry.Init("./telemetry_data/","Gung_Cho'", UnityEngine.Analytics.AnalyticsSessionInfo.sessionId);
+#else
+            Telemetry.Init(Application.dataPath + "/telemetry_data/", "Gung_Cho'", UnityEngine.Analytics.AnalyticsSessionInfo.sessionId);
+#endif
+
         }
         else //en caso contrario
         {
