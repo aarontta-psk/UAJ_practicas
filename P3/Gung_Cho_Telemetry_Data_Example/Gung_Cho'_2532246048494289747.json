@@ -1,0 +1,1932 @@
+{
+  "Type": "SESSION_START",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851039
+}
+{
+  "Type": "START_LEVEL",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851040,
+  "CurrentLevel": 1
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851041,
+  "PosPlayerX": 0.0,
+  "PosPlayerY": -5.017658
+}
+{
+  "Type": "ARRIVE_NEW_ZONE",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851041,
+  "ZoneID": 1
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851042,
+  "PosPlayerX": 0.8438401,
+  "PosPlayerY": -4.50971365,
+  "PosMouseX": 9.563653,
+  "PosMouseY": 2.87698364,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851042,
+  "PosHookX": 0.8438401,
+  "PosHookY": -5.00971365,
+  "AccelerationX": 6.104191,
+  "AccelerationY": 5.670963
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851043,
+  "PosPlayerX": 7.601223,
+  "PosPlayerY": 3.54826927,
+  "PosMouseX": 12.3618364,
+  "PosMouseY": 9.140731,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851043,
+  "PosHookX": 7.601223,
+  "PosHookY": 3.04826927,
+  "AccelerationX": 3.88921738,
+  "AccelerationY": 5.06880474
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851044,
+  "PosPlayerX": 4.33126068,
+  "PosPlayerY": 18.9902458
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851044,
+  "PosPlayerX": 4.33126068,
+  "PosPlayerY": 19.4902458,
+  "PosMouseX": -1.01577926,
+  "PosMouseY": 29.2774982,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851045,
+  "PosHookX": 4.33126068,
+  "PosHookY": 18.99028,
+  "AccelerationX": -4.31497765,
+  "AccelerationY": 8.398125
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851046,
+  "PosPlayerX": 5.54303741,
+  "PosPlayerY": 35.2729568,
+  "PosMouseX": 11.0585728,
+  "PosMouseY": 39.5866051,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851046,
+  "PosHookX": 5.54303741,
+  "PosHookY": 34.7729568,
+  "AccelerationX": 1.57540607,
+  "AccelerationY": 1.73210907
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851048,
+  "PosPlayerX": 10.4025345,
+  "PosPlayerY": 38.9902458
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851049,
+  "PosPlayerX": 8.902534,
+  "PosPlayerY": 39.4725876,
+  "PosMouseX": -2.16571736,
+  "PosMouseY": 50.16725,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851049,
+  "PosHookX": 8.902534,
+  "PosHookY": 38.99008,
+  "AccelerationX": -5.753113,
+  "AccelerationY": 6.04143524
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851049,
+  "PosPlayerX": -1.89368713,
+  "PosPlayerY": 49.0219841,
+  "PosMouseX": -6.6504755,
+  "PosMouseY": 56.12349,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851049,
+  "PosHookX": -1.89368713,
+  "PosHookY": 48.5219841,
+  "AccelerationX": -3.33910513,
+  "AccelerationY": 5.4850235
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851050,
+  "PosPlayerX": -8.871171,
+  "PosPlayerY": 54.914978
+}
+{
+  "Type": "RECEIVE_DMG",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851050,
+  "DmgType": 0,
+  "PosPlayerX": -16.08,
+  "PosPlayerY": 54.95
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851051,
+  "PosPlayerX": -11.1489439,
+  "PosPlayerY": 54.990284
+}
+{
+  "Type": "RECEIVE_DMG",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851051,
+  "DmgType": 0,
+  "PosPlayerX": -11.8800039,
+  "PosPlayerY": 54.95
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851051,
+  "PosPlayerX": -11.6775475,
+  "PosPlayerY": 54.9856567
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851052,
+  "PosPlayerX": -9.745928,
+  "PosPlayerY": 54.99028
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851054,
+  "PosPlayerX": -7.280225,
+  "PosPlayerY": 54.9849663
+}
+{
+  "Type": "RECEIVE_DMG",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851055,
+  "DmgType": 0,
+  "PosPlayerX": -13.4400024,
+  "PosPlayerY": 54.95
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851055,
+  "PosPlayerX": -14.3187,
+  "PosPlayerY": 54.9856567
+}
+{
+  "Type": "RECEIVE_DMG",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851056,
+  "DmgType": 0,
+  "PosPlayerX": -10.3200054,
+  "PosPlayerY": 54.95
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851056,
+  "PosPlayerX": -9.03956,
+  "PosPlayerY": 54.990284
+}
+{
+  "Type": "RECEIVE_DMG",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851066,
+  "DmgType": 0,
+  "PosPlayerX": -14.4000015,
+  "PosPlayerY": 54.95
+}
+{
+  "Type": "DEATH",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851066,
+  "Death": 1,
+  "PosPlayerX": 0.0,
+  "PosPlayerY": 0.0,
+  "ZoneID": 1
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851067,
+  "PosPlayerX": -13.1313438,
+  "PosPlayerY": 54.99028
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851069,
+  "PosPlayerX": 0.100383222,
+  "PosPlayerY": -4.505886,
+  "PosMouseX": -13.5501051,
+  "PosMouseY": 4.93882751,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851069,
+  "PosHookX": 0.100383222,
+  "PosHookY": -5.005886,
+  "AccelerationX": -7.401155,
+  "AccelerationY": 5.62083
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851070,
+  "PosPlayerX": -10.17366,
+  "PosPlayerY": 8.962454,
+  "PosMouseX": -14.2783985,
+  "PosMouseY": 11.1351166,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851070,
+  "PosHookX": -10.17366,
+  "PosHookY": 8.462454,
+  "AccelerationX": -0.883826256,
+  "AccelerationY": 0.967814445
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851072,
+  "PosPlayerX": -14.7190342,
+  "PosPlayerY": 10.990262
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851072,
+  "PosPlayerX": -14.1509714,
+  "PosPlayerY": 11.4902821,
+  "PosMouseX": -4.27393675,
+  "PosMouseY": 20.51209,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851072,
+  "PosHookX": -14.1509714,
+  "PosHookY": 10.9902849,
+  "AccelerationX": 7.383499,
+  "AccelerationY": 7.244172
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851073,
+  "PosPlayerX": -2.51122952,
+  "PosPlayerY": 23.2789459,
+  "PosMouseX": 0.0574979857,
+  "PosMouseY": 11.5071907,
+  "NumHooks": 1
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851074,
+  "PosPlayerX": 0.836284459,
+  "PosPlayerY": 18.9902458
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851074,
+  "PosPlayerX": 0.836284459,
+  "PosPlayerY": 19.4902725,
+  "PosMouseX": 0.0191659946,
+  "PosMouseY": 29.7491264,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851074,
+  "PosHookX": 0.836284459,
+  "PosHookY": 18.99028,
+  "AccelerationX": -0.63519,
+  "AccelerationY": 8.474739
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851076,
+  "PosPlayerX": 0.235951364,
+  "PosPlayerY": 40.4958878,
+  "PosMouseX": 3.31565571,
+  "PosMouseY": 46.5459137,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851076,
+  "PosHookX": 0.235951364,
+  "PosHookY": 39.9958878,
+  "AccelerationX": 2.26823425,
+  "AccelerationY": 4.95590973
+}
+{
+  "Type": "DEATH",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851078,
+  "Death": 0,
+  "PosPlayerX": 0.0,
+  "PosPlayerY": 22.916544,
+  "ZoneID": 1
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851078,
+  "PosPlayerX": 0.0,
+  "PosPlayerY": -5.0
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851080,
+  "PosPlayerX": -2.942128,
+  "PosPlayerY": -4.528626,
+  "PosMouseX": -9.027015,
+  "PosMouseY": 5.93876648,
+  "NumHooks": 2
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851081,
+  "PosPlayerX": -2.942128,
+  "PosPlayerY": -4.509713,
+  "PosMouseX": -8.60537052,
+  "PosMouseY": 3.17686176,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851081,
+  "PosHookX": -2.942128,
+  "PosHookY": -5.009713,
+  "AccelerationX": -4.152131,
+  "AccelerationY": 6.1355834
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851082,
+  "PosPlayerX": -6.188181,
+  "PosPlayerY": 10.4926777,
+  "PosMouseX": -7.72375154,
+  "PosMouseY": 19.0099335,
+  "NumHooks": 1
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851084,
+  "PosPlayerX": -10.6835232,
+  "PosPlayerY": 2.99026012
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851084,
+  "PosPlayerX": -10.6835232,
+  "PosPlayerY": 3.49026966,
+  "PosMouseX": -11.9785223,
+  "PosMouseY": 14.9560413,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851084,
+  "PosHookX": -10.6835232,
+  "PosHookY": 2.990284,
+  "AccelerationX": -0.5611563,
+  "AccelerationY": 5.468395
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851086,
+  "PosPlayerX": -0.150005266,
+  "PosPlayerY": 20.7978764,
+  "PosMouseX": 0.287483782,
+  "PosMouseY": 30.1220779,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851086,
+  "PosHookX": -0.150005266,
+  "PosHookY": 20.2978783,
+  "AccelerationX": 0.281208873,
+  "AccelerationY": 6.4934063
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851087,
+  "PosPlayerX": 9.406058,
+  "PosPlayerY": 38.9902458
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851088,
+  "PosPlayerX": 9.21532,
+  "PosPlayerY": 39.48439,
+  "PosMouseX": 1.97406054,
+  "PosMouseY": 47.2798729,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851088,
+  "PosHookX": 9.21532,
+  "PosHookY": 38.99018,
+  "AccelerationX": -6.12523842,
+  "AccelerationY": 7.088272
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851089,
+  "PosPlayerX": -4.671964,
+  "PosPlayerY": 51.77229,
+  "PosMouseX": -9.410327,
+  "PosMouseY": 54.60183,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851089,
+  "PosHookX": -4.671964,
+  "PosHookY": 51.27229,
+  "AccelerationX": -0.858568668,
+  "AccelerationY": 1.01269913
+}
+{
+  "Type": "DEATH",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851091,
+  "Death": 0,
+  "PosPlayerX": 0.0,
+  "PosPlayerY": 38.471756,
+  "ZoneID": 1
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851091,
+  "PosPlayerX": 0.0,
+  "PosPlayerY": -5.0
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851094,
+  "PosPlayerX": -5.22531843,
+  "PosPlayerY": -4.52854967,
+  "PosMouseX": -9.486989,
+  "PosMouseY": 5.2845397,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851094,
+  "PosHookX": -5.22531843,
+  "PosHookY": -5.01054049,
+  "AccelerationX": -1.99171019,
+  "AccelerationY": 5.068176
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851095,
+  "PosPlayerX": -12.8794546,
+  "PosPlayerY": 10.99026
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851095,
+  "PosPlayerX": -7.4842205,
+  "PosPlayerY": 14.4654274,
+  "PosMouseX": -1.82073569,
+  "PosMouseY": 22.8496017,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851095,
+  "PosHookX": -7.4842205,
+  "PosHookY": 13.9654274,
+  "AccelerationX": 1.1195116,
+  "AccelerationY": 2.1573143
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851096,
+  "PosPlayerX": -1.43273711,
+  "PosPlayerY": 25.1880322,
+  "PosMouseX": 1.01577926,
+  "PosMouseY": 29.8133125,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851096,
+  "PosHookX": -1.43273711,
+  "PosHookY": 24.6880322,
+  "AccelerationX": 0.9357271,
+  "AccelerationY": 2.267601
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851098,
+  "PosPlayerX": 10.352994,
+  "PosPlayerY": 38.9902458
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851098,
+  "PosPlayerX": 9.10516,
+  "PosPlayerY": 39.47262,
+  "PosMouseX": -0.862452865,
+  "PosMouseY": 47.93736,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851098,
+  "PosHookX": 9.10516,
+  "PosHookY": 38.9901543,
+  "AccelerationX": -6.860078,
+  "AccelerationY": 6.30820465
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851099,
+  "PosPlayerX": -4.47898769,
+  "PosPlayerY": 49.2418175,
+  "PosMouseX": -5.615532,
+  "PosMouseY": 54.32993,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851099,
+  "PosHookX": -4.47898769,
+  "PosHookY": 48.7418175,
+  "AccelerationX": -0.654001236,
+  "AccelerationY": 3.427845
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851100,
+  "PosPlayerX": 5.272354,
+  "PosPlayerY": 62.9902649
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851101,
+  "PosPlayerX": 5.272354,
+  "PosPlayerY": 63.49028,
+  "PosMouseX": 11.8635292,
+  "PosMouseY": 71.43899,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851101,
+  "PosHookX": 5.272354,
+  "PosHookY": 62.99028,
+  "AccelerationX": 3.8298645,
+  "AccelerationY": 5.11865234
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851101,
+  "PosPlayerX": 5.817434,
+  "PosPlayerY": 73.27948,
+  "PosMouseX": 1.78240371,
+  "PosMouseY": 78.09297,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851101,
+  "PosHookX": 5.817434,
+  "PosHookY": 72.77948,
+  "AccelerationX": -2.56966639,
+  "AccelerationY": 3.56542969
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851103,
+  "PosPlayerX": 14.1800957,
+  "PosPlayerY": 76.99024
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851103,
+  "PosPlayerX": 14.66929,
+  "PosPlayerY": 77.4902649,
+  "PosMouseX": 13.8567562,
+  "PosMouseY": 89.48577,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851103,
+  "PosHookX": 14.66929,
+  "PosHookY": 76.9902649,
+  "AccelerationX": -0.405488,
+  "AccelerationY": 6.486267
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851103,
+  "PosPlayerX": 14.1047554,
+  "PosPlayerY": 84.74647
+}
+{
+  "Type": "ARRIVE_NEW_ZONE",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851104,
+  "ZoneID": 2
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851104,
+  "PosPlayerX": -3.080286,
+  "PosPlayerY": 92.99024
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851105,
+  "PosPlayerX": 1.168129,
+  "PosPlayerY": 93.10181,
+  "PosMouseX": 6.803802,
+  "PosMouseY": 101.576195,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851105,
+  "PosHookX": 1.168129,
+  "PosHookY": 92.60181,
+  "AccelerationX": 2.215012,
+  "AccelerationY": 3.830719
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851106,
+  "PosPlayerX": 0.988819,
+  "PosPlayerY": 108.177032,
+  "PosMouseX": 2.35737443,
+  "PosMouseY": 116.8008,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851106,
+  "PosHookX": 0.988819,
+  "PosHookY": 107.677032,
+  "AccelerationX": 0.156734586,
+  "AccelerationY": 1.48764038
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851108,
+  "PosPlayerX": 8.79003,
+  "PosPlayerY": 122.990242
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851109,
+  "PosPlayerX": 2.5090673,
+  "PosPlayerY": 126.401093,
+  "PosMouseX": -4.38893127,
+  "PosMouseY": 133.145828,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851109,
+  "PosHookX": 2.5090673,
+  "PosHookY": 125.901093,
+  "AccelerationX": -3.575027,
+  "AccelerationY": 3.995575
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851111,
+  "PosPlayerX": -5.07276154,
+  "PosPlayerY": 130.99025
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851112,
+  "PosPlayerX": 0.2817409,
+  "PosPlayerY": 134.524338,
+  "PosMouseX": 2.51069927,
+  "PosMouseY": 143.955643,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851112,
+  "PosHookX": 0.2817409,
+  "PosHookY": 134.024338,
+  "AccelerationX": 1.38000154,
+  "AccelerationY": 6.339142
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851113,
+  "PosPlayerX": 8.528793,
+  "PosPlayerY": 152.218689,
+  "PosMouseX": 10.8669167,
+  "PosMouseY": 158.389664,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851113,
+  "PosHookX": 8.528793,
+  "PosHookY": 151.718689,
+  "AccelerationX": 0.354311,
+  "AccelerationY": 1.43513489
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851114,
+  "PosPlayerX": 9.479609,
+  "PosPlayerY": 162.5609
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851115,
+  "PosPlayerX": 4.835236,
+  "PosPlayerY": 162.99025
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851116,
+  "PosPlayerX": 11.2333746,
+  "PosPlayerY": 164.725433,
+  "PosMouseX": 12.3235044,
+  "PosMouseY": 173.695236,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851116,
+  "PosHookX": 11.2333746,
+  "PosHookY": 164.225433,
+  "AccelerationX": 0.723873138,
+  "AccelerationY": 6.45614624
+}
+{
+  "Type": "ARRIVE_NEW_ZONE",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851116,
+  "ZoneID": 3
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851117,
+  "PosPlayerX": 7.8299675,
+  "PosPlayerY": 162.99025
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851117,
+  "PosPlayerX": 7.8299675,
+  "PosPlayerY": 163.49025,
+  "PosMouseX": 13.7034311,
+  "PosMouseY": 176.525146,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851117,
+  "PosHookX": 7.8299675,
+  "PosHookY": 162.99025,
+  "AccelerationX": 3.28652954,
+  "AccelerationY": 7.793701
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851119,
+  "PosPlayerX": 6.52837944,
+  "PosPlayerY": 182.99025
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851119,
+  "PosPlayerX": 6.78599358,
+  "PosPlayerY": 183.49025,
+  "PosMouseX": 14.6233807,
+  "PosMouseY": 192.291992,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851119,
+  "PosHookX": 6.78599358,
+  "PosHookY": 182.99025,
+  "AccelerationX": 4.655061,
+  "AccelerationY": 5.72789
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851119,
+  "PosPlayerX": 11.2512493,
+  "PosPlayerY": 191.960983,
+  "PosMouseX": 11.3652229,
+  "PosMouseY": 196.701416,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851119,
+  "PosHookX": 11.2512493,
+  "PosHookY": 191.460983,
+  "AccelerationX": 0.07210922,
+  "AccelerationY": 3.49913025
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851121,
+  "PosPlayerX": 14.6117725,
+  "PosPlayerY": 190.99025
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851121,
+  "PosPlayerX": 13.9083614,
+  "PosPlayerY": 191.4726,
+  "PosMouseX": 7.915408,
+  "PosMouseY": 200.993927,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851122,
+  "PosHookX": 13.9083614,
+  "PosHookY": 190.989075,
+  "AccelerationX": -2.13075256,
+  "AccelerationY": 3.86877441
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851122,
+  "PosPlayerX": 12.8249245,
+  "PosPlayerY": 202.88974,
+  "PosMouseX": 10.1002884,
+  "PosMouseY": 212.064972,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851122,
+  "PosHookX": 12.8249245,
+  "PosHookY": 202.38974,
+  "AccelerationX": -1.99268913,
+  "AccelerationY": 7.210327
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851124,
+  "PosPlayerX": 1.76681828,
+  "PosPlayerY": 220.99025
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851124,
+  "PosPlayerX": -0.9070829,
+  "PosPlayerY": 221.4726,
+  "PosMouseX": -12.1318474,
+  "PosMouseY": 231.344116,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851124,
+  "PosHookX": -0.9070829,
+  "PosHookY": 220.99025,
+  "AccelerationX": -9.01106,
+  "AccelerationY": 8.406967
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851125,
+  "PosPlayerX": -10.8480473,
+  "PosPlayerY": 230.724564
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851125,
+  "PosPlayerX": 3.00095844,
+  "PosPlayerY": 230.99025
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851126,
+  "PosPlayerX": 11.1009617,
+  "PosPlayerY": 231.49025,
+  "PosMouseX": 10.7519236,
+  "PosMouseY": 242.344391,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851126,
+  "PosHookX": 11.1009617,
+  "PosHookY": 230.99025,
+  "AccelerationX": -0.160703659,
+  "AccelerationY": 5.497406
+}
+{
+  "Type": "ARRIVE_NEW_ZONE",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851126,
+  "ZoneID": 4
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851128,
+  "PosPlayerX": 10.5897655,
+  "PosPlayerY": 249.049652,
+  "PosMouseX": 11.288559,
+  "PosMouseY": 255.942566,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851128,
+  "PosHookX": 10.5897655,
+  "PosHookY": 248.549652,
+  "AccelerationX": 0.100861549,
+  "AccelerationY": 1.49490356
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851128,
+  "PosPlayerX": 5.621064,
+  "PosPlayerY": 250.914963
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851129,
+  "PosPlayerX": 1.138722,
+  "PosPlayerY": 251.485336,
+  "PosMouseX": -0.364147753,
+  "PosMouseY": 263.880585,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851129,
+  "PosHookX": 1.138722,
+  "PosHookY": 250.989944,
+  "AccelerationX": -0.722185135,
+  "AccelerationY": 6.451828
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851129,
+  "PosPlayerX": -0.493135035,
+  "PosPlayerY": 258.71225
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851130,
+  "PosPlayerX": 8.434193,
+  "PosPlayerY": 261.721344,
+  "PosMouseX": 9.142008,
+  "PosMouseY": 269.947723,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851130,
+  "PosHookX": 8.434193,
+  "PosHookY": 261.221344,
+  "AccelerationX": 0.257177353,
+  "AccelerationY": 3.488922
+}
+{
+  "Type": "ARRIVE_NEW_ZONE",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851130,
+  "ZoneID": 5
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851132,
+  "PosPlayerX": 17.8174553,
+  "PosPlayerY": 274.9941
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851133,
+  "PosPlayerX": 0.7813432,
+  "PosPlayerY": 281.615875
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851134,
+  "PosPlayerX": -2.41544461,
+  "PosPlayerY": 282.112946,
+  "PosMouseX": 7.455434,
+  "PosMouseY": 291.767975,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851134,
+  "PosHookX": -2.41544461,
+  "PosHookY": 281.615875,
+  "AccelerationX": 7.148798,
+  "AccelerationY": 7.489563
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851135,
+  "PosPlayerX": 1.85567367,
+  "PosPlayerY": 296.1185
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851136,
+  "PosPlayerX": 3.814382,
+  "PosPlayerY": 296.5302,
+  "PosMouseX": 5.040561,
+  "PosMouseY": 306.735931,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851136,
+  "PosHookX": 3.814382,
+  "PosHookY": 296.0302,
+  "AccelerationX": 0.954307556,
+  "AccelerationY": 8.442871
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851137,
+  "PosPlayerX": -0.12372867,
+  "PosPlayerY": 316.589325,
+  "PosMouseX": 0.785790443,
+  "PosMouseY": 320.777069,
+  "NumHooks": 1
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851139,
+  "PosPlayerX": -1.069464,
+  "PosPlayerY": 306.990234
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851139,
+  "PosPlayerX": -2.778305,
+  "PosPlayerY": 309.0311,
+  "PosMouseX": -0.4408102,
+  "PosMouseY": 323.140442,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851139,
+  "PosHookX": -2.778305,
+  "PosHookY": 308.5311,
+  "AccelerationX": 1.79786348,
+  "AccelerationY": 11.3519592
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851140,
+  "PosPlayerX": 0.7595544,
+  "PosPlayerY": 329.392822,
+  "PosMouseX": -5.002231,
+  "PosMouseY": 330.791748,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851140,
+  "PosHookX": 0.7595544,
+  "PosHookY": 328.892822,
+  "AccelerationX": -1.94353569,
+  "AccelerationY": 0.9718628
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851142,
+  "PosPlayerX": -5.021832,
+  "PosPlayerY": 330.990234
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851143,
+  "PosPlayerX": 1.27475178,
+  "PosPlayerY": 334.6644,
+  "PosMouseX": -1.39909148,
+  "PosMouseY": 345.47168,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851143,
+  "PosHookX": 1.27475178,
+  "PosHookY": 334.1644,
+  "AccelerationX": -2.40169883,
+  "AccelerationY": 10.2073364
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851144,
+  "PosPlayerX": 5.9418664,
+  "PosPlayerY": 355.895477,
+  "PosMouseX": 6.0371747,
+  "PosMouseY": 362.934,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851145,
+  "PosHookX": 5.9418664,
+  "PosHookY": 355.395477,
+  "AccelerationX": 0.08123875,
+  "AccelerationY": 6.49945068
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851145,
+  "PosPlayerX": 6.045964,
+  "PosPlayerY": 362.804
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851145,
+  "PosPlayerX": 9.499937,
+  "PosPlayerY": 362.914948
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851146,
+  "PosPlayerX": 3.68276119,
+  "PosPlayerY": 362.9714
+}
+{
+  "Type": "ARRIVE_NEW_ZONE",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851146,
+  "ZoneID": 6
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851146,
+  "PosPlayerX": -5.317239,
+  "PosPlayerY": 366.605438,
+  "PosMouseX": -12.7834787,
+  "PosMouseY": 372.890228,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851146,
+  "PosHookX": -5.317239,
+  "PosHookY": 366.105438,
+  "AccelerationX": -3.82520676,
+  "AccelerationY": 3.71990967
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851147,
+  "PosPlayerX": -6.783727,
+  "PosPlayerY": 373.7484,
+  "PosMouseX": -4.3122673,
+  "PosMouseY": 381.0464,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851147,
+  "PosHookX": -6.783727,
+  "PosHookY": 373.2484,
+  "AccelerationX": 1.60378218,
+  "AccelerationY": 5.23587036
+}
+{
+  "Type": "RECEIVE_DMG",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851149,
+  "DmgType": 1,
+  "PosPlayerX": 8.998,
+  "PosPlayerY": 383.004
+}
+{
+  "Type": "RECEIVE_DMG",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851149,
+  "DmgType": 1,
+  "PosPlayerX": 11.0,
+  "PosPlayerY": 385.0
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851150,
+  "PosPlayerX": 7.3561,
+  "PosPlayerY": 387.8259,
+  "PosMouseX": 11.8335857,
+  "PosMouseY": 396.784973,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851150,
+  "PosHookX": 7.3561,
+  "PosHookY": 387.3259,
+  "AccelerationX": 3.5763998,
+  "AccelerationY": 7.656006
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851150,
+  "PosPlayerX": 8.827519,
+  "PosPlayerY": 402.6538,
+  "PosMouseX": -0.210821331,
+  "PosMouseY": 405.88623,
+  "NumHooks": 1
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851153,
+  "PosPlayerX": 16.1497631,
+  "PosPlayerY": 396.990234
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851154,
+  "PosPlayerX": 7.0269537,
+  "PosPlayerY": 400.559631,
+  "PosMouseX": 1.55241787,
+  "PosMouseY": 407.1039,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851154,
+  "PosHookX": 7.0269537,
+  "PosHookY": 400.059631,
+  "AccelerationX": -1.92490053,
+  "AccelerationY": 2.80099487
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851155,
+  "PosPlayerX": -4.509687,
+  "PosPlayerY": 409.508423,
+  "PosMouseX": -5.38554335,
+  "PosMouseY": 417.1238,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851155,
+  "PosHookX": -4.509687,
+  "PosHookY": 409.008423,
+  "AccelerationX": -0.342774868,
+  "AccelerationY": 3.48031616
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851156,
+  "PosPlayerX": -14.9217052,
+  "PosPlayerY": 422.990234
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851157,
+  "PosPlayerX": -7.133115,
+  "PosPlayerY": 426.700531,
+  "PosMouseX": 0.747458458,
+  "PosMouseY": 434.87323,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851157,
+  "PosHookX": -7.133115,
+  "PosHookY": 426.200531,
+  "AccelerationX": 2.77649879,
+  "AccelerationY": 3.37939453
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851158,
+  "PosPlayerX": 3.81413221,
+  "PosPlayerY": 435.131561,
+  "PosMouseX": 6.07550669,
+  "PosMouseY": 442.444244,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851158,
+  "PosHookX": 3.81413221,
+  "PosHookY": 434.631561,
+  "AccelerationX": 1.18174553,
+  "AccelerationY": 4.321411
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851159,
+  "PosPlayerX": -3.6930778,
+  "PosPlayerY": 448.990234
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851159,
+  "PosPlayerX": -4.593078,
+  "PosPlayerY": 449.485657,
+  "PosMouseX": -11.6718731,
+  "PosMouseY": 458.841858,
+  "NumHooks": 2
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851160,
+  "PosPlayerX": -4.593078,
+  "PosPlayerY": 449.490234,
+  "PosMouseX": -10.10029,
+  "PosMouseY": 459.7625,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851160,
+  "PosHookX": -4.593078,
+  "PosHookY": 448.990234,
+  "AccelerationX": -3.78001451,
+  "AccelerationY": 7.550537
+}
+{
+  "Type": "ARRIVE_NEW_ZONE",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851161,
+  "ZoneID": 7
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851162,
+  "PosPlayerX": 1.19403231,
+  "PosPlayerY": 470.32193,
+  "PosMouseX": -1.4757539,
+  "PosMouseY": 475.664154,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851162,
+  "PosHookX": 1.19403231,
+  "PosHookY": 469.82193,
+  "AccelerationX": -1.78814507,
+  "AccelerationY": 4.078125
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851162,
+  "PosPlayerX": 0.112657763,
+  "PosPlayerY": 474.757568
+}
+{
+  "Type": "END_LEVEL",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851162,
+  "CurrentLevel": 1
+}
+{
+  "Type": "EXIT_LEVEL",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851162,
+  "CurrentLevel": 1
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851164,
+  "PosPlayerX": 0.126404554,
+  "PosPlayerY": 474.990234
+}
+{
+  "Type": "START_LEVEL",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851166,
+  "CurrentLevel": 2
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851167,
+  "PosPlayerX": 0.0,
+  "PosPlayerY": -5.017658
+}
+{
+  "Type": "ARRIVE_NEW_ZONE",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851167,
+  "ZoneID": 1
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851168,
+  "PosPlayerX": 4.82479334,
+  "PosPlayerY": -4.50966454,
+  "PosMouseX": 9.410328,
+  "PosMouseY": 3.37566066,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851168,
+  "PosHookX": 4.82479334,
+  "PosHookY": -5.00966454,
+  "AccelerationX": 2.51352835,
+  "AccelerationY": 4.822288
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851169,
+  "PosPlayerX": 7.006434,
+  "PosPlayerY": 6.226816,
+  "PosMouseX": 11.9018612,
+  "PosMouseY": 15.0155153,
+  "NumHooks": 1
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851169,
+  "PosHookX": 7.006434,
+  "PosHookY": 5.726816,
+  "AccelerationX": 3.40631342,
+  "AccelerationY": 6.61531258
+}
+{
+  "Type": "RECEIVE_DMG",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851170,
+  "DmgType": 0,
+  "PosPlayerX": 0.0,
+  "PosPlayerY": 19.89
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851170,
+  "PosPlayerX": 2.82393527,
+  "PosPlayerY": 14.6627235
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851173,
+  "PosPlayerX": 13.334322,
+  "PosPlayerY": 2.990191
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851173,
+  "PosPlayerX": 12.4246845,
+  "PosPlayerY": 3.48724461,
+  "PosMouseX": 8.950351,
+  "PosMouseY": 20.8110275,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851173,
+  "PosHookX": 12.4246845,
+  "PosHookY": 2.99016047,
+  "AccelerationX": -1.76973438,
+  "AccelerationY": 9.321371
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851174,
+  "PosPlayerX": 5.78554535,
+  "PosPlayerY": 22.9916744
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851176,
+  "PosPlayerX": 3.50010777,
+  "PosPlayerY": 22.99026
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851177,
+  "PosPlayerX": -9.062426,
+  "PosPlayerY": 31.3714447
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851177,
+  "PosPlayerX": -11.1956282,
+  "PosPlayerY": 30.37114
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851178,
+  "PosPlayerX": -11.0674458,
+  "PosPlayerY": 26.836937
+}
+{
+  "Type": "RECEIVE_DMG",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851180,
+  "DmgType": 0,
+  "PosPlayerX": 0.0,
+  "PosPlayerY": 34.5000076
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851182,
+  "PosPlayerX": 11.2650471,
+  "PosPlayerY": 23.9458542
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851185,
+  "PosPlayerX": 0.973416746,
+  "PosPlayerY": 46.6475067,
+  "PosMouseX": -1.13077223,
+  "PosMouseY": 52.18001,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851185,
+  "PosHookX": 0.973416746,
+  "PosHookY": 46.1475067,
+  "AccelerationX": -1.06646693,
+  "AccelerationY": 3.30404282
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851186,
+  "PosPlayerX": -0.11397022,
+  "PosPlayerY": 55.15513
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851186,
+  "PosPlayerX": -5.372603,
+  "PosPlayerY": 55.9149933
+}
+{
+  "Type": "ARRIVE_NEW_ZONE",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851187,
+  "ZoneID": 2
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851188,
+  "PosPlayerX": -10.5316143,
+  "PosPlayerY": 56.9902878
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851190,
+  "PosPlayerX": -8.912135,
+  "PosPlayerY": 56.99027
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851191,
+  "PosPlayerX": -2.38952112,
+  "PosPlayerY": 62.5338745
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851192,
+  "PosPlayerX": -2.18067861,
+  "PosPlayerY": 55.9902458
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851193,
+  "PosPlayerX": -4.42627048,
+  "PosPlayerY": 61.77542
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851196,
+  "PosPlayerX": 12.9277716,
+  "PosPlayerY": 68.9902344
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851197,
+  "PosPlayerX": -4.152208,
+  "PosPlayerY": 77.63053
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851199,
+  "PosPlayerX": -12.163271,
+  "PosPlayerY": 80.9902649
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851200,
+  "PosPlayerX": -12.4437408,
+  "PosPlayerY": 80.99029
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851201,
+  "PosPlayerX": -10.1098423,
+  "PosPlayerY": 84.6794739
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851202,
+  "PosPlayerX": -10.0067005,
+  "PosPlayerY": 84.22038
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851202,
+  "PosPlayerX": -10.3574915,
+  "PosPlayerY": 83.83875
+}
+{
+  "Type": "THROW_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851206,
+  "PosPlayerX": 13.0500288,
+  "PosPlayerY": 95.49247,
+  "PosMouseX": 8.720365,
+  "PosMouseY": 106.316719,
+  "NumHooks": 2
+}
+{
+  "Type": "HIT_HOOK",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851206,
+  "PosHookX": 13.0500288,
+  "PosHookY": 94.99247,
+  "AccelerationX": -2.97110748,
+  "AccelerationY": 7.92779541
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851206,
+  "PosPlayerX": 8.875288,
+  "PosPlayerY": 104.469208
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851207,
+  "PosPlayerX": -0.6608844,
+  "PosPlayerY": 105.0689
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851208,
+  "PosPlayerX": -10.3282776,
+  "PosPlayerY": 104.990349
+}
+{
+  "Type": "LEVEL_RESET",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851267,
+  "PosPlayerX": -15.0616608,
+  "PosPlayerY": 104.990387,
+  "CurrentLevel": 2
+}
+{
+  "Type": "LANDING_EVENT",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851268,
+  "PosPlayerX": 0.0,
+  "PosPlayerY": -5.017658
+}
+{
+  "Type": "ARRIVE_NEW_ZONE",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851268,
+  "ZoneID": 1
+}
+{
+  "Type": "EXIT_LEVEL",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851291,
+  "Level": 2
+}
+{
+  "Type": "SESSION_END",
+  "SessionID": 2532246048494289747,
+  "TimeStamp": 1681851294
+}

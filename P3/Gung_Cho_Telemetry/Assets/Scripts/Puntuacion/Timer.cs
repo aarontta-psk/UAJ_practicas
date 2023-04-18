@@ -16,6 +16,7 @@ public class Timer : MonoBehaviour
     [SerializeField] UIManager theUIManager = null; //Referencia del UI manager
     [SerializeField] float tiempoMaximoInicial = 100; //Valor inicial del tiempo al empezar el nivel
     [SerializeField] AudioSource tics = null;
+    [SerializeField] Transform player = null;
     float timer; //Variable que refleja el tiempo que lleva el jugador
     float tiempoInicio; //Cuenta desde cuando empezó a contar el tiempo
     float tiempoMaximo; //Tiempo maximo que se puede alcanzar si se activa la opción de sumar tiempo al pasar por CheckPoint
@@ -54,7 +55,7 @@ public class Timer : MonoBehaviour
     {
         GameManager.instance.CheckPoint(Vector2.zero, 0);
         GameManager.instance.RecargaVidas();
-        Telemetry.Instance.TrackEvent(new LevelResetEvent(TelemetryEvent.EventType.LEVEL_RESET, transform.position.x, transform.position.y, GameManager.instance.getCurrentLevel()));
+        Telemetry.Instance.TrackEvent(new LevelResetEvent(TelemetryEvent.EventType.LEVEL_RESET, player.position.x, player.position.y, GameManager.instance.getCurrentLevel()));
         Scene escena = SceneManager.GetActiveScene();
         Transiciones.instance.MakeTransition(escena.buildIndex);
     }

@@ -31,8 +31,7 @@ public class GameManager : MonoBehaviour
 
     //Instrumentalizacion
     private int levelSection = 1;
-    private int currentLevel;
-
+    static private int currentLevel;
 
     private void Awake() //singleton
     {
@@ -46,7 +45,6 @@ public class GameManager : MonoBehaviour
 #else
             Telemetry.Init(Application.dataPath + "/telemetry_data/", "Gung_Cho'", UnityEngine.Analytics.AnalyticsSessionInfo.sessionId);
 #endif
-
         }
         else //en caso contrario
         {
@@ -154,13 +152,13 @@ public class GameManager : MonoBehaviour
 
     public void ChangeScene(int indice) //método de cambio de escena
     {
-        if((currentLevel == 1 || currentLevel == 2) && indice == 0)
-        {
+        if ((currentLevel == 1 || currentLevel == 2) && indice == 0)
             Telemetry.Instance.TrackEvent(new ExitLevelEvent(TelemetryEvent.EventType.EXIT_LEVEL, currentLevel));
-        }
 
         currentLevel = indice;
-        Telemetry.Instance.TrackEvent(new StartLevelEvent(TelemetryEvent.EventType.START_LEVEL, indice));
+
+        if (currentLevel == 1 || currentLevel == 2)
+            Telemetry.Instance.TrackEvent(new StartLevelEvent(TelemetryEvent.EventType.START_LEVEL, indice));
         Transiciones.instance.MakeTransition(indice);
         Time.timeScale = 1;
     }
@@ -173,6 +171,8 @@ public class GameManager : MonoBehaviour
     //PUNTUACION
     public void Puntuacion() //metodo que proporciona la informacion de las vidas, enemigos eliminados y los coleccionables obtenidos
     {
+        Telemetry.Instance.TrackEvent(new EndLevelEvent(TelemetryEvent.EventType.END_LEVEL, currentLevel));
+
         //bucle para contar cuantos coleccionables se han obtenido
         int coleccionablesObt = 0;
         for (int i = 0; i < coleccionables.Length; i++)
@@ -249,6 +249,8 @@ public class GameManager : MonoBehaviour
     //This only works on build so we release it on OnDestroy()
     private void OnApplicationQuit()
     {
+        if (currentLevel == 1 || currentLevel == 2)
+            Telemetry.Instance.TrackEvent(new ExitLevelEvent(TelemetryEvent.EventType.EXIT_LEVEL, currentLevel));
         Telemetry.Release();
     }
 }
