@@ -7,7 +7,8 @@ public class CheckPoint : MonoBehaviour
 {
     [SerializeField] float tiempoAdicional = 0; //tiempo adicional que se añade al llegar al checkpoint
     Transform posicionJugador; //referencia del jugador
-    [SerializeField] int numero = 0;
+    [SerializeField] int zone_id = 0;
+
     void Start()
     {
         //guardamos una referencia a la cámara
@@ -19,8 +20,8 @@ public class CheckPoint : MonoBehaviour
         //si se ha llegado a la posición del checkpoint
         if (posicionJugador.position.y > transform.position.y)
         {
-            GameManager.instance.setLevelSection(numero);
-            //Telemetry.Instance.TrackEvent(new ArriveNewSectionEvent(TelemetryEvent.EventType.ARRIVE_NEW_ZONE, numero));
+            GameManager.instance.setLevelSection(zone_id);
+            Telemetry.Instance.TrackEvent(new ArriveNewZoneEvent(TelemetryEvent.EventType.ARRIVE_NEW_ZONE, zone_id));
 
             //se guarda como el nuevo checkpoint
             GameManager.instance.CheckPoint(transform.position, tiempoAdicional);

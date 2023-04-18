@@ -236,13 +236,6 @@ public class GameManager : MonoBehaviour
     }
 
     //Instrumentalizacion
-    private void OnApplicationQuit()
-    {
-        //release de telemetry
-        //Debug.Log("release");
-        Telemetry.Release();
-    }
-    
     public int getCurrentLevel()
     {
         return currentLevel;
@@ -253,4 +246,9 @@ public class GameManager : MonoBehaviour
         levelSection = section;
     }
 
+    //This only works on build so we release it on OnDestroy()
+    private void OnApplicationQuit()
+    {
+        Telemetry.Release();
+    }
 }
