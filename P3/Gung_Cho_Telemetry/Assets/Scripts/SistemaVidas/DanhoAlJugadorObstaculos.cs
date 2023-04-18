@@ -12,7 +12,7 @@ public class DanhoAlJugadorObstaculos : MonoBehaviour
 
         if (vida != null && kb != null) //si detecta al jugador
         {
-            Telemetry.Instance.TrackEvent(new ReceiveDamageEvent(TelemetryEvent.EventType.RECEIVE_DMG, (int)transform.position.x, (int)transform.position.y, ReceiveDamageEvent.DamageType.OBSTACLE));
+            Telemetry.Instance.TrackEvent(new ReceiveDamageEvent(TelemetryEvent.EventType.RECEIVE_DMG, transform.position.x, transform.position.y, ReceiveDamageEvent.DamageType.OBSTACLE));
             vida.EliminaVidaObstaculos(); //llamamos al metodo de quitar vida del jugador    
             kb.Knockback(other.contacts[0].point);
         }

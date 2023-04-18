@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
 
         if (vidas <= 0) //si está muerto, desactivamos al jugador
         {
-            Telemetry.Instance.TrackEvent(new DeathEvent(TelemetryEvent.EventType.DEATH, (int)transform.position.x, (int)transform.position.y, DeathEvent.DeathType.DAMAGE, GameManager.instance.getCurrentLevel()));
+            Telemetry.Instance.TrackEvent(new DeathEvent(TelemetryEvent.EventType.DEATH, transform.position.x, transform.position.y, DeathEvent.DeathType.DAMAGE, GameManager.instance.getCurrentLevel()));
             estados.CambioEstado(estado.Muerte);
             spriteRenderer.enabled = false;  //también lo hacemos invisible
         }

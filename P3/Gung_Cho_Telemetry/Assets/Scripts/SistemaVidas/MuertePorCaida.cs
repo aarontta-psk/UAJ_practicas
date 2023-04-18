@@ -16,7 +16,7 @@ public class MuertePorCaida : MonoBehaviour
             if (jugador != null && jugador.Estado() != estado.Muerte) //en caso de que lo fuera
             {
                 jugador.CambioEstado(estado.Muerte); //cambiamos su estado a Muerte
-                Telemetry.Instance.TrackEvent(new DeathEvent(TelemetryEvent.EventType.DEATH, (int)transform.position.x, (int)transform.position.y, DeathEvent.DeathType.FELL, GameManager.instance.getCurrentLevel()));
+                Telemetry.Instance.TrackEvent(new DeathEvent(TelemetryEvent.EventType.DEATH, transform.position.x, transform.position.y, DeathEvent.DeathType.FELL, GameManager.instance.getCurrentLevel()));
                 aud.Play();
                 GameManager.instance.Muerte();
             }
