@@ -1,8 +1,12 @@
 #pragma once
+#ifndef IA_UI_ELEMENT_H
+#define IA_UI_ELEMENT_H
 
-#include <iostream>
+#include <string>
 
-class UIElement {
+#include <common/macros.h>
+
+class IANIUM_EXPORT UIElement {
 private:
 
     // ID único del elemento
@@ -45,3 +49,4 @@ public:
         return menu;
     }
 };
+#endif // IA_UI_ELEMENT_H
