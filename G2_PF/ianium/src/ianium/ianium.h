@@ -21,6 +21,9 @@ public:
 
 	void addUIElem(UIElement* ui_elem);
 
+	bool readScript(std::string path);
+	bool executeLine(std::vector<std::string> words);
+
 private:
 	static std::unique_ptr<Ianium> instance;
 
