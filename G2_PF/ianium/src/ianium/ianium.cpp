@@ -5,6 +5,8 @@
 #include <sstream>
 #include <string_view>
 
+#include <SDL.h>
+
 std::unique_ptr<Ianium> Ianium::instance = nullptr;
 
 Ianium::Ianium() = default;
@@ -22,6 +24,7 @@ bool Ianium::Init() {
 	//	instance.reset(nullptr);
 	//	return false;
 	//}
+	SDL_Init(SDL_INIT_EVERYTHING);
 
 	return true;
 }
@@ -31,6 +34,7 @@ void Ianium::Release() {
 		return;
 
 	//instance.get()->closePlatform();
+	SDL_Quit();
 
 	instance.reset(nullptr);
 }
@@ -39,6 +43,9 @@ void Ianium::addUIElem(UIElement* ui_elem)
 {
 	uiElems.insert(std::pair<std::string, UIElement*>("elem" + (uiElems.size() + 1), ui_elem));
 	std::cout << "elem " << uiElems.size() << " added\n";
+
+	SDL_Event eventee = { SDL_QUIT };
+	SDL_PushEvent(&eventee);
 }
 
 bool Ianium::readScript(std::string path)
@@ -51,7 +58,7 @@ bool Ianium::readScript(std::string path)
 	}
 
 	std::string line;
-	while(std::getline(file, line)) {
+	while (std::getline(file, line)) {
 		std::vector<std::string> words;
 		std::stringstream ss(line);
 		std::string word;
