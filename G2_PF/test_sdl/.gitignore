@@ -403,3 +403,4 @@ FodyWeavers.xsd
 
 # Ignore directories
 dependencies/*
+exe/*
