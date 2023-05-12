@@ -5,9 +5,9 @@
 #include <sstream>
 #include <windows.h>
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
-#include "opencv2/opencv.hpp"
+#include <opencv2/opencv.hpp>
 
 std::unique_ptr<Ianium> Ianium::instance = nullptr;
 

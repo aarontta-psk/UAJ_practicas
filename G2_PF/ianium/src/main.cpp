@@ -1,15 +1,15 @@
 #define SDL_MAIN_HANDLED
-#include <SDL.h>
+#include <SDL2/SDL.h>
 
 #include "ianium/ianium.h"
 
 #pragma region Funciones
 
-//COMO AÑADIR FUNCIONES AL EVENTO//
+//COMO Aï¿½ADIR FUNCIONES AL EVENTO//
 /*
 void myFunction()
 {
-	// Código de la función
+	// Cï¿½digo de la funciï¿½n
 }
 
 [Dentro del metodo que sea]
@@ -18,17 +18,17 @@ void myFunction()
 
 	event.user.data1 = reinterpret_cast<void*>(&eventData);
 
-Esto crea un EventData que tiene un puntero a la función
+Esto crea un EventData que tiene un puntero a la funciï¿½n
 
 Para recuperar el puntero en el PollEvents habria que hacer:
 
   // Recuperamos el puntero a EventData desde data1 o donde este
   EventData* eventData = reinterpret_cast<EventData*>(event.user.data1);
 
-  // Acceder al puntero a función y llamar a la función correspondiente
+  // Acceder al puntero a funciï¿½n y llamar a la funciï¿½n correspondiente
   if (eventData && eventData->functionPointer)
   {
-	  // Llamar a la función
+	  // Llamar a la funciï¿½n
 	  eventData->functionPointer();
   }
 */
@@ -39,7 +39,7 @@ void click(int x, int y) {
 	SDL_Event event;
 	event.type = SDL_USEREVENT;
 
-	// Código personalizado para identificar el evento
+	// Cï¿½digo personalizado para identificar el evento
 	event.user.code = 1;
 	event.user.data1 = reinterpret_cast<void*>(x);  // Datos adicionales (puedes usar data1 y data2)
 	event.user.data2 = reinterpret_cast<void*>(y);
@@ -63,7 +63,7 @@ void doubleClick(int x, int y) {
 	// Segundo evento de doble click
 	event.user.code = 2;
 
-	//Así enviamos dos eventos de click
+	//Asï¿½ enviamos dos eventos de click
 	SDL_PushEvent(&event);
 }
 
@@ -73,7 +73,7 @@ void pressedClick(int x, int y) {
 	SDL_Event event;
 	event.type = SDL_USEREVENT;
 
-	// Código personalizado para clic presionado
+	// Cï¿½digo personalizado para clic presionado
 	event.user.code = 3;
 
 	// Lo pusheamos a la cola de eventos
@@ -85,7 +85,7 @@ void clickUp() {
 	SDL_Event event;
 	event.type = SDL_USEREVENT;
 
-	// Código personalizado para soltar click
+	// Cï¿½digo personalizado para soltar click
 	event.user.code = 4;
 
 	event.user.data1 = nullptr;  // No utilizamos data1 en este caso
@@ -101,7 +101,7 @@ void click(int id_elem) {
 	SDL_Event event;
 	event.type = SDL_USEREVENT;
 
-	// Código personalizado para click por id_elem
+	// Cï¿½digo personalizado para click por id_elem
 	event.user.code = 5;
 	event.user.data1 = reinterpret_cast<void*>(id_elem);
 	event.user.data2 = nullptr;
@@ -130,8 +130,7 @@ int WinMain() {
 				switch (event.user.code)
 				{
 					// Procesa el evento de click
-				case 1:
-
+				case 1: {
 					//Cogemos los datos necesarios para el evento
 					int x = reinterpret_cast<int>(event.user.data1);
 					int y = reinterpret_cast<int>(event.user.data2);
@@ -139,6 +138,7 @@ int WinMain() {
 					//Hace cosas
 
 					break;
+				}
 					//Procesa el evento de doble click
 				case 2:
 					break;
@@ -160,3 +160,4 @@ int WinMain() {
 		Ianium::Release();
 		return 0;
 	}
+}
