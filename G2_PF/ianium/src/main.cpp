@@ -6,18 +6,17 @@
 #pragma region Funciones
 
 //COMO AÑADIR FUNCIONES AL EVENTO//
-
 /*
 void myFunction()
 {
-    // Código de la función
+	// Código de la función
 }
 
 [Dentro del metodo que sea]
-    EventData eventData;
-    eventData.functionPointer = &myFunction;
+	EventData eventData;
+	eventData.functionPointer = &myFunction;
 
-    event.user.data1 = reinterpret_cast<void*>(&eventData);
+	event.user.data1 = reinterpret_cast<void*>(&eventData);
 
 Esto crea un EventData que tiene un puntero a la función
 
@@ -29,76 +28,87 @@ Para recuperar el puntero en el PollEvents habria que hacer:
   // Acceder al puntero a función y llamar a la función correspondiente
   if (eventData && eventData->functionPointer)
   {
-      // Llamar a la función
-      eventData->functionPointer();
+	  // Llamar a la función
+	  eventData->functionPointer();
   }
 */
 
 void click(int x, int y) {
 
-    // Creamos un evento personalizado
-    SDL_Event event;
-    event.type = SDL_USEREVENT;  
+	// Creamos un evento personalizado
+	SDL_Event event;
+	event.type = SDL_USEREVENT;
 
-    // Código personalizado para identificar el evento
-    event.user.code = 1;  
-    event.user.data1 = reinterpret_cast<void*>(x);  // Datos adicionales (puedes usar data1 y data2)
-    event.user.data2 = reinterpret_cast<void*>(y);
+	// Código personalizado para identificar el evento
+	event.user.code = 1;
+	event.user.data1 = reinterpret_cast<void*>(x);  // Datos adicionales (puedes usar data1 y data2)
+	event.user.data2 = reinterpret_cast<void*>(y);
 
-    // Lo pusheamos a la cola de eventos
-    SDL_PushEvent(&event); 
+	// Lo pusheamos a la cola de eventos
+	SDL_PushEvent(&event);
 }
 
-void DoubleClick(int x, int y) {
+void doubleClick(int x, int y) {
 
-    // Creamos un evento personalizado
-    SDL_Event event;
-    event.type = SDL_USEREVENT;
+	// Creamos un evento personalizado
+	SDL_Event event;
+	event.type = SDL_USEREVENT;
 
-    // Primer evento de click
-    event.user.code = 1;
-    event.user.data1 = reinterpret_cast<void*>(x);
-    event.user.data2 = reinterpret_cast<void*>(y);
-    SDL_PushEvent(&event);
+	// Primer evento de click
+	event.user.code = 1;
+	event.user.data1 = reinterpret_cast<void*>(x);
+	event.user.data2 = reinterpret_cast<void*>(y);
+	SDL_PushEvent(&event);
 
-    // Segundo evento de doble click
-    event.user.code = 2;
+	// Segundo evento de doble click
+	event.user.code = 2;
 
-    //Así enviamos dos eventos de click
-    SDL_PushEvent(&event);
+	//Así enviamos dos eventos de click
+	SDL_PushEvent(&event);
 }
 
-void PressedClick(int x, int y) {
+void pressedClick(int x, int y) {
 
-    // Creamos un evento personalizado
-    SDL_Event event;
-    event.type = SDL_USEREVENT;
+	// Creamos un evento personalizado
+	SDL_Event event;
+	event.type = SDL_USEREVENT;
 
-    // Código personalizado para clic presionado
-    event.user.code = 3;
+	// Código personalizado para clic presionado
+	event.user.code = 3;
 
-    event.user.data1 = reinterpret_cast<void*>(x);
-    event.user.data2 = reinterpret_cast<void*>(y);
-
-    // Lo pusheamos a la cola de eventos
-    SDL_PushEvent(&event);
+	// Lo pusheamos a la cola de eventos
+	SDL_PushEvent(&event);
 }
 
 void clickUp() {
-    // Creamos un evento personalizado
-    SDL_Event event;
-    event.type = SDL_USEREVENT;
+	// Creamos un evento personalizado
+	SDL_Event event;
+	event.type = SDL_USEREVENT;
 
-    // Código personalizado para soltar click
-    event.user.code = 4;
+	// Código personalizado para soltar click
+	event.user.code = 4;
 
-    event.user.data1 = nullptr;  // No utilizamos data1 en este caso
-    event.user.data2 = nullptr;  // No utilizamos data2 en este caso
+	event.user.data1 = nullptr;  // No utilizamos data1 en este caso
+	event.user.data2 = nullptr;  // No utilizamos data2 en este caso
 
-    // Lo pusheamos a la cola de eventos
-    SDL_PushEvent(&event);
+	// Lo pusheamos a la cola de eventos
+	SDL_PushEvent(&event);
 }
 
+void click(int id_elem) {
+
+	// Creamos un evento personalizado
+	SDL_Event event;
+	event.type = SDL_USEREVENT;
+
+	// Código personalizado para click por id_elem
+	event.user.code = 5;
+	event.user.data1 = reinterpret_cast<void*>(id_elem);
+	event.user.data2 = nullptr;
+
+	// Lo pusheamos a la cola de eventos
+	SDL_PushEvent(&event);
+}
 #pragma endregion
 
 int WinMain() {
@@ -107,38 +117,46 @@ int WinMain() {
 
 	ia->readFolder("laCarpetaDeScripts");
 
-    // Bucle principal del entorno
-    bool quit = false;
-    SDL_Event event;
-    while (!quit) {
-        while (SDL_PollEvent(&event) != 0) {
-            if (event.type == SDL_QUIT) {
-                quit = true;
-            }
-            else if (event.type == SDL_USEREVENT) {
+	// Bucle principal del entorno
+	bool quit = false;
+	SDL_Event event;
+	while (!quit) {
+		while (SDL_PollEvent(&event) != 0) {
+			if (event.type == SDL_QUIT) {
+				quit = true;
+			}
+			else if (event.type == SDL_USEREVENT) {
 
-                switch (event.user.code)
-                {
-                // Procesa el evento de click
-                case 1:
+				switch (event.user.code)
+				{
+					// Procesa el evento de click
+				case 1:
 
-                    //Cogemos los datos necesarios para el evento
-                    int x = reinterpret_cast<int>(event.user.data1);
-                    int y = reinterpret_cast<int>(event.user.data2);
-                  
-                    break;
-                // Procesa el evento de doble click
-                case 2:
-                    break;
-                // Procesa el evento de PressedClick
-                case 3:
-                    break;
-                default:
-                    break;
-                }
-            }
-        }
+					//Cogemos los datos necesarios para el evento
+					int x = reinterpret_cast<int>(event.user.data1);
+					int y = reinterpret_cast<int>(event.user.data2);
 
-	Ianium::Release();
-	return 0;
-}
+					//Hace cosas
+
+					break;
+					//Procesa el evento de doble click
+				case 2:
+					break;
+					//Procesa el evento de presionar click
+				case 3:
+					break;
+					//Procesa el evento de soltar click
+				case 4:
+					break;
+					//Procesa el evento de click por id
+				case 5:
+					break;
+				default:
+					break;
+				}
+			}
+		}
+
+		Ianium::Release();
+		return 0;
+	}
