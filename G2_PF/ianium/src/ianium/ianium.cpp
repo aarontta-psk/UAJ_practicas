@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <string_view>
+#include <windows.h>
 
 #include <SDL.h>
 
@@ -48,9 +48,34 @@ void Ianium::addUIElem(UIElement* ui_elem)
 	SDL_PushEvent(&eventee);
 }
 
-bool Ianium::readScript(std::string fileName)
+bool Ianium::readFolder(const std::string& folderName)
 {
-	std::ifstream file(PATH + fileName);
+	WIN32_FIND_DATAA find_data;
+	HANDLE hFind = INVALID_HANDLE_VALUE;
+	std::string full_path = PATH + folderName + "\\*";
+
+	hFind = FindFirstFileA(full_path.c_str(), &find_data);
+	if (hFind == INVALID_HANDLE_VALUE) {
+		return false;
+	}
+
+	do {
+		//esto comprueba que no sea un directorio
+		if (!(find_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
+			readScript(PATH + folderName + "/" + find_data.cFileName);
+		}
+	} while (FindNextFileA(hFind, &find_data) != 0);
+
+	return false;
+}
+
+bool Ianium::readScript(const std::string& fileName)
+{
+	if (fileName.substr(fileName.find_last_of(".") + 1) != "ia") {
+		return false;
+	}
+
+	std::ifstream file(fileName);
 
 	if (file.fail()) {
 		std::cerr << "Error opening file!" << std::endl;
@@ -75,7 +100,7 @@ bool Ianium::readScript(std::string fileName)
 	return true;
 }
 
-bool Ianium::executeLine(std::vector<std::string> words)
+bool Ianium::executeLine(const std::vector<std::string>& words)
 {	
 	if (words[0] == "before") {
 		

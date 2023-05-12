@@ -8,7 +8,7 @@
 
 #include <common/macros.h>
 
-#define PATH "./"
+#define PATH "../ianium_test/"
 
 class UIElement;
 
@@ -23,10 +23,12 @@ public:
 
 	void addUIElem(UIElement* ui_elem);
 
-	bool readScript(std::string fileName);
-	bool executeLine(std::vector<std::string> words);
+	bool readFolder(const std::string& folderName);
 
 private:
+	bool readScript(const std::string& fileName);
+	bool executeLine(const std::vector<std::string>& words);
+
 	static std::unique_ptr<Ianium> instance;
 
 	std::unordered_map<std::string, UIElement*> uiElems;
