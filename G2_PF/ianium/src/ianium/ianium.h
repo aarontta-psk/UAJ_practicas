@@ -25,6 +25,7 @@ public:
 
 	bool readFolder(const std::string& folderName);
 
+	void testOPENCV(std::string path);
 private:
 	bool readScript(const std::string& fileName);
 	bool executeLine(const std::vector<std::string>& words);

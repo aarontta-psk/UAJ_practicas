@@ -71,9 +71,9 @@ bool Ianium::readFolder(const std::string& folderName)
 	return false;
 }
 
-void Ianium::testOPENCV(std::string path)
+void Ianium::testOPENCV()
 {
-	cv::Mat image = cv::imread(path);
+	cv::Mat image = cv::imread("./testImage.jpg");
 	cv::imshow("testImage", image);
 }
 

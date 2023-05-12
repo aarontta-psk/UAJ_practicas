@@ -15,6 +15,7 @@ int main() {
 	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "1"));
 	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "v"));
 	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "z"));
+	Ianium::Instance()->testOPENCV();
 	Ianium::Release();
 
 	return 0;
