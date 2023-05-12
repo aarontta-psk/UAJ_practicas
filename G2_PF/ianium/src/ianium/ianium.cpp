@@ -41,9 +41,9 @@ void Ianium::addUIElem(UIElement* ui_elem)
 	std::cout << "elem " << uiElems.size() << " added\n";
 }
 
-bool Ianium::readScript(std::string path)
+bool Ianium::readScript(std::string fileName)
 {
-	std::ifstream file(path);
+	std::ifstream file(PATH + fileName);
 
 	if (file.fail()) {
 		std::cerr << "Error opening file!" << std::endl;
@@ -59,6 +59,7 @@ bool Ianium::readScript(std::string path)
 			words.push_back(word);
 		}
 		if (!executeLine(words)) {
+			file.close();
 			return false;
 		}
 	}
@@ -68,11 +69,16 @@ bool Ianium::readScript(std::string path)
 }
 
 bool Ianium::executeLine(std::vector<std::string> words)
-{
-	//switch ()
-	//{
-	//default:
-	//	break;
-	//}
+{	
+	if (words[0] == "before") {
+		
+	}
+	else if (words[0] == "test") {
+		//aqui las llamadas a todos los tests
+	}
+	else if (words[0] == "end") {
+		//ultima llamada
+	}
+
 	return true;
 }

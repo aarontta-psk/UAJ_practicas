@@ -8,6 +8,8 @@
 
 #include <common/macros.h>
 
+#define PATH "./"
+
 class UIElement;
 
 class IANIUM_EXPORT Ianium {
@@ -21,7 +23,7 @@ public:
 
 	void addUIElem(UIElement* ui_elem);
 
-	bool readScript(std::string path);
+	bool readScript(std::string fileName);
 	bool executeLine(std::vector<std::string> words);
 
 private:
