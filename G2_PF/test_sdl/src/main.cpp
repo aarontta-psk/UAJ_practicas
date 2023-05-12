@@ -10,9 +10,11 @@ public:
 int main() {
 	Ianium::Init();
 	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "u"));
-	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "u"));
-	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "u"));
-	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "u"));
+	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "e"));
+	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "4"));
+	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "1"));
+	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "v"));
+	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "z"));
 	Ianium::Release();
 
 	return 0;
