@@ -71,10 +71,11 @@ bool Ianium::readFolder(const std::string& folderName)
 	return false;
 }
 
-void Ianium::testOPENCV(std::string path)
+void Ianium::testOPENCV(const char* path)
 {
 	cv::Mat image = cv::imread(path);
 	cv::imshow("testImage", image);
+	cv::waitKey(0);
 }
 
 bool Ianium::readScript(const std::string& fileName)
