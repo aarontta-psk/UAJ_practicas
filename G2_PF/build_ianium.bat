@@ -64,5 +64,9 @@ if exist %TEST_PRJ_DEPS_DIR% rmdir %TEST_PRJ_DEPS_DIR% /s /q
 mkdir %TEST_PRJ_DEPS_DIR%
 
 move %IANIUM_DIR%\ianium %TEST_PRJ_DEPS_DIR%
+if exist %TEST_PRJ_DIR%\exe for /r %TEST_PRJ_DIR%\exe %%f in (*.dll) do del "%%f"
+if not exist %TEST_PRJ_DIR%\exe mkdir %TEST_PRJ_DIR%\exe
+
+xcopy %TEST_PRJ_DEPS_DIR%\ianium\*.dll %TEST_PRJ_DIR%\exe 
 
 echo Plugin files succesfully moved

@@ -43,11 +43,11 @@ void Ianium::Release() {
 
 void Ianium::addUIElem(UIElement* ui_elem)
 {
-	uiElems.insert(std::pair<std::string, UIElement*>("elem" + (uiElems.size() + 1), ui_elem));
+	uiElems.insert(std::pair<std::string, UIElement*>("elem" + (std::to_string(uiElems.size() + 1)), ui_elem));
 	std::cout << "elem " << uiElems.size() << " added\n";
 
-	SDL_Event eventee = { SDL_QUIT };
-	SDL_PushEvent(&eventee);
+	//SDL_Event eventee = { SDL_QUIT };
+	//SDL_PushEvent(&eventee);
 }
 
 bool Ianium::readFolder(const std::string& folderName)
