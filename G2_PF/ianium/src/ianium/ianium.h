@@ -7,6 +7,7 @@
 #include <unordered_map>
 
 #include <common/macros.h>
+#include <visual_testing/visual_testing.h>
 
 #define PATH "../ianium_test/"
 
@@ -25,7 +26,7 @@ public:
 
 	bool readFolder(const std::string& folderName);
 
-	void testOPENCV(const char* path);
+	VisualTesting visualTesting;
 private:
 	bool readScript(const std::string& fileName);
 	bool executeLine(const std::vector<std::string>& words);

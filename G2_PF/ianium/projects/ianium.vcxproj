@@ -17,10 +17,12 @@
     <ClInclude Include="..\src\ui\slider.h" />
     <ClInclude Include="..\src\ui\toggle.h" />
     <ClInclude Include="..\src\ui\ui_element.h" />
+    <ClInclude Include="..\src\visual_testing\visual_testing.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\ianium\ianium.cpp" />
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\visual_testing\visual_testing.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

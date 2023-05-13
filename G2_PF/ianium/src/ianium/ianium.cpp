@@ -71,16 +71,6 @@ bool Ianium::readFolder(const std::string& folderName)
 	return false;
 }
 
-void Ianium::testOPENCV(const char* path)
-{
-	cv::Mat image = cv::imread(path);
-	if (!image.empty()) {
-		cv::imshow("testImage", image);
-		cv::waitKey(0);
-	}
-	else std::cout << "Failed to read, " << path << "not found" << std::endl;
-}
-
 bool Ianium::readScript(const std::string& fileName)
 {
 	if (fileName.substr(fileName.find_last_of(".") + 1) != "ia") {
