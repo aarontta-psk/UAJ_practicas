@@ -17,7 +17,15 @@ int main() {
 	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "1"));
 	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "v"));
 	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "z"));
-	Ianium::Instance()->testOPENCV("./tempAssets/testImage.jpg");
+	Ianium::Instance()->visualTesting.testOPENCV("./tempAssets/testImage.jpg");
+	try
+	{
+		Ianium::Instance()->visualTesting.template_matching("./tempAssets/imageSource.jpg", "./tempAssets/template.jpg");
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << std::endl; // output exception message
+	}
 	Ianium::Release();
 
 	return 0;
