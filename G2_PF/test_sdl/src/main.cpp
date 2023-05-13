@@ -1,22 +1,19 @@
-#include <ui/button.h>
+#include <ianium/testable_ui/button.h>
 #include <ianium/ianium.h>
 #include <iostream>
 #include <fstream>
 
 class Button : public IAButton {
 public:
-	Button(int id, int posX, int posY, int w, int h, bool active, const std::string& menu) : IAButton(id, posX, posY, w, h, active, menu) {};
+	Button(int id, int posX, int posY, int w, int h, bool active, const char* menu) : IAButton(id, posX, posY, w, h, active, menu) {};
 	~Button() = default;
 };
 
 int main() {
 	Ianium::Init();
-	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "u"));
-	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "e"));
-	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "4"));
-	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "1"));
-	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "v"));
-	Ianium::Instance()->addUIElem(new Button(0, 0, 0, 0, 0, 0, "z"));
+	Button a = Button(0, 0, 0, 0, 0, 0, "u");
+	Button b = Button(1, 0, 0, 0, 0, 0, "e");
+	Button c = Button(2, 0, 0, 0, 0, 0, "4");
 	Ianium::Instance()->visualTesting.testOPENCV("./tempAssets/testImage.jpg");
 	try
 	{

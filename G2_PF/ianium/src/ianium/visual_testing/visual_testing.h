@@ -9,7 +9,4 @@ public:
 	bool template_matching(const char* imagePath, const char* templateImagePath, const char* maskPath = nullptr);
 	void testOPENCV(const char* path);
 };
-
-
-
-#endif
+#endif // VISUAL_TESTING_H

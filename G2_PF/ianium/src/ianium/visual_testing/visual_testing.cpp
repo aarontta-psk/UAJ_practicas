@@ -1,4 +1,4 @@
-#include "visual_testing/visual_testing.h"
+#include "visual_testing.h"
 
 #include "opencv2/imgcodecs.hpp"
 #include "opencv2/highgui.hpp"

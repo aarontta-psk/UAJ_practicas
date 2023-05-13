@@ -13,45 +13,69 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\ui">
-      <UniqueIdentifier>{7286be33-edf1-4b8a-a4e9-96190484f00c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\common">
       <UniqueIdentifier>{252c04ed-dff9-4fd2-b006-1c3760c4e7e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ianium">
+      <UniqueIdentifier>{fe61145b-c87f-497a-a2a2-3fce1a252df9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ianium\visual_testing">
+      <UniqueIdentifier>{79ccd8c2-1cf3-48bb-9649-21ecd523afe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ianium\functional_testing">
+      <UniqueIdentifier>{1c5ef990-7e9e-43c2-a247-902bf8897b77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ianium">
+      <UniqueIdentifier>{187e922a-29ac-4753-9d55-8c911cfe8ef0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ianium\visual_testing">
+      <UniqueIdentifier>{d316ae5a-28da-4da6-a13d-19601ff3a9c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ianium\functional_testing">
+      <UniqueIdentifier>{dfdd9574-6567-4c7c-9081-cd4f294800c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ianium\testable_ui">
+      <UniqueIdentifier>{7286be33-edf1-4b8a-a4e9-96190484f00c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\src\ui\button.h">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ui\slider.h">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ui\toggle.h">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
-    <ClInclude Include="..\src\ui\ui_element.h">
-      <Filter>Header Files\ui</Filter>
-    </ClInclude>
     <ClInclude Include="..\src\common\macros.h">
       <Filter>Header Files\common</Filter>
     </ClInclude>
     <ClInclude Include="..\src\ianium\ianium.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\ianium</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\visual_testing\visual_testing.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="..\src\ianium\visual_testing\visual_testing.h">
+      <Filter>Header Files\ianium\visual_testing</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ianium\testable_ui\button.h">
+      <Filter>Header Files\ianium\testable_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ianium\testable_ui\slider.h">
+      <Filter>Header Files\ianium\testable_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ianium\testable_ui\toggle.h">
+      <Filter>Header Files\ianium\testable_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ianium\testable_ui\ui_element.h">
+      <Filter>Header Files\ianium\testable_ui</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\ianium\functional_testing\functional_testing.h">
+      <Filter>Header Files\ianium\functional_testing</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\src\ianium\ianium.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\visual_testing\visual_testing.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\src\ianium\ianium.cpp">
+      <Filter>Source Files\ianium</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ianium\visual_testing\visual_testing.cpp">
+      <Filter>Source Files\ianium\visual_testing</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\ianium\functional_testing\functional_testing.cpp">
+      <Filter>Source Files\ianium\functional_testing</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -7,14 +7,23 @@
 #include <unordered_map>
 
 #include <common/macros.h>
-#include <visual_testing/visual_testing.h>
+#include <ianium/visual_testing/visual_testing.h>
+#include <ianium/functional_testing/functional_testing.h>
 
 #define PATH "../ianium_test/"
 
+class VisualTesting;
+class FunctionalTesting;
+
 class UIElement;
+class IAButton;
+class IAToggle;
+class IASlider;
 
 class IANIUM_EXPORT Ianium {
 public:
+	enum class UIType { BUTTON, TOGGLE, SLIDER };
+
 	Ianium();
 	~Ianium();
 
@@ -22,17 +31,20 @@ public:
 	static bool Init();
 	static void Release();
 
-	void addUIElem(UIElement* ui_elem);
+	VisualTesting visualTesting;
+	FunctionalTesting functionalTesting;
 
+	void addTestableUIElem(UIType uiType, UIElement* ui_elem);
 	bool readFolder(const std::string& folderName);
 
-	VisualTesting visualTesting;
 private:
-	bool readScript(const std::string& fileName);
-	bool executeLine(const std::vector<std::string>& words);
-
 	static std::unique_ptr<Ianium> instance;
 
-	std::unordered_map<std::string, UIElement*> uiElems;
+	std::unordered_map<uint32_t, IAButton*> testableButtons;
+	std::unordered_map<uint32_t, IAToggle*> testableToggles;
+	std::unordered_map<uint32_t, IASlider*> testableSliders;
+
+	bool readScript(const std::string& fileName);
+	bool executeLine(const std::vector<std::string>& words);
 };
 #endif // IA_TOGGLE_H

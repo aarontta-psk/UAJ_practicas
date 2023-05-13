@@ -12,17 +12,19 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\common\macros.h" />
+    <ClInclude Include="..\src\ianium\functional_testing\functional_testing.h" />
     <ClInclude Include="..\src\ianium\ianium.h" />
-    <ClInclude Include="..\src\ui\button.h" />
-    <ClInclude Include="..\src\ui\slider.h" />
-    <ClInclude Include="..\src\ui\toggle.h" />
-    <ClInclude Include="..\src\ui\ui_element.h" />
-    <ClInclude Include="..\src\visual_testing\visual_testing.h" />
+    <ClInclude Include="..\src\ianium\testable_ui\button.h" />
+    <ClInclude Include="..\src\ianium\testable_ui\slider.h" />
+    <ClInclude Include="..\src\ianium\testable_ui\toggle.h" />
+    <ClInclude Include="..\src\ianium\testable_ui\ui_element.h" />
+    <ClInclude Include="..\src\ianium\visual_testing\visual_testing.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\ianium\functional_testing\functional_testing.cpp" />
     <ClCompile Include="..\src\ianium\ianium.cpp" />
+    <ClCompile Include="..\src\ianium\visual_testing\visual_testing.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="..\src\visual_testing\visual_testing.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>

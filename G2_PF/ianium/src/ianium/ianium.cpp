@@ -6,8 +6,12 @@
 #include <windows.h>
 
 #include <SDL2/SDL.h>
-
 #include <opencv2/opencv.hpp>
+
+#include <ianium/testable_ui/ui_element.h>
+#include <ianium/testable_ui/button.h>
+#include <ianium/testable_ui/toggle.h>
+#include <ianium/testable_ui/slider.h>
 
 std::unique_ptr<Ianium> Ianium::instance = nullptr;
 
@@ -41,13 +45,34 @@ void Ianium::Release() {
 	instance.reset(nullptr);
 }
 
-void Ianium::addUIElem(UIElement* ui_elem)
+void Ianium::addTestableUIElem(UIType uiType, UIElement* ui_elem)
 {
-	uiElems.insert(std::pair<std::string, UIElement*>("elem" + (std::to_string(uiElems.size() + 1)), ui_elem));
-	std::cout << "elem " << uiElems.size() << " added\n";
-
-	//SDL_Event eventee = { SDL_QUIT };
-	//SDL_PushEvent(&eventee);
+	switch (uiType)
+	{
+	case Ianium::UIType::BUTTON:
+		if (testableButtons.count(ui_elem->getID())) {
+			std::cout << "Button ID " << ui_elem->getID() << " already exists.\n";
+			return;
+		}
+		testableButtons.insert(std::pair<uint32_t, IAButton*>(ui_elem->getID(), static_cast<IAButton*>(ui_elem)));
+		break;
+	case Ianium::UIType::TOGGLE:
+		if (testableToggles.count(ui_elem->getID())) {
+			std::cout << "Toggle ID " << ui_elem->getID() << " already exists.\n";
+			return;
+		}
+		testableToggles.insert(std::pair<uint32_t, IAToggle*>(ui_elem->getID(), static_cast<IAToggle*>(ui_elem)));
+		break;
+	case Ianium::UIType::SLIDER:
+		if (testableSliders.count(ui_elem->getID())) {
+			std::cout << "Slider ID " << ui_elem->getID() << " already exists.\n";
+			return;
+		}
+		testableSliders.insert(std::pair<uint32_t, IASlider*>(ui_elem->getID(), static_cast<IASlider*>(ui_elem)));
+		break;
+	default:
+		break;
+	}
 }
 
 bool Ianium::readFolder(const std::string& folderName)
