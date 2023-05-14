@@ -30,7 +30,7 @@ public:
 	FunctionalTesting functionalTesting;
 
 	void addTestableUIElem(UIType uiType, UIElement* ui_elem);
-	bool readFolder(char* folderName);
+	bool readFolder();
 
 private:
 	static std::unique_ptr<Ianium> instance;

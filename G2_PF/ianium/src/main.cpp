@@ -6,11 +6,11 @@
 
 
 int WinMain() {
-	Ianium::Init();
+	char folderName[] = "laCarpetaDeScripts";
+	Ianium::Init(folderName);
 	Ianium* ia = Ianium::Instance();
 
-	char folderName[] = "laCarpetaDeScripts";
-	ia->readFolder(folderName);
+	ia->readFolder();
 
 	// Bucle principal del entorno
 	bool quit = false;
