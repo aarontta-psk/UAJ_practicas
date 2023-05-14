@@ -16,6 +16,7 @@ class FunctionalTesting;
 class UIElement;
 
 struct SDL_Window;
+struct SDL_Renderer;
 
 class IANIUM_EXPORT Ianium {
 public:
@@ -40,6 +41,9 @@ private:
 	static std::unique_ptr<Ianium> instance;
 
 	std::unordered_map<std::string, UIElement*> testableUIElems;
+
+	SDL_Window* window;
+	SDL_Renderer* renderer;
 
 	std::string elemPrefix(UIType uiType);
 

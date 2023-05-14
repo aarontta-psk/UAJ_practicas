@@ -114,12 +114,24 @@ bool Ianium::readFolder()
 
 bool Ianium::initPrivate()
 {
-	visualTesting = new VisualTesting();
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+		return false;
+
+	window = SDL_CreateWindow("My Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_HIDDEN);
+	if (!window)
+		return false;
+
+	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	if (!renderer)
+		return false;
+
+	visualTesting = new VisualTesting(window, renderer);
 	return true;
 }
 
 void Ianium::releasePrivate()
 {
+	SDL_Quit();
 	delete visualTesting;
 }
 
