@@ -10,7 +10,7 @@ struct SDL_Window;
 
 class IANIUM_EXPORT VisualTesting {
 public:
-	VisualTesting();
+	VisualTesting(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
 	~VisualTesting();
 
 	bool isImageOnScreen(const char* imagePath);

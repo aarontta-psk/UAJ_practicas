@@ -63,6 +63,9 @@ echo Moving plugin files...
 if exist %TEST_PRJ_DEPS_DIR% rmdir %TEST_PRJ_DEPS_DIR% /s /q
 mkdir %TEST_PRJ_DEPS_DIR%
 
+powershell Expand-Archive %RESOURCES_DIR%\SDL2.zip -DestinationPath %TEST_PRJ_DEPS_DIR%
+for /r %TEST_PRJ_DEPS_DIR%\SDL2 %%f in (*.dll) do del "%%f"
+
 move %IANIUM_DIR%\ianium %TEST_PRJ_DEPS_DIR%
 if exist %TEST_PRJ_DIR%\exe for /r %TEST_PRJ_DIR%\exe %%f in (*.dll) do del "%%f"
 if not exist %TEST_PRJ_DIR%\exe mkdir %TEST_PRJ_DIR%\exe

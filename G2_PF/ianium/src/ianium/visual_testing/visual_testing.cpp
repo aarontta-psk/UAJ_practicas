@@ -17,8 +17,13 @@ void VisualTesting::testOPENCV(const char* path)
 	else std::cout << "Failed to read, " << path << "not found" << std::endl;
 }
 
-VisualTesting::VisualTesting() {
+VisualTesting::VisualTesting(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer) {
+	std::cout << "aaa" << std::endl;
+	window = sdl_window;
+	renderer = sdl_renderer;
 	initPrivate();
+	std::cout << "aaa" << std::endl;
+
 }
 
 VisualTesting::~VisualTesting() {
@@ -46,23 +51,13 @@ void VisualTesting::takeScreenshot()
 
 bool VisualTesting::initPrivate()
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
-		return false;
-
-	window = SDL_CreateWindow("My Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_HIDDEN);
-	if (!window)
-		return false;
-
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	if (!renderer)
-		return false;
 	return true;
 }
 
 void VisualTesting::releasePrivate()
 {
 	//instance.get()->closePlatform();
-	SDL_Quit();
+	
 }
 
 std::vector<std::pair<double, double>> VisualTesting::template_matching(const char* gameScreenshotImagePath, const char* templateImagePath, const char* maskPath)
