@@ -10,14 +10,15 @@ public:
 };
 
 int main() {
-	Ianium::Init();
+	Ianium::Init("NOT NEEDED RIGHT NOW CHANGE THIS");
 	Button a = Button(0, 0, 0, 0, 0, 0, "u");
 	Button b = Button(1, 0, 0, 0, 0, 0, "e");
 	Button c = Button(2, 0, 0, 0, 0, 0, "4");
-	Ianium::Instance()->visualTesting.testOPENCV("./tempAssets/testImage.jpg");
+	Ianium::Instance()->visualTesting->testOPENCV("./tempAssets/testImage.jpg");
 	try
 	{
-		Ianium::Instance()->visualTesting.template_matching("./tempAssets/imageSource.jpg", "./tempAssets/template.jpg");
+		//Ianium::Instance()->visualTesting.template_matching("./tempAssets/imageSource.jpg", "./tempAssets/template.jpg");");
+		Ianium::Instance()->visualTesting->takeScreenshot();
 	}
 	catch (std::exception& e)
 	{

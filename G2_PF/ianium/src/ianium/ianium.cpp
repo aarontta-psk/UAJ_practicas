@@ -14,6 +14,8 @@
 #include <ianium/testable_ui/toggle.h>
 #include <ianium/testable_ui/slider.h>
 
+#include <SDL2/SDL.h>
+
 std::unique_ptr<Ianium> Ianium::instance = nullptr;
 
 Ianium::Ianium() = default;
@@ -32,7 +34,7 @@ bool Ianium::Init(const char* rootPath_) {
 	//	instance.reset(nullptr);
 	//	return false;
 	//}
-	SDL_Init(SDL_INIT_EVERYTHING);
+	instance->initPrivate();
 
 	return true;
 }
@@ -40,8 +42,8 @@ bool Ianium::Init(const char* rootPath_) {
 void Ianium::Release() {
 	if (instance.get() == nullptr)
 		return;
-	//instance.get()->closePlatform();
-	SDL_Quit();
+
+	instance->releasePrivate();
 
 	instance.reset(nullptr);
 }
@@ -108,6 +110,17 @@ bool Ianium::readFolder()
 
 	free(full_path);
 	return true;
+}
+
+bool Ianium::initPrivate()
+{
+	visualTesting = new VisualTesting();
+	return true;
+}
+
+void Ianium::releasePrivate()
+{
+	delete visualTesting;
 }
 
 bool Ianium::readScript(char* fileName)

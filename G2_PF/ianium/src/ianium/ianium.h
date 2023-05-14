@@ -15,6 +15,8 @@ class FunctionalTesting;
 
 class UIElement;
 
+struct SDL_Window;
+
 class IANIUM_EXPORT Ianium {
 public:
 	enum class UIType { BUTTON, TOGGLE, SLIDER };
@@ -26,7 +28,7 @@ public:
 	static bool Init(const char* rootPath);
 	static void Release();
 
-	VisualTesting visualTesting;
+	VisualTesting *visualTesting;
 	FunctionalTesting functionalTesting;
 
 	void addTestableUIElem(UIType uiType, UIElement* ui_elem);
@@ -40,6 +42,9 @@ private:
 	std::unordered_map<std::string, UIElement*> testableUIElems;
 
 	std::string elemPrefix(UIType uiType);
+
+	bool initPrivate();
+	void releasePrivate();
 
 	bool readScript(char* fileName);
 	bool executeLine(const std::vector<char*>& words);
