@@ -10,8 +10,6 @@
 #include <ianium/visual_testing/visual_testing.h>
 #include <ianium/functional_testing/functional_testing.h>
 
-#define PATH "../ianium_test/"
-
 class VisualTesting;
 class FunctionalTesting;
 
@@ -25,7 +23,7 @@ public:
 	~Ianium();
 
 	static Ianium* Instance();
-	static bool Init();
+	static bool Init(const char* rootPath);
 	static void Release();
 
 	VisualTesting visualTesting;
@@ -43,5 +41,7 @@ private:
 
 	bool readScript(char* fileName);
 	bool executeLine(const std::vector<char*>& words);
+
+	const char* rootPath;
 };
 #endif // IA_TOGGLE_H
