@@ -166,10 +166,10 @@ bool Ianium::executeLine(const std::vector<char*>& words)
 	if (strcmp(words[0], "before") == 0) {
 		
 	}
-	else if (strcmp(words[0], "before") == 0) {
+	else if (strcmp(words[0], "test") == 0) {
 		//aqui las llamadas a todos los tests
 	}
-	else if (strcmp(words[0], "before") == 0) {
+	else if (strcmp(words[0], "end") == 0) {
 		//ultima llamada
 	}
 
