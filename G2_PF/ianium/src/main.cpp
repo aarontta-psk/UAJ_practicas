@@ -7,7 +7,7 @@
 
 int WinMain() {
 	char folderName[] = "laCarpetaDeScripts";
-	Ianium::Init(folderName);
+	Ianium::Init(folderName, nullptr, nullptr);
 	Ianium* ia = Ianium::Instance();
 
 	ia->readFolder();
