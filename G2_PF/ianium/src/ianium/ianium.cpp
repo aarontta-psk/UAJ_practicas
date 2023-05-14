@@ -26,7 +26,7 @@ Ianium* Ianium::Instance() {
 	return instance.get();
 }
 
-bool Ianium::Init(const char* rootPath_) {
+bool Ianium::Init(const char* rootPath_, SDL_Window* sdl_window, SDL_Renderer* sdl_renderer) {
 	instance.reset(new Ianium());
 	
 	instance->rootPath = rootPath_;
@@ -34,7 +34,7 @@ bool Ianium::Init(const char* rootPath_) {
 	//	instance.reset(nullptr);
 	//	return false;
 	//}
-	instance->initPrivate();
+	instance->initPrivate(sdl_window, sdl_renderer);
 
 	return true;
 }
@@ -112,19 +112,13 @@ bool Ianium::readFolder()
 	return true;
 }
 
-bool Ianium::initPrivate()
+bool Ianium::initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer)
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+	if (SDL_WasInit(SDL_INIT_EVERYTHING) == 0 || !sdl_window || !sdl_renderer)
 		return false;
 
-	window = SDL_CreateWindow("My Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
-	if (!window)
-		return false;
-
-	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-	if (!renderer)
-		return false;
-
+	window = sdl_window;
+	renderer = sdl_renderer;
 	visualTesting = new VisualTesting(window, renderer);
 	return true;
 }

@@ -26,7 +26,7 @@ public:
 	~Ianium();
 
 	static Ianium* Instance();
-	static bool Init(const char* rootPath);
+	static bool Init(const char* rootPath, SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
 	static void Release();
 
 	VisualTesting *visualTesting;
@@ -47,7 +47,7 @@ private:
 
 	std::string elemPrefix(UIType uiType);
 
-	bool initPrivate();
+	bool initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
 	void releasePrivate();
 
 	bool readScript(char* fileName);

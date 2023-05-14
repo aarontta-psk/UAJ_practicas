@@ -140,17 +140,18 @@ public:
 
 
 int main() {
+	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
+		return EXIT_FAILURE;
 
-	// Inicializar SDL
-	SDL_Init(SDL_INIT_VIDEO);
-
-	// Creamos la ventana
 	SDL_Window* window = SDL_CreateWindow("Juego", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN);
+	if (!window)
+		return EXIT_FAILURE;
 
-	// Creamos un renderer
 	SDL_Renderer* renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
+	if (!renderer)
+		return EXIT_FAILURE;
 
-	Ianium::Init("NOT NEEDED RIGHT NOW CHANGE THIS");
+	Ianium::Init("NOT NEEDED RIGHT NOW CHANGE THIS", window, renderer);
 
 	std::list<HudElement*> hud;
 
@@ -190,17 +191,14 @@ int main() {
 				}
 				else if (event.type == SDL_MOUSEBUTTONDOWN) {
 					//eventos de clickado
-
+					//Update
+					for (HudElement* elem : hud)
+					{
+						elem->update(event.button.x, event.button.y, event.button.clicks);
+					}
 				}
 
 
-			}
-
-
-			//Update
-			for (HudElement* elem : hud)
-			{
-				elem->update();
 			}
 
 			// Renderizar elementos
@@ -218,7 +216,7 @@ int main() {
 
 			//insertamos un evento de ianium aqui como testeo
 			
-
+			Ianium::Instance()->functionalTesting.click(501, 301);
 		}
 	}
 	catch (std::exception& e)
