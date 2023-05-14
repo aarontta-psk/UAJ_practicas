@@ -10,7 +10,7 @@ int WinMain() {
 	Ianium::Init(folderName, nullptr, nullptr);
 	Ianium* ia = Ianium::Instance();
 
-	ia->readFolder();
+	ia->readTestDirectoryFiles();
 
 	// Bucle principal del entorno
 	bool quit = false;

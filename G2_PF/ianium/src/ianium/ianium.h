@@ -25,7 +25,7 @@ namespace ianium {
 		~Ianium();
 
 		static Ianium* Instance();
-		static bool Init(const char* rootPath, SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
+		static bool Init(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
 		static void Release();
 
 		VisualTesting* visualTesting;
@@ -47,7 +47,7 @@ namespace ianium {
 		bool initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
 		void releasePrivate();
 
-		bool readFolder(const char* rootPath);
+		bool readTestDirectoryFiles(const char* rootPath);
 		bool readScript(const char* fileName);
 		bool executeLine(const std::vector<const char*>& words);
 
