@@ -35,7 +35,7 @@ public:
 	FunctionalTesting functionalTesting;
 
 	void addTestableUIElem(UIType uiType, UIElement* ui_elem);
-	bool readFolder(const std::string& folderName);
+	bool readFolder(char* folderName);
 
 private:
 	static std::unique_ptr<Ianium> instance;
@@ -44,7 +44,7 @@ private:
 	std::unordered_map<uint32_t, IAToggle*> testableToggles;
 	std::unordered_map<uint32_t, IASlider*> testableSliders;
 
-	bool readScript(const std::string& fileName);
-	bool executeLine(const std::vector<std::string>& words);
+	bool readScript(char* fileName);
+	bool executeLine(const std::vector<char*>& words);
 };
 #endif // IA_TOGGLE_H
