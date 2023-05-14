@@ -16,9 +16,6 @@ class VisualTesting;
 class FunctionalTesting;
 
 class UIElement;
-class IAButton;
-class IAToggle;
-class IASlider;
 
 class IANIUM_EXPORT Ianium {
 public:
@@ -40,9 +37,9 @@ public:
 private:
 	static std::unique_ptr<Ianium> instance;
 
-	std::unordered_map<uint32_t, IAButton*> testableButtons;
-	std::unordered_map<uint32_t, IAToggle*> testableToggles;
-	std::unordered_map<uint32_t, IASlider*> testableSliders;
+	std::unordered_map<std::string, UIElement*> testableUIElems;
+
+	std::string elemPrefix(UIType uiType);
 
 	bool readScript(char* fileName);
 	bool executeLine(const std::vector<char*>& words);

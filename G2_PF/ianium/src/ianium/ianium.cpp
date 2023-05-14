@@ -48,32 +48,12 @@ void Ianium::Release() {
 
 void Ianium::addTestableUIElem(UIType uiType, UIElement* ui_elem)
 {
-	switch (uiType)
-	{
-	case Ianium::UIType::BUTTON:
-		if (testableButtons.count(ui_elem->getID())) {
-			std::cout << "Button ID " << ui_elem->getID() << " already exists.\n";
-			return;
-		}
-		testableButtons.insert(std::pair<uint32_t, IAButton*>(ui_elem->getID(), static_cast<IAButton*>(ui_elem)));
-		break;
-	case Ianium::UIType::TOGGLE:
-		if (testableToggles.count(ui_elem->getID())) {
-			std::cout << "Toggle ID " << ui_elem->getID() << " already exists.\n";
-			return;
-		}
-		testableToggles.insert(std::pair<uint32_t, IAToggle*>(ui_elem->getID(), static_cast<IAToggle*>(ui_elem)));
-		break;
-	case Ianium::UIType::SLIDER:
-		if (testableSliders.count(ui_elem->getID())) {
-			std::cout << "Slider ID " << ui_elem->getID() << " already exists.\n";
-			return;
-		}
-		testableSliders.insert(std::pair<uint32_t, IASlider*>(ui_elem->getID(), static_cast<IASlider*>(ui_elem)));
-		break;
-	default:
-		break;
+	std::string ui_elem_id = elemPrefix(uiType) + std::to_string(ui_elem->getID());
+	if (testableUIElems.count(ui_elem_id)) {
+		std::cout << "ID " << ui_elem_id << " already exists.\n";
+		return;
 	}
+	testableUIElems.insert(std::pair<std::string, UIElement*>(ui_elem_id, ui_elem));
 }
 
 bool Ianium::readFolder(char* folderName)
@@ -174,4 +154,22 @@ bool Ianium::executeLine(const std::vector<char*>& words)
 	}
 
 	return true;
+}
+
+std::string Ianium::elemPrefix(UIType uiType) {
+	switch (uiType)
+	{
+	case Ianium::UIType::BUTTON:
+		return "button_";
+		break;
+	case Ianium::UIType::TOGGLE:
+		return "toggle_";
+		break;
+	case Ianium::UIType::SLIDER:
+		return "slider_";
+		break;
+	default:
+		return "";
+		break;
+	}
 }
