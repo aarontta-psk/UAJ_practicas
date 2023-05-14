@@ -46,13 +46,20 @@ void FunctionalTesting::click(int x, int y) {
 
 	// Creamos un evento personalizado
 	SDL_Event event;
-	event.type = SDL_USEREVENT;
+	event.type = SDL_MOUSEBUTTONDOWN;
 
 	// C�digo personalizado para identificar el evento
 	//event.button.button = SDL_BUTTON_LEFT;
-	event.user.code = 1;
-	event.user.data1 = reinterpret_cast<void*>(x);  // Datos adicionales (puedes usar data1 y data2)
-	event.user.data2 = reinterpret_cast<void*>(y);
+	//event.user.code = 1;
+
+	event.button.x = x;
+	event.button.y = y;
+	event.button.clicks = 1;
+	event.button.button = SDL_BUTTON_LEFT;
+
+
+	//event.user.data1 = reinterpret_cast<void*>(x);  // Datos adicionales (puedes usar data1 y data2)
+	//event.user.data2 = reinterpret_cast<void*>(y);
 
 	// Lo pusheamos a la cola de eventos
 	SDL_PushEvent(&event);
