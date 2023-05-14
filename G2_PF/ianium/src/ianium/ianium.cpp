@@ -83,14 +83,14 @@ bool Ianium::readFolder(char* folderName)
 
 	size_t path_len = strlen(PATH);
 	size_t folder_len = strlen(folderName);
-	size_t full_path_len = path_len + folder_len + 1;
+	size_t full_path_len = path_len + folder_len + 3;
 	char* full_path = (char*)malloc(full_path_len * sizeof(char));
 	if (full_path == 0)
 		return false;
 
-	strcpy_s(full_path, path_len, PATH);
-	strcat_s(full_path, folder_len, folderName);
-	strcat_s(full_path, 1, "\\*");
+	strcpy_s(full_path, full_path_len, PATH);
+	strcat_s(full_path, full_path_len, folderName);
+	strcat_s(full_path, full_path_len, "\\*");
 
 	hFind = FindFirstFileA(full_path, &find_data);
 	if (hFind == INVALID_HANDLE_VALUE) {
@@ -102,7 +102,7 @@ bool Ianium::readFolder(char* folderName)
 		//esto comprueba que no sea un directorio
 		if (!(find_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
 			size_t file_len = strlen(find_data.cFileName);
-			size_t full_file_path_len = path_len + folder_len + file_len + 1;
+			size_t full_file_path_len = path_len + folder_len + file_len + 3;
 			char* full_file_path = (char*)malloc(full_file_path_len * sizeof(char));
 
 			if (full_file_path == 0) {
@@ -110,10 +110,10 @@ bool Ianium::readFolder(char* folderName)
 				return false;
 			}
 
-			strcpy_s(full_file_path, path_len, PATH);
-			strcat_s(full_file_path, folder_len, folderName);
-			strcat_s(full_file_path, 1, "/");
-			strcat_s(full_file_path, file_len, find_data.cFileName);
+			strcpy_s(full_file_path, full_file_path_len, PATH);
+			strcat_s(full_file_path, full_file_path_len, folderName);
+			strcat_s(full_file_path, full_file_path_len, "/");
+			strcat_s(full_file_path, full_file_path_len, find_data.cFileName);
 			readScript(full_file_path);
 			free(full_file_path);
 		}
@@ -163,13 +163,13 @@ bool Ianium::readScript(char* fileName)
 
 bool Ianium::executeLine(const std::vector<char*>& words)
 {	
-	if (words[0] == "before") {
+	if (strcmp(words[0], "before") == 0) {
 		
 	}
-	else if (words[0] == "test") {
+	else if (strcmp(words[0], "before") == 0) {
 		//aqui las llamadas a todos los tests
 	}
-	else if (words[0] == "end") {
+	else if (strcmp(words[0], "before") == 0) {
 		//ultima llamada
 	}
 
