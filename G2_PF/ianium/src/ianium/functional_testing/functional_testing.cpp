@@ -44,7 +44,6 @@ Para recuperar el puntero en el PollEvents habria que hacer:
 
 void FunctionalTesting::click(int x, int y) {
 
-	// Creamos un evento personalizado
 	SDL_Event event;
 	event.type = SDL_MOUSEBUTTONDOWN;
 

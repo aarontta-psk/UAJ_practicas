@@ -17,7 +17,8 @@ public:
 	~HudElement() = default;
 
 	virtual void render(SDL_Renderer* renderer) {}
-	virtual void update() {}
+	virtual void update(int x, int y, int n_clicks) {}
+	virtual void processInput(SDL_Event* event) {}
 
 };
 class Button : public IAButton, public HudElement {
@@ -109,29 +110,30 @@ public:
 		SDL_RenderFillRect(renderer, &rect);
 	}
 
-	void update() override {
+	void update(int x, int y, int n_clicks) override {
 
 		// Obtener el estado actual del ratón
-		int mouseX, mouseY;
-		Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+		/*int mouseX, mouseY;
+		Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);*/
 
 		// Verificar si se ha pulsado el botón izquierdo del ratón
-		if (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+		//if (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)) {
 			// Verificar si el ratón está dentro de los límites del botón
-			if (mouseX >= posX && mouseX < posX + w && mouseY >= posY && mouseY < posY + h) {
+			if (x >= posX && x < posX + w && y >= posY && y < posY + h) {
 				// Si el botón no estaba presionado previamente
-				if (!buttonPressed) {
+				//if (!buttonPressed) {
 					// Cambiar el valor del booleano toogleOn
+				for (int i = 0; i < n_clicks; i++)
 					toogleOn = !toogleOn;
 					// Establecer el estado de botón como presionado
-					buttonPressed = true;
-				}
+					//buttonPressed = true;
+				//}
 			}
-		}
-		else {
-			// Si se ha soltado el botón, establecer el estado de botón como no presionado
-			buttonPressed = false;
-		}
+		//}
+		//else {
+		//	// Si se ha soltado el botón, establecer el estado de botón como no presionado
+		//	buttonPressed = false;
+		//}
 	}
 
 };
@@ -186,6 +188,12 @@ int main() {
 				else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
 					gameRunning = false;
 				}
+				else if (event.type == SDL_MOUSEBUTTONDOWN) {
+					//eventos de clickado
+
+				}
+
+
 			}
 
 
@@ -207,6 +215,10 @@ int main() {
 
 			//Y lo muestra en pantalla
 			SDL_RenderPresent(renderer);
+
+			//insertamos un evento de ianium aqui como testeo
+			
+
 		}
 	}
 	catch (std::exception& e)

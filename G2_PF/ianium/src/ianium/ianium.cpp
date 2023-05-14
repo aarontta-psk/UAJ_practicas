@@ -117,7 +117,7 @@ bool Ianium::initPrivate()
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		return false;
 
-	window = SDL_CreateWindow("My Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_HIDDEN);
+	window = SDL_CreateWindow("My Game", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 640, 480, 0);
 	if (!window)
 		return false;
 
