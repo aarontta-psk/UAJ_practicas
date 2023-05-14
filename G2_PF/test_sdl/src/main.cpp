@@ -151,7 +151,7 @@ int main() {
 	if (!renderer)
 		return EXIT_FAILURE;
 
-	Ianium::Init("NOT NEEDED RIGHT NOW CHANGE THIS", window, renderer);
+	Ianium::Init("./scripts", window, renderer);
 
 	std::list<HudElement*> hud;
 
@@ -177,6 +177,7 @@ int main() {
 		//Ianium::Instance()->visualTesting.template_matching("./tempAssets/imageSource.jpg", "./tempAssets/template.jpg");");
 		Ianium::Instance()->visualTesting->takeScreenshot();
 
+		Ianium::Instance()->readFolder();
 		// Bucle principal
 		bool gameRunning = true;
 		while (gameRunning) {
@@ -216,7 +217,7 @@ int main() {
 
 			//insertamos un evento de ianium aqui como testeo
 			
-			Ianium::Instance()->functionalTesting.click(501, 301);
+			//Ianium::Instance()->functionalTesting.click(501, 301);
 		}
 	}
 	catch (std::exception& e)

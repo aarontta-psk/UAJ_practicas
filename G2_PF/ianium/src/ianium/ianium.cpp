@@ -5,6 +5,7 @@
 #include <sstream>
 #include <windows.h>
 #include <cstring>
+#include <shlwapi.h>
 
 #include <SDL2/SDL.h>
 #include <opencv2/opencv.hpp>
@@ -80,7 +81,33 @@ bool Ianium::readFolder()
 		return false;
 
 	strcpy_s(full_path, full_path_len, rootPath);
+
+	char dir_path[MAX_PATH];
+
+	DWORD ret_val = GetFullPathNameA(full_path, MAX_PATH, dir_path, NULL);
+
+	if (ret_val == 0) {
+		std::cout << "No se pudo obtener la ruta absoluta del directorio." << std::endl;
+		free(full_path);
+		return false;
+	}
+
+	if (ret_val > MAX_PATH) {
+		std::cout << "La ruta absoluta del directorio es demasiado larga." << std::endl;
+		free(full_path);
+		return false;
+	}
+
+	if (GetFileAttributesA(full_path) == INVALID_FILE_ATTRIBUTES) {
+		std::cout << "El directorio especificado no existe." << std::endl;
+		free(full_path);
+		return false;
+	}
+
+	std::cout << "La ruta absoluta del directorio es: " << full_path << std::endl;
+
 	strcat_s(full_path, full_path_len, "\\*");
+
 
 	hFind = FindFirstFileA(full_path, &find_data);
 	if (hFind == INVALID_HANDLE_VALUE) {
@@ -100,7 +127,7 @@ bool Ianium::readFolder()
 				return false;
 			}
 
-			strcat_s(full_file_path, full_file_path_len, rootPath);
+			strcpy_s(full_file_path, full_file_path_len, rootPath);
 			strcat_s(full_file_path, full_file_path_len, "/");
 			strcat_s(full_file_path, full_file_path_len, find_data.cFileName);
 			readScript(full_file_path);
@@ -173,7 +200,11 @@ bool Ianium::executeLine(const std::vector<char*>& words)
 		
 	}
 	else if (strcmp(words[0], "test") == 0) {
-		//aqui las llamadas a todos los tests
+		if (strcmp(words[1], "click") == 0) {
+			int x = std::stoi(words[2]);
+			int y = std::stoi(words[3]);
+			functionalTesting.click(x, y);
+		}
 	}
 	else if (strcmp(words[0], "end") == 0) {
 		//ultima llamada
