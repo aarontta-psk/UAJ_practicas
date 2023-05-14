@@ -8,22 +8,24 @@
 struct SDL_Renderer;
 struct SDL_Window;
 
-class IANIUM_EXPORT VisualTesting {
-public:
-	VisualTesting(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
-	~VisualTesting();
+namespace ianium {
+	class IANIUM_EXPORT VisualTesting {
+	public:
+		VisualTesting(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
+		~VisualTesting();
 
-	bool isImageOnScreen(const char* imagePath);
-	void takeScreenshot();
+		bool isImageOnScreen(const char* imagePath);
+		void takeScreenshot();
 
-//private:
-	SDL_Renderer* renderer;
-	SDL_Window* window;
+		//private:
+		SDL_Renderer* renderer;
+		SDL_Window* window;
 
-	bool initPrivate();
-	void releasePrivate();
+		bool initPrivate();
+		void releasePrivate();
 
-	std::vector<std::pair<double,double>> template_matching(const char* imagePath, const char* templateImagePath, const char* maskPath = nullptr);
-	void testOPENCV(const char* path);
+		std::vector<std::pair<double, double>> template_matching(const char* imagePath, const char* templateImagePath, const char* maskPath = nullptr);
+		void testOPENCV(const char* path);
+	};
 };
 #endif // VISUAL_TESTING_H

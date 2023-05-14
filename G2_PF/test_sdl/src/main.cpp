@@ -21,9 +21,9 @@ public:
 	virtual void processInput(SDL_Event* event) {}
 
 };
-class Button : public IAButton, public HudElement {
+class Button : public ianium::Button, public HudElement {
 public:
-	Button(int id, int posXAux, int posYAux, int wAux, int hAux, bool active, const char* menu) : IAButton(id, posX, posY, w, h, active, menu) {
+	Button(int id, int posXAux, int posYAux, int wAux, int hAux, bool active, const char* menu) : ianium::Button(id, posX, posY, w, h, active, menu) {
 		posX = posXAux;
 		posY = posYAux;
 		w = wAux;
@@ -45,11 +45,11 @@ public:
 	}
 };
 
-class Slider : public IASlider, public HudElement {
+class Slider : public ianium::Slider, public HudElement {
 public:
 	Slider(const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active, const char* menu,
 		const float value, const float minValue, const float maxValue, const int rangeSelection, const Orientation orientation)
-		:IASlider(id, posX, posY, w, h, active, menu, value, minValue, maxValue, rangeSelection, orientation) {
+		: ianium::Slider(id, posX, posY, w, h, active, menu, value, minValue, maxValue, rangeSelection, orientation) {
 		posX = posXAux;
 		posY = posYAux;
 		w = wAux;
@@ -79,9 +79,9 @@ public:
 	}
 };
 
-class Toggle : public IAToggle, public HudElement {
+class Toggle : public ianium::Toggle, public HudElement {
 public:
-	Toggle(const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active, const char* menu) : IAToggle(id, posX, posY, w, h, active, menu) {
+	Toggle(const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active, const char* menu) : ianium::Toggle(id, posX, posY, w, h, active, menu) {
 		posX = posXAux;
 		posY = posYAux;
 		w = wAux;
@@ -151,7 +151,7 @@ int main() {
 	if (!renderer)
 		return EXIT_FAILURE;
 
-	Ianium::Init("NOT NEEDED RIGHT NOW CHANGE THIS", window, renderer);
+	ianium::Ianium::Init("NOT NEEDED RIGHT NOW CHANGE THIS", window, renderer);
 
 	std::list<HudElement*> hud;
 
@@ -170,12 +170,12 @@ int main() {
 	//Slider* s = new Slider(4, 40, 40, 20, 20, true, "4", 20.0, 0.0, 50.0, 50, IASlider::Orientation::HORIZONTAL);
 	//hud.push_back(s);
 
-	Ianium::Instance()->visualTesting->testOPENCV("./tempAssets/testImage.jpg");
+	ianium::Ianium::Instance()->visualTesting->testOPENCV("./tempAssets/testImage.jpg");
 
 	try
 	{
 		//Ianium::Instance()->visualTesting.template_matching("./tempAssets/imageSource.jpg", "./tempAssets/template.jpg");");
-		Ianium::Instance()->visualTesting->takeScreenshot();
+		ianium::Ianium::Instance()->visualTesting->takeScreenshot();
 
 		// Bucle principal
 		bool gameRunning = true;
@@ -216,14 +216,14 @@ int main() {
 
 			//insertamos un evento de ianium aqui como testeo
 			
-			Ianium::Instance()->functionalTesting.click(501, 301);
+			ianium::Ianium::Instance()->functionalTesting.click(501, 301);
 		}
 	}
 	catch (std::exception& e)
 	{
 		std::cout << e.what() << std::endl; // output exception message
 	}
-	Ianium::Release();
+	ianium::Ianium::Release();
 
 	return 0;
 }

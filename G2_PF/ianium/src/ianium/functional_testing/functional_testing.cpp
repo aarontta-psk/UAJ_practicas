@@ -5,12 +5,12 @@
 #include <string>
 #include <ianium/ianium.h>
 
+using namespace ianium;
+
 void FunctionalTesting::test(const char* path)
 {
 	std::cout << "Failed to read, " << path << "not found" << std::endl;
 }
-
-
 
 #pragma region Funciones
 

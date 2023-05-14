@@ -10,49 +10,51 @@
 #include <ianium/visual_testing/visual_testing.h>
 #include <ianium/functional_testing/functional_testing.h>
 
-class VisualTesting;
-class FunctionalTesting;
-
-class UIElement;
-
 struct SDL_Window;
 struct SDL_Renderer;
 
-class IANIUM_EXPORT Ianium {
-public:
-	enum class UIType { BUTTON, TOGGLE, SLIDER };
+namespace ianium {
+	class UIElement;
 
-	Ianium();
-	~Ianium();
+	class VisualTesting;
+	class FunctionalTesting;
 
-	static Ianium* Instance();
-	static bool Init(const char* rootPath, SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
-	static void Release();
+	class IANIUM_EXPORT Ianium {
+	public:
+		enum class UIType { BUTTON, TOGGLE, SLIDER };
 
-	VisualTesting *visualTesting;
-	FunctionalTesting functionalTesting;
+		Ianium();
+		~Ianium();
 
-	void addTestableUIElem(UIType uiType, UIElement* ui_elem);
-	bool readFolder();
+		static Ianium* Instance();
+		static bool Init(const char* rootPath, SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
+		static void Release();
 
-	bool searchActiveUIElement(int UI_ID);
+		VisualTesting* visualTesting;
+		FunctionalTesting functionalTesting;
 
-private:
-	static std::unique_ptr<Ianium> instance;
+		void addTestableUIElem(UIType uiType, UIElement* ui_elem);
+		bool readFolder();
 
-	std::unordered_map<std::string, UIElement*> testableUIElems;
+		bool searchActiveUIElement(int UI_ID);
 
-	SDL_Window* window;
-	SDL_Renderer* renderer;
+	private:
+		static std::unique_ptr<Ianium> instance;
 
-	std::string elemPrefix(UIType uiType);
+		std::unordered_map<std::string, UIElement*> testableUIElems;
 
-	bool initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
-	void releasePrivate();
+		SDL_Window* window;
+		SDL_Renderer* renderer;
 
-	bool readScript(char* fileName);
-	bool executeLine(const std::vector<char*>& words);
+		std::string elemPrefix(UIType uiType);
 
-	const char* rootPath;
-};
+		bool initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
+		void releasePrivate();
+
+		bool readScript(char* fileName);
+		bool executeLine(const std::vector<char*>& words);
+
+		const char* rootPath;
+	};
+}
 #endif // IA_TOGGLE_H

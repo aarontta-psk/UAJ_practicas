@@ -4,23 +4,24 @@
 
 #include <common/macros.h>
 
-class IANIUM_EXPORT FunctionalTesting {
-public:
-	void test(const char* path);
+namespace ianium {
+	class IANIUM_EXPORT FunctionalTesting {
+	public:
+		void test(const char* path);
 
-	void click(int x, int y);
+		void click(int x, int y);
 
-	void doubleClick(int x, int y);
+		void doubleClick(int x, int y);
 
-	void pressedClick(int x, int y);
+		void pressedClick(int x, int y);
 
-	void clickUp();
+		void clickUp();
 
-	void click(int id_elem);
+		void click(int id_elem);
 
-	bool IsElemOnMenu(int id_elem);
+		bool IsElemOnMenu(int id_elem);
 
-	bool Assert();
-
+		bool Assert();
+	};
 };
 #endif // FUNCTIONAL_TESTING_H
