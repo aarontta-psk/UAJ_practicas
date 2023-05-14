@@ -3,7 +3,7 @@
 
 #include "ianium/ianium.h"
 
-
+using namespace ianium;
 
 int WinMain() {
 	char folderName[] = "laCarpetaDeScripts";

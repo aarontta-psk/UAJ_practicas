@@ -6,6 +6,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 
+using namespace ianium;
 
 void VisualTesting::testOPENCV(const char* path)
 {

@@ -17,6 +17,8 @@
 
 #include <SDL2/SDL.h>
 
+using namespace ianium;
+
 std::unique_ptr<Ianium> Ianium::instance = nullptr;
 
 Ianium::Ianium() = default;
