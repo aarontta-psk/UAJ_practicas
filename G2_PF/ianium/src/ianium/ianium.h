@@ -34,6 +34,8 @@ public:
 	void addTestableUIElem(UIType uiType, UIElement* ui_elem);
 	bool readFolder(char* folderName);
 
+	bool searchActiveUIElement(int UI_ID);
+
 private:
 	static std::unique_ptr<Ianium> instance;
 

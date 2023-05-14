@@ -56,6 +56,16 @@ void Ianium::addTestableUIElem(UIType uiType, UIElement* ui_elem)
 	testableUIElems.insert(std::pair<std::string, UIElement*>(ui_elem_id, ui_elem));
 }
 
+bool Ianium::searchActiveUIElement(int UI_ID) {
+
+	for (auto elem : testableUIElems) {
+		if (elem.second->getID() == UI_ID)
+			return elem.second->getEnable();
+	}
+	return false;
+}
+
+
 bool Ianium::readFolder(char* folderName)
 {
 	WIN32_FIND_DATAA find_data;
