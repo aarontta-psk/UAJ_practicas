@@ -151,7 +151,7 @@ int main() {
 	if (!renderer)
 		return EXIT_FAILURE;
 
-	Ianium::Init("./scripts", window, renderer);
+	Ianium::Init(window, renderer);
 
 	std::list<HudElement*> hud;
 
@@ -177,7 +177,7 @@ int main() {
 		//Ianium::Instance()->visualTesting.template_matching("./tempAssets/imageSource.jpg", "./tempAssets/template.jpg");");
 		ianium::Ianium::Instance()->visualTesting->takeScreenshot();
 
-		Ianium::Instance()->readFolder();
+		Ianium::Instance()->runTests("./scripts");
 		// Bucle principal
 		bool gameRunning = true;
 		while (gameRunning) {
