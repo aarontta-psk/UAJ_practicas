@@ -22,8 +22,5 @@ public:
 
 	bool Assert();
 
-
-
-
 };
 #endif // FUNCTIONAL_TESTING_H

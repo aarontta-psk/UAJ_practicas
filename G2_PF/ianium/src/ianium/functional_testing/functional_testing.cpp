@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 #include <string>
+#include <ianium/ianium.h>
 
 void FunctionalTesting::test(const char* path)
 {
@@ -48,6 +49,7 @@ void FunctionalTesting::click(int x, int y) {
 	event.type = SDL_USEREVENT;
 
 	// C�digo personalizado para identificar el evento
+	//event.button.button = SDL_BUTTON_LEFT;
 	event.user.code = 1;
 	event.user.data1 = reinterpret_cast<void*>(x);  // Datos adicionales (puedes usar data1 y data2)
 	event.user.data2 = reinterpret_cast<void*>(y);
@@ -122,6 +124,7 @@ void FunctionalTesting::click(int id_elem) {
 
 bool FunctionalTesting::IsElemOnMenu(int id_elem) {
 
+	Ianium::Instance()->searchActiveUIElement(id_elem);
 	return false;
 }
 
