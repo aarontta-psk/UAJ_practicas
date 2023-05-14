@@ -15,7 +15,7 @@ namespace ianium {
 
 		void pressedClick(int x, int y);
 
-		void clickUp();
+		void clickUp(int x, int y);
 
 		void click(int id_elem);
 
