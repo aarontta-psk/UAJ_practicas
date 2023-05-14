@@ -11,7 +11,16 @@
 
 #include <list>
 
-class Button : public IAButton {
+class HudElement {
+public:
+	HudElement() {};
+	~HudElement() = default;
+
+	virtual void render(SDL_Renderer* renderer) {}
+	virtual void update() {}
+
+};
+class Button : public IAButton, public HudElement {
 public:
 	Button(int id, int posXAux, int posYAux, int wAux, int hAux, bool active, const char* menu) : IAButton(id, posX, posY, w, h, active, menu) {
 		posX = posXAux;
@@ -25,7 +34,7 @@ public:
 
 	SDL_Rect rect;
 
-	void render(SDL_Renderer* renderer) {
+	void render(SDL_Renderer* renderer) override {
 
 		//Cuadrado rosita
 		SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
@@ -35,7 +44,7 @@ public:
 	}
 };
 
-class Slider : public IASlider {
+class Slider : public IASlider, public HudElement {
 public:
 	Slider(const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active, const char* menu,
 		const float value, const float minValue, const float maxValue, const int rangeSelection, const Orientation orientation)
@@ -51,7 +60,7 @@ public:
 	Orientation orientation;
 	SDL_Rect rect;
 
-	void render(SDL_Renderer* renderer) {
+	void render(SDL_Renderer* renderer) override {
 
 		SDL_SetRenderDrawColor(renderer, 100, 200, 255, 255);
 
@@ -69,7 +78,7 @@ public:
 	}
 };
 
-class Toggle : public IAToggle {
+class Toggle : public IAToggle, public HudElement {
 public:
 	Toggle(const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active, const char* menu) : IAToggle(id, posX, posY, w, h, active, menu) {
 		posX = posXAux;
@@ -77,14 +86,15 @@ public:
 		w = wAux;
 		h = hAux;
 		toogleOn = true;
+		buttonPressed = false;
 	};
 	~Toggle() = default;
 
 	int posX, posY, w, h;
 	SDL_Rect rect;
-	bool toogleOn;
+	bool toogleOn,buttonPressed;
 
-	void render(SDL_Renderer* renderer) {
+	void render(SDL_Renderer* renderer) override {
 
 		//Activao
 		if (toogleOn)
@@ -98,6 +108,32 @@ public:
 		rect = { posX,posY,w,h };
 		SDL_RenderFillRect(renderer, &rect);
 	}
+
+	void update() override {
+
+		// Obtener el estado actual del ratón
+		int mouseX, mouseY;
+		Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);
+
+		// Verificar si se ha pulsado el botón izquierdo del ratón
+		if (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+			// Verificar si el ratón está dentro de los límites del botón
+			if (mouseX >= posX && mouseX < posX + w && mouseY >= posY && mouseY < posY + h) {
+				// Si el botón no estaba presionado previamente
+				if (!buttonPressed) {
+					// Cambiar el valor del booleano toogleOn
+					toogleOn = !toogleOn;
+					// Establecer el estado de botón como presionado
+					buttonPressed = true;
+				}
+			}
+		}
+		else {
+			// Si se ha soltado el botón, establecer el estado de botón como no presionado
+			buttonPressed = false;
+		}
+	}
+
 };
 
 
@@ -114,19 +150,21 @@ int main() {
 
 	Ianium::Init("NOT NEEDED RIGHT NOW CHANGE THIS");
 
-	std::list<Toggle> hud;
+	std::list<HudElement*> hud;
 
 	//Interfaz
-	//Button a = Button(0, 10, 10, 30, 30, true, "u");
-	//hud.push_back(a);
-	//Button b = Button(1, 60, 0, 60, 60, true, "e");
-	//hud.push_back(b);
-	//Button c = Button(2, 0, 70, 20, 20, true, "4");
-	//hud.push_back(c);
+	Button* a = new Button(0, 10, 10, 30, 30, true, "u");
+	hud.push_back(a);
+	Button* b = new Button(1, 60, 0, 60, 60, true, "e");
+	hud.push_back(b);
+	Button* c = new Button(2, 0, 70, 20, 20, true, "4");
+	hud.push_back(c);
 
-	Toggle t = Toggle(3, 500,300,100,100, true, "4");
+	Toggle* t = new Toggle(3, 500, 300, 100, 100, true, "4");
 	hud.push_back(t);
-	//Slider s = Slider(4, 40, 40, 20, 20, true, "4", 20.0, 0.0, 50.0, 50, IASlider::Orientation::HORIZONTAL);
+
+	//Falta slider por meter
+	//Slider* s = new Slider(4, 40, 40, 20, 20, true, "4", 20.0, 0.0, 50.0, 50, IASlider::Orientation::HORIZONTAL);
 	//hud.push_back(s);
 
 	Ianium::Instance()->visualTesting->testOPENCV("./tempAssets/testImage.jpg");
@@ -150,14 +188,21 @@ int main() {
 				}
 			}
 
+
+			//Update
+			for (HudElement* elem : hud)
+			{
+				elem->update();
+			}
+
 			// Renderizar elementos
 			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 			SDL_RenderClear(renderer);
 
 			//Renderitamos los elementos de la interfaz
-			for (Toggle elem : hud)
+			for (HudElement* elem : hud)
 			{
-				elem.render(renderer);
+				elem->render(renderer);
 			}
 
 			//Y lo muestra en pantalla
