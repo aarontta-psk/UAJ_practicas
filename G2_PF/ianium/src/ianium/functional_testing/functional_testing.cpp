@@ -7,6 +7,7 @@
 
 #include <ianium/ianium.h>
 #include <ianium/testable_ui/ui_element.h>
+#include <ianium/testable_ui/button.h>
 
 using namespace ianium;
 
@@ -125,8 +126,13 @@ bool FunctionalTesting::isElemOnMenu(int id_elem) {
 	return false;
 }
 
-bool FunctionalTesting::assertT() {
-
+bool FunctionalTesting::assertButton(std::string idButton, int stateToCheck) {
+	auto elem = uiElems->find(idButton);
+	if (elem != uiElems->end()) {
+		Button::State state = ((Button*)elem->second)->getStateButton();
+		return (int)state == stateToCheck;
+	}
+	std::cerr << "Button " << idButton << " not found";
 	return false;
 }
 
