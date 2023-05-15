@@ -269,8 +269,8 @@ int main() {
 	hud.push_back(t);
 
 	//Falta slider por meter
-	//Slider* s = new Slider("./negro_45.rgba", "./azul_0.rgba", 4, 200, 200, 200, 20, true, "4", 80.0, 0.0, 100.0, 10, ianium::Slider::Orientation::HORIZONTAL, renderer);
-	//hud.push_back(s);
+	Slider* s = new Slider("./sliderRange.png", "./sliderButton.png", 4, 200, 200, 200, 20, true, "4", 80.0, 0.0, 100.0, 10, ianium::Slider::Orientation::HORIZONTAL, renderer);
+	hud.push_back(s);
 
 	try
 	{
