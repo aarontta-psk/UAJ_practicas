@@ -21,10 +21,12 @@ namespace ianium {
 	struct TestInfo {
 		bool passed;
 		int errorLineNumber;
+		const char* errorFile;
 		const char* errorLine;
+		const char* errorDescription;
 
-		TestInfo(bool _passed, int _errorLineNumber, char* _errorLine)
-			: passed(_passed), errorLineNumber(_errorLineNumber), errorLine(_errorLine) {};
+		TestInfo(bool _passed, const char* _errorFile, int _errorLineNumber, const char* _errorLine, const char* _errorDescription)
+			: passed(_passed), errorFile(_errorFile), errorLineNumber(_errorLineNumber), errorLine(_errorLine), errorDescription(_errorDescription) {};
 	};
 
 	class IANIUM_EXPORT Ianium {
@@ -38,6 +40,7 @@ namespace ianium {
 		static void Release();
 
 		void addTestableUIElem(UIType uiType, UIElement* ui_elem);
+		void returnTestableUIElem(std::string ui_elem_id);
 		void runTests(const char* rootPath);
 
 	private:
@@ -52,11 +55,13 @@ namespace ianium {
 		SDL_Renderer* renderer;
 
 		std::unordered_map<const char*, TestInfo> tests;
+		int error_name;
 
 		bool initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
 		void releasePrivate();
 
 		bool readTestDirectoryFiles(const char* rootPath);
+		bool writeTestResults(const char* rootPath);
 		std::vector<const char*> getWords(std::string line);
 		bool readScript(const char* fileName);
 		bool executeLine(int nLine, const std::vector<const char*>& words);

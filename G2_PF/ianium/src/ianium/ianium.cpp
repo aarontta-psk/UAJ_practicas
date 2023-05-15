@@ -6,6 +6,7 @@
 #include <cstring>
 #include <windows.h>
 #include <shlwapi.h>
+#include <filesystem>
 
 #include <SDL2/SDL.h>
 #include <opencv2/opencv.hpp>
@@ -58,8 +59,17 @@ void Ianium::addTestableUIElem(UIType uiType, UIElement* ui_elem)
 	testableUIElems.insert(std::pair<std::string, UIElement*>(ui_elem_id, ui_elem));
 }
 
+UIElement* Ianium::returnTestableUIElem(std::string ui_elem_id) {
+		testableUIElems.find(ui_elem_id);
+		return  nullptr;
+}
+
+
 void Ianium::runTests(const char* rootPath) {
+	error_name = 0;
 	readTestDirectoryFiles(rootPath);
+	writeTestResults(rootPath);
+	tests.clear();
 }
 
 bool Ianium::initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer)
@@ -151,6 +161,39 @@ bool Ianium::readTestDirectoryFiles(const char* rootPath)
 	return true;
 }
 
+bool ianium::Ianium::writeTestResults(const char* rootPath)
+{
+	std::filesystem::path file_path("./Output/" + std::string(rootPath) + ".iaout");
+
+	if (!std::filesystem::exists(file_path.parent_path())) {
+		std::filesystem::create_directory(file_path.parent_path());
+	}
+
+	std::ofstream file(file_path.string());
+
+	if (file.is_open()) {
+		// Escribe en el archivo
+		for (auto it = tests.begin(); it != tests.end(); ++it) {
+			std::string data;
+			if (it->second.passed == true) {
+				data = "Tests on script " + std::string(it->second.errorFile) + " succesfully passed \n";
+			}
+			else {
+				data = "Error on script " + std::string(it->second.errorFile) + ", test: " + std::string(it->first) + " line: " + std::string(it->second.errorLine) + " " + std::string(it->second.errorLine) + "\n" +
+					"error description: " + std::string(it->second.errorDescription);
+			}
+			file << data;
+		}
+		file.close();
+		std::cout << "Archivo creado correctamente." << std::endl;
+	}
+	else {
+		std::cout << "No se pudo crear el archivo." << std::endl;
+		return false;
+	}
+	return true;
+}
+
 std::vector<const char*> ianium::Ianium::getWords(std::string line)
 {
 	std::vector<const char*> words;
@@ -193,20 +236,37 @@ bool Ianium::readScript(const char* fileName)
 		if (strcmp(first_words[0], "before:") == 0) {
 
 		}
+
 		else if (strcmp(first_words[0],"test:") == 0) {
 			if (first_words.size() != 2) {
-				std::cerr << "Wrong \"test:\" section label. Try \"test: TEST_NAME\" " << std::endl;
+				std::string error = "Wrong \"test:\" section label. Try \"test: TEST_NAME\" \n";
+				std::cerr << error;
+				std::string error_test_name = "error_name_" + std::to_string(error_name);
+				std::string errorLine = "test: \n";
+				tests.insert(std::make_pair(error_test_name.c_str(), TestInfo(false, fileName, nLine, errorLine.c_str(), error.c_str())));
+				error_name++;
+				for (const char* ptr : first_words)
+					std::free((void*)ptr);
+				file.close();
 				return false;
 			}
 
-			auto DEUSEXMAKINAAAA = tests.find(first_words[1]);
-			if (DEUSEXMAKINAAAA != tests.end())
+			auto test_name = tests.find(first_words[1]);
+			if (test_name != tests.end())
 			{
-				std::cerr << "Test name " << first_words[1] << " was already in use" << std::endl;
+				std::string error = "Test name " + std::string(first_words[1]) + " was already in use. \n";
+				std::cerr << error;
+				std::string error_test_name = "error_name_" + std::to_string(error_name);
+				std::string errorLine = "test: " + std::string(first_words[1]) + "\n";
+				tests.insert(std::make_pair(error_test_name.c_str(), TestInfo(false, fileName, nLine, errorLine.c_str(), error.c_str())));
+				error_name++;
+				for (const char* ptr : first_words)
+					std::free((void*)ptr);
+				file.close();
 				return false;
 			}
 
-			tests.insert(std::make_pair(first_words[1], TestInfo(false, 0, nullptr)));
+			tests.insert(std::make_pair(first_words[1], TestInfo(false, fileName, 0, nullptr, nullptr)));
 			auto test = tests.find(first_words[1]);
 
 			while (std::getline(file, line) && line != "end") {
@@ -219,15 +279,17 @@ bool Ianium::readScript(const char* fileName)
 				}
 
 				if (!executeLine(nLine, words)) {
-					tests.find(first_words[1])->second.errorLineNumber = nLine;
-					tests.find(first_words[1])->second.errorLine = line.c_str();
-
 					for (const char* ptr : words)
 						std::free((void*)ptr);
+					for (const char* ptr : first_words)
+						std::free((void*)ptr);
+
 					file.close();
-					std::cerr << "Error on script " << fileName << " on line " << nLine << ": \"" << line << "\". Command not recognized." << std::endl;
+					std::string error = "Error on script " + std::string(fileName) + " on line " + std::to_string(nLine) + ": \"" + line + "\". Command not recognized." + "\n";
+					std::cerr << error;
 					test->second.errorLineNumber = nLine;
 					test->second.errorLine = line.c_str();
+					test->second.errorDescription = error.c_str();
 					return false;
 				}
 				for (const char* ptr : words)
@@ -237,19 +299,35 @@ bool Ianium::readScript(const char* fileName)
 			nLine++;
 
 			if (line != "end") {
-				std::cerr << "Error on script " << fileName << ". Missing \"end\" on line " << nLine << std::endl;
+				std::string error = "Error on script " + std::string(fileName) + ". Missing \"end\" on line " + std::to_string(nLine) + "\n";
+				std::cerr << error;
 				test->second.errorLineNumber = nLine;
 				test->second.errorLine = line.c_str();
+				test->second.errorDescription = error.c_str();
+				for (const char* ptr : first_words)
+					std::free((void*)ptr);
+				file.close();
 				return false;
 			}
 			test->second.passed = true;
 		}
 		else {
-			std::cerr << "Error on script " << fileName << ". Line " << nLine << "(" << line << ") not recognized as"
-				<< " section label of script. Try \"before:\" or \"test: TEST_NAME\"." << std::endl;
+			std::string error = "Error on script " + std::string(fileName) + ". Line " + std::to_string(nLine) + "(" + line + ") not recognized as"
+				+ " section label of script. Try \"before:\" or \"test: TEST_NAME\". \n";
+			std::cerr << error;
+			std::string error_test_name = "error_name_" + std::to_string(error_name);
+			std::string errorLine = "test: \n";
+			tests.insert(std::make_pair(error_test_name.c_str(), TestInfo(false, fileName, nLine, errorLine.c_str(), error.c_str())));
+			error_name++;
+			for (const char* ptr : first_words)
+				std::free((void*)ptr);
+			file.close();
 			return false;
 		}
 		nLine++;
+
+		for (const char* ptr : first_words)
+			std::free((void*)ptr);
 	}
 	file.close();
 	

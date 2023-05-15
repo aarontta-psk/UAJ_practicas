@@ -36,7 +36,7 @@ public:
 
 	SDL_Rect rect;
 
-	void render(SDL_Renderer* renderer) override {
+	virtual void render(SDL_Renderer* renderer) override {
 
 		//Cuadrado rosita
 		SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
@@ -44,6 +44,8 @@ public:
 		rect = { posX,posY,w,h };
 		SDL_RenderFillRect(renderer, &rect);
 	}
+
+	virtual void handleInput(const SDL_Event& i_event) {};
 };
 
 class Slider : public ianium::Slider, public HudElement {
@@ -68,7 +70,7 @@ public:
 	Orientation orientation;
 	SDL_Rect rect;
 
-	void render(SDL_Renderer* renderer) override {
+	virtual void render(SDL_Renderer* renderer) override {
 
 		SDL_SetRenderDrawColor(renderer, 100, 200, 255, 255);
 
@@ -113,6 +115,8 @@ public:
 			}
 		}
 	}
+
+	virtual void handleInput(const SDL_Event& i_event) {};
 };
 
 class Toggle : public ianium::Toggle, public HudElement {
@@ -131,7 +135,7 @@ public:
 	SDL_Rect rect;
 	bool toogleOn, buttonPressed;
 
-	void render(SDL_Renderer* renderer) override {
+	virtual void render(SDL_Renderer* renderer) override {
 
 		//Activao
 		if (toogleOn)
@@ -171,7 +175,7 @@ public:
 		//	buttonPressed = false;
 		//}
 	}
-
+	virtual void handleInput(const SDL_Event& i_event) {};
 };
 
 
