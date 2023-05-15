@@ -6,6 +6,7 @@
 #include <cstring>
 #include <windows.h>
 #include <shlwapi.h>
+#include <filesystem>
 
 #include <SDL2/SDL.h>
 #include <opencv2/opencv.hpp>
@@ -156,39 +157,16 @@ bool Ianium::readTestDirectoryFiles(const char* rootPath)
 
 bool ianium::Ianium::writeTestResults(const char* rootPath)
 {
-	char directory[] = "./Output";
+	std::filesystem::path file_path("./Output/" + std::string(rootPath) + ".iaout");
 
-	//Cosas para que windows me permita crear un directorio
-
-	// Obtener la longitud necesaria para la cadena de caracteres de ancho fijo
-	int length = MultiByteToWideChar(CP_UTF8, 0, directory, -1, NULL, 0);
-	// Reservar memoria para la cadena de caracteres de ancho fijo
-	wchar_t* directoryW = new wchar_t[length];
-	// Convertir la cadena de caracteres a una cadena de caracteres de ancho fijo
-	MultiByteToWideChar(CP_UTF8, 0, directory, -1, directoryW, length);
-
-	if (!CreateDirectoryW(directoryW, NULL) && ERROR_ALREADY_EXISTS != GetLastError()) {
-		std::cout << "No se pudo crear el directorio." << std::endl;
-		return 1;
+	if (!std::filesystem::exists(file_path.parent_path())) {
+		std::filesystem::create_directory(file_path.parent_path());
 	}
 
-	delete[] directoryW;
+	std::ofstream file(file_path.string());
 
-	std::string filePath_str = std::string(directory) + "/" + std::string(rootPath) + ".iaout";
-	const char* filePath = filePath_str.c_str();
-	//Cosas para que windows me permita crear un archivo
-
-	// Obtener la longitud necesaria para la cadena de caracteres de ancho fijo
-	int length = MultiByteToWideChar(CP_UTF8, 0, filePath, -1, NULL, 0);
-	// Reservar memoria para la cadena de caracteres de ancho fijo
-	wchar_t* filePathW = new wchar_t[length];
-	// Convertir la cadena de caracteres a una cadena de caracteres de ancho fijo
-	MultiByteToWideChar(CP_UTF8, 0, filePath, -1, directoryW, length);
-
-	// Crea el archivo
-	HANDLE file = CreateFile(filePathW, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-
-	if (file != INVALID_HANDLE_VALUE) {
+	if (file.is_open()) {
+		// Escribe en el archivo
 		for (auto it = tests.begin(); it != tests.end(); ++it) {
 			std::string data;
 			if (it->second.passed == true) {
@@ -198,16 +176,16 @@ bool ianium::Ianium::writeTestResults(const char* rootPath)
 				data = "Error on script " + std::string(it->second.errorFile) + ", test: " + std::string(it->first) + " line: " + std::string(it->second.errorLine) + " " + std::string(it->second.errorLine) + "\n" +
 					"error description: " + std::string(it->second.errorDescription);
 			}
-				DWORD bytesWritten;
-				WriteFile(file, data.c_str(), data.size(), &bytesWritten, NULL);
+			file << data;
 		}
-		CloseHandle(file);
+		file.close();
 		std::cout << "Archivo creado correctamente." << std::endl;
 	}
 	else {
-		std::cerr << "No se pudo crear el archivo." << std::endl;
+		std::cout << "No se pudo crear el archivo." << std::endl;
+		return false;
 	}
-	return false;
+	return true;
 }
 
 std::vector<const char*> ianium::Ianium::getWords(std::string line)
