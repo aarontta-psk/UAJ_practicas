@@ -21,6 +21,7 @@ public:
 	virtual void processInput(SDL_Event* event) {}
 
 };
+
 class Button : public ianium::Button, public HudElement {
 public:
 	Button(int id, int posXAux, int posYAux, int wAux, int hAux, bool active, const char* menu) : ianium::Button(id, posX, posY, w, h, active, menu) {
@@ -48,8 +49,8 @@ public:
 class Slider : public ianium::Slider, public HudElement {
 public:
 	Slider(const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active, const char* menu,
-		const float valueAux, const float minValue, const float maxValueAux,const int rangeSelectionAux, const Orientation orientationAux)
-		: ianium::Slider(id, posX, posY, w, h, active, menu, valueAux, minValue, maxValueAux, rangeSelectionAux, orientationAux) {
+		const float valueAux, const float minValueAux, const float maxValueAux, const int rangeSelectionAux, const Orientation orientationAux)
+		: ianium::Slider(id, posX, posY, w, h, active, menu, valueAux, minValueAux, maxValueAux, rangeSelectionAux, orientationAux) {
 		posX = posXAux;
 		posY = posYAux;
 		w = wAux;
@@ -58,10 +59,11 @@ public:
 		value = valueAux;
 		orientation = orientationAux;
 		maxValue = maxValueAux;
+		minValue = minValueAux;
 	};
 	~Slider() = default;
 
-	int posX, posY, w, h, rangeSelection,maxValue;
+	int posX, posY, w, h, rangeSelection, maxValue, minValue;
 	float value;
 	Orientation orientation;
 	SDL_Rect rect;
@@ -78,12 +80,38 @@ public:
 		SDL_SetRenderDrawColor(renderer, 200, 100, 150, 255);
 
 		if (orientation == Orientation::HORIZONTAL)
-			rect = { posX + ((int)value*w/maxValue),posY,w / rangeSelection,h};
+			rect = { posX + ((int)value * w / maxValue),posY,w / rangeSelection,h };
 		else
 			rect = { posX ,posY + ((int)value * h / maxValue),w,h / rangeSelection };
 
 		SDL_RenderFillRect(renderer, &rect);
 
+	}
+
+	void update(int x, int y, int n_clicks) override {
+
+		// Verificamos si el ratón está dentro de los límites del slider
+		if (x >= posX && x < posX + w && y >= posY && y < posY + h) {
+			// Calculamos el nuevo valor del slider según la posición del ratón
+			float newValue;
+			if (orientation == Orientation::HORIZONTAL) {
+				newValue = (x - posX) * maxValue / w;
+			}
+			else {
+				newValue = (y - posY) * maxValue / h;
+			}
+
+			// Actualizar el valor del slider
+			value = newValue;
+
+			// Asegurarse de que el valor esté dentro del rango permitido
+			if (value < minValue) {
+				value = minValue;
+			}
+			else if (value > maxValue-(w/rangeSelection)) {
+				value = maxValue-(maxValue/rangeSelection);
+			}
+		}
 	}
 };
 
@@ -175,7 +203,7 @@ int main() {
 	hud.push_back(t);
 
 	//Falta slider por meter
-	Slider* s = new Slider(4, 200, 200, 200, 20, true, "4",80.0, 0.0, 100.0,10, ianium::Slider::Orientation::VERTICAL);
+	Slider* s = new Slider(4, 200, 200, 200, 20, true, "4", 80.0, 0.0, 100.0, 10, ianium::Slider::Orientation::HORIZONTAL);
 	hud.push_back(s);
 
 	try
