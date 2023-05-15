@@ -42,7 +42,6 @@ public:
 			//return alguna excepcion supongo;
 			std::cout << "Failure opening file " << path << ", nullptr returned." << std::endl;
 
-
 		fread(&w, sizeof(uint32_t), 1, file);
 		fread(&h, sizeof(uint32_t), 1, file);
 
@@ -287,19 +286,19 @@ int main() {
 	std::list<HudElement*> hud;
 	SDL_Surface* image = IMG_Load("testImage.jpg");
 	//Interfaz
-	Button* a = new Button("./tempAssets/template.rgba", 0, 10, 10, 30, 30, true, "u", renderer);
-	hud.push_back(a);
-	//Button* b = new Button(1, 60, 0, 60, 60, true, "e", renderer);
+	//Button* a = new Button("./azul_0.rgba", 0, 10, 10, 30, 30, true, "u", renderer);
+	//hud.push_back(a);
+	//Button* b = new Button("./azul_0.rgba",1, 60, 0, 60, 60, true, "e", renderer);
 	//hud.push_back(b);
-	//Button* c = new Button(2, 0, 70, 20, 20, true, "4", renderer);
+	//Button* c = new Button("./azul_0.rgba",2, 0, 70, 20, 20, true, "4", renderer);
 	//hud.push_back(c);
 
-	Toggle* t = new Toggle("./negro_45.rgba", "./azul_0.rgba", 3, 500, 300, 100, 100, true, "4", renderer);
+	Toggle* t = new Toggle("./toggleOn.rgba", "./toggleOff.rgba", 3, 500, 300, 100, 100, true, "4", renderer);
 	hud.push_back(t);
 
 	//Falta slider por meter
-	Slider* s = new Slider("./negro_45.rgba", "./azul_0.rgba", 4, 200, 200, 200, 20, true, "4", 80.0, 0.0, 100.0, 10, ianium::Slider::Orientation::HORIZONTAL, renderer);
-	hud.push_back(s);
+	//Slider* s = new Slider("./negro_45.rgba", "./azul_0.rgba", 4, 200, 200, 200, 20, true, "4", 80.0, 0.0, 100.0, 10, ianium::Slider::Orientation::HORIZONTAL, renderer);
+	//hud.push_back(s);
 
 	try
 	{
