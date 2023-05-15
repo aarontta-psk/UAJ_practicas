@@ -11,6 +11,10 @@
 
 #include <list>
 
+#define CONVERT_RGBA_TO_ARGB(value) ((value & 0xFF000000) >> 8) | ((value & 0x00FF0000) >> 8) | ((value & 0x0000FF00) >> 8) | ((value & 0x000000FF) << 24)
+#define CONVERT_ENDIANESS_32(value) ((value & 0xFF000000) >> 24) | ((value & 0x00FF0000) >> 8) | ((value & 0x0000FF00) << 8) | ((value & 0x000000FF) << 24)
+
+
 class HudElement {
 public:
 	HudElement() {};
@@ -22,27 +26,110 @@ public:
 
 };
 
+class Image {
+public:
+	Image(std::string path, SDL_Renderer* renderer) {
+
+		//LoadImage
+
+		uint32_t* pxls;
+
+		FILE* file;
+		fopen_s(&file, path.c_str(), "r");
+
+		if (!file)
+			//return alguna excepcion supongo;
+			std::cout << "Failure opening file " << path << ", nullptr returned." << std::endl;
+
+
+		fread(&w, sizeof(uint32_t), 1, file);
+		fread(&h, sizeof(uint32_t), 1, file);
+
+#if SDL_BYTEORDER == SDL_LIL_ENDIAN
+		w = CONVERT_ENDIANESS_32(w);
+		h = CONVERT_ENDIANESS_32(h);
+#endif // LITTLE_ENDIAN
+
+		//Leemos los pixeles
+		pxls = (uint32_t*)malloc(sizeof(uint32_t) * w * h);
+		for (int i = 0; i < w * h; ++i) { // REVISAR
+			fread(&pxls[i], sizeof(uint32_t), 1, file);
+#if SDL_BYTEORDER == SDL_LIL_ENDIAN
+			pxls[i] = CONVERT_ENDIANESS_32(pxls[i]);
+#endif // LITTLE_ENDIAN
+			pxls[i] = CONVERT_RGBA_TO_ARGB(pxls[i]);	// todos los píxeles en ARGB
+		}
+
+		// asumimos pixeles en ARGB siempre, independientemente de la plataforma
+
+		 //-------------------------------------
+
+		Uint32 rmask = 0x00FF0000, gmask = 0x0000FF00, bmask = 0x000000FF, amask = 0xFF000000;
+
+		SDL_Surface* surf = SDL_CreateRGBSurfaceFrom(pxls, w, h, 32, 4 * w, rmask, gmask, bmask, amask);
+
+		//Creamos la textura
+		texture = SDL_CreateTextureFromSurface(renderer, surf);
+
+		//Y liberamos el surface
+		SDL_FreeSurface(surf);
+
+		free(pxls);
+
+		fclose(file);
+	}
+
+	// la imagen se encargará de eliminar la memoria dinámica de los píxeles
+	~Image()
+	{
+		SDL_DestroyTexture(texture);
+		texture = nullptr;
+	}
+	void render(SDL_Rect rect, SDL_Renderer* renderer) {
+
+		//Si tienes una imagen guardada...
+		if (texture != nullptr) {
+			// Renderizar la textura en lugar del cuadrado
+			SDL_RenderCopy(renderer, texture, nullptr, &rect);
+		}
+		//Si no has metido imagen...
+		else {
+			//Cuadrado rosita
+			SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
+
+			SDL_RenderFillRect(renderer, &rect);
+		}
+	}
+private:
+
+	uint32_t w, h;
+	SDL_Texture* texture;
+};
+
 class Button : public ianium::Button, public HudElement {
 public:
-	Button(int id, int posXAux, int posYAux, int wAux, int hAux, bool active, const char* menu) : ianium::Button(id, posX, posY, w, h, active, menu) {
+	Button(std::string path, int id, int posXAux, int posYAux, int wAux, int hAux, bool active, const char* menu, SDL_Renderer* renderer) : ianium::Button(id, posX, posY, w, h, active, menu) {
 		posX = posXAux;
 		posY = posYAux;
 		w = wAux;
 		h = hAux;
+
+		image = new Image(path, renderer);
 	};
-	~Button() = default;
+	~Button() {
+		delete image;
+	};
 
 	int posX, posY, w, h;
 
 	SDL_Rect rect;
+	Image* image;
 
 	virtual void render(SDL_Renderer* renderer) override {
 
-		//Cuadrado rosita
-		SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-
 		rect = { posX,posY,w,h };
-		SDL_RenderFillRect(renderer, &rect);
+
+		image->render(rect, renderer);
 	}
 
 	virtual void handleInput(const SDL_Event& i_event) {};
@@ -110,8 +197,8 @@ public:
 			if (value < minValue) {
 				value = minValue;
 			}
-			else if (value > maxValue-(w/rangeSelection)) {
-				value = maxValue-(maxValue/rangeSelection);
+			else if (value > maxValue - (w / rangeSelection)) {
+				value = maxValue - (maxValue / rangeSelection);
 			}
 		}
 	}
@@ -196,12 +283,12 @@ int main() {
 	std::list<HudElement*> hud;
 
 	//Interfaz
-	Button* a = new Button(0, 10, 10, 30, 30, true, "u");
+	Button* a = new Button("./azul_0.rgba", 0, 10, 10, 30, 30, true, "u", renderer);
 	hud.push_back(a);
-	Button* b = new Button(1, 60, 0, 60, 60, true, "e");
-	hud.push_back(b);
-	Button* c = new Button(2, 0, 70, 20, 20, true, "4");
-	hud.push_back(c);
+	//Button* b = new Button(1, 60, 0, 60, 60, true, "e", renderer);
+	//hud.push_back(b);
+	//Button* c = new Button(2, 0, 70, 20, 20, true, "4", renderer);
+	//hud.push_back(c);
 
 	Toggle* t = new Toggle(3, 500, 300, 100, 100, true, "4");
 	hud.push_back(t);
