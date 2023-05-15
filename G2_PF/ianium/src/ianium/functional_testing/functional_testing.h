@@ -27,7 +27,7 @@ namespace ianium {
 		void mouseMotion(int x, int y);
 
 		bool isElemOnMenu(int id_elem);
-		bool assertT();
+		bool assertButton(std::string idButton, int stateToCheck);
 
 		void run(uint32_t n_frames);
 

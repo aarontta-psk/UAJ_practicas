@@ -258,22 +258,36 @@ bool Ianium::readScript(const char* fileName)
 
 bool Ianium::executeLine(int nLine, const std::vector<const char* >& words)
 {	
+	// igual esto es un poco xd
+#define CHECK_ARG_SIZE(nElems, size, nLine) \
+	if (size != nElems) { \
+	std::cerr << "Wrong number of arguments on line " << nLine << std::endl; \
+	return false; }
+
+#define CHECK_CORRECT_TYPES(code, nLine) \
+	try { \
+		code; \
+	} \
+	catch (std::invalid_argument) { \
+		std::cerr << "Wrong types of arguments on line " << nLine << std::endl; \
+		return false; }
+
 	if (strcmp(words[0], "click") == 0) {
-		if (words.size() != 3) {
-			std::cerr << "Wrong number of arguments on line " << nLine << std::endl;
-			return false;
-		}
+		CHECK_ARG_SIZE(3, words.size(), nLine)
 		int x, y;
-		try {
-			x = std::stoi(words[1]);
-			y = std::stoi(words[2]);
-		}
-		catch (std::invalid_argument) {
-			std::cerr << "Wrong types of arguments on line " << nLine << std::endl;
-			return false;
-		}
+
+		CHECK_CORRECT_TYPES(x = std::stoi(words[1]); y = std::stoi(words[2]), nLine);
 
 		functionalTesting->click(x, y);
+	}
+
+	else if (strcmp(words[0], "assertButton")) {
+		CHECK_ARG_SIZE(3, words.size(), nLine);
+		std::string idButton;
+		int state;
+		idButton = words[1];
+		CHECK_CORRECT_TYPES(state = std::stoi(words[2]);, nLine);
+		functionalTesting->assertButton(words[1], state);
 	}
 	else return false;
 
