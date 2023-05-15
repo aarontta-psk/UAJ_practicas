@@ -48,16 +48,21 @@ public:
 class Slider : public ianium::Slider, public HudElement {
 public:
 	Slider(const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active, const char* menu,
-		const float value, const float minValue, const float maxValue, const int rangeSelection, const Orientation orientation)
-		: ianium::Slider(id, posX, posY, w, h, active, menu, value, minValue, maxValue, rangeSelection, orientation) {
+		const float valueAux, const float minValue, const float maxValueAux,const int rangeSelectionAux, const Orientation orientationAux)
+		: ianium::Slider(id, posX, posY, w, h, active, menu, valueAux, minValue, maxValueAux, rangeSelectionAux, orientationAux) {
 		posX = posXAux;
 		posY = posYAux;
 		w = wAux;
 		h = hAux;
+		rangeSelection = rangeSelectionAux;
+		value = valueAux;
+		orientation = orientationAux;
+		maxValue = maxValueAux;
 	};
 	~Slider() = default;
 
-	int posX, posY, w, h;
+	int posX, posY, w, h, rangeSelection,maxValue;
+	float value;
 	Orientation orientation;
 	SDL_Rect rect;
 
@@ -65,17 +70,20 @@ public:
 
 		SDL_SetRenderDrawColor(renderer, 100, 200, 255, 255);
 
-		if (orientation == Orientation::VERTICAL) {
-
-		}
-		else {
-
-
-		}
-
-
+		//Dibujamos su rango
 		rect = { posX,posY,w,h };
 		SDL_RenderFillRect(renderer, &rect);
+
+		//Y ahora el boton deslizante
+		SDL_SetRenderDrawColor(renderer, 200, 100, 150, 255);
+
+		if (orientation == Orientation::HORIZONTAL)
+			rect = { posX + ((int)value*w/maxValue),posY,w / rangeSelection,h};
+		else
+			rect = { posX ,posY + ((int)value * h / maxValue),w,h / rangeSelection };
+
+		SDL_RenderFillRect(renderer, &rect);
+
 	}
 };
 
@@ -93,7 +101,7 @@ public:
 
 	int posX, posY, w, h;
 	SDL_Rect rect;
-	bool toogleOn,buttonPressed;
+	bool toogleOn, buttonPressed;
 
 	void render(SDL_Renderer* renderer) override {
 
@@ -119,16 +127,16 @@ public:
 		// Verificar si se ha pulsado el bot�n izquierdo del rat�n
 		//if (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)) {
 			// Verificar si el rat�n est� dentro de los l�mites del bot�n
-			if (x >= posX && x < posX + w && y >= posY && y < posY + h) {
-				// Si el bot�n no estaba presionado previamente
-				//if (!buttonPressed) {
-					// Cambiar el valor del booleano toogleOn
-				for (int i = 0; i < n_clicks; i++)
-					toogleOn = !toogleOn;
-					// Establecer el estado de bot�n como presionado
-					//buttonPressed = true;
-				//}
-			}
+		if (x >= posX && x < posX + w && y >= posY && y < posY + h) {
+			// Si el bot�n no estaba presionado previamente
+			//if (!buttonPressed) {
+				// Cambiar el valor del booleano toogleOn
+			for (int i = 0; i < n_clicks; i++)
+				toogleOn = !toogleOn;
+			// Establecer el estado de bot�n como presionado
+			//buttonPressed = true;
+		//}
+		}
 		//}
 		//else {
 		//	// Si se ha soltado el bot�n, establecer el estado de bot�n como no presionado
@@ -167,8 +175,8 @@ int main() {
 	hud.push_back(t);
 
 	//Falta slider por meter
-	//Slider* s = new Slider(4, 40, 40, 20, 20, true, "4", 20.0, 0.0, 50.0, 50, IASlider::Orientation::HORIZONTAL);
-	//hud.push_back(s);
+	Slider* s = new Slider(4, 200, 200, 200, 20, true, "4",80.0, 0.0, 100.0,10, ianium::Slider::Orientation::VERTICAL);
+	hud.push_back(s);
 
 	try
 	{
@@ -211,7 +219,7 @@ int main() {
 			SDL_RenderPresent(renderer);
 
 			//insertamos un evento de ianium aqui como testeo
-			
+
 			//ianium::Ianium::Instance()->functionalTesting.click(501, 301);
 		}
 	}
