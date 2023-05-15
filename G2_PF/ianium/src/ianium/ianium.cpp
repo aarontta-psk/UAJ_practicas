@@ -58,14 +58,6 @@ void Ianium::addTestableUIElem(UIType uiType, UIElement* ui_elem)
 	testableUIElems.insert(std::pair<std::string, UIElement*>(ui_elem_id, ui_elem));
 }
 
-bool Ianium::searchActiveUIElement(int UI_ID) {
-
-	for (auto elem : testableUIElems)
-		if (elem.second->getID() == UI_ID)
-			return elem.second->getEnable();
-	return false;
-}
-
 void Ianium::runTests(const char* rootPath) {
 	readTestDirectoryFiles(rootPath);
 }
@@ -79,7 +71,7 @@ bool Ianium::initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer)
 	renderer = sdl_renderer;
 
 	visualTesting = new VisualTesting(window, renderer);
-	functionalTesting = new FunctionalTesting();
+	functionalTesting = new FunctionalTesting(&testableUIElems, renderer);
 
 	return true;
 }
@@ -291,13 +283,13 @@ bool Ianium::executeLine(int nLine, const std::vector<const char* >& words)
 std::string Ianium::elemPrefix(UIType uiType) {
 	switch (uiType)
 	{
-	case Ianium::UIType::BUTTON:
+	case UIType::BUTTON:
 		return "button_";
 		break;
-	case Ianium::UIType::TOGGLE:
+	case UIType::TOGGLE:
 		return "toggle_";
 		break;
-	case Ianium::UIType::SLIDER:
+	case UIType::SLIDER:
 		return "slider_";
 		break;
 	default:

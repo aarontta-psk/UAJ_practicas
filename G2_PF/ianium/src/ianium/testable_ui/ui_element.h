@@ -1,18 +1,25 @@
 #pragma once
-#ifndef IA_UI_ELEMENT_H
-#define IA_UI_ELEMENT_H
+#ifndef UI_ELEMENT_H
+#define UI_ELEMENT_H
 
 #include <string>
 
 #include <common/macros.h>
 #include <ianium/ianium.h>
 
+typedef union SDL_Event;
+
 namespace ianium {
+	enum class UIType { BUTTON, TOGGLE, SLIDER };
+
 	class IANIUM_EXPORT UIElement {
 	public:
-		UIElement(const Ianium::UIType type, const int id, const int posX, const int posY, const int w, const int h, const bool active, const char* menu)
+		UIElement(const UIType type, const int id, const int posX, const int posY, const int w, const int h, const bool active, const char* menu)
 			: id(id), posX(posX), posY(posY), width(w), height(h), isActive(active), menu(menu)
 		{ Ianium::Instance()->addTestableUIElem(type, this); }
+
+		virtual void handleInput(const SDL_Event& i_event) = 0;
+		virtual void render(SDL_Renderer* renderer) = 0;
 
 		// Devuelve la ID del elemento
 		uint64_t getID() const { return id; }
@@ -33,4 +40,4 @@ namespace ianium {
 		const char* menu;       // Menú al que pertenece el elemento     
 	};
 };
-#endif // IA_UI_ELEMENT_H
+#endif // UI_ELEMENT_H
