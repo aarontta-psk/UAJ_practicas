@@ -336,8 +336,13 @@ bool Ianium::readScript(const char* fileName)
 			test->second.passed = true;
 		}
 		else {
-			std::cerr << "Error on script " << fileName << ". Line " << nLine << "(" << line << ") not recognized as"
-				<< " section label of script. Try \"before:\" or \"test: TEST_NAME\"." << std::endl;
+			std::string error = "Error on script " + std::string(fileName) + ". Line " + std::to_string(nLine) + "(" + line + ") not recognized as"
+				+ " section label of script. Try \"before:\" or \"test: TEST_NAME\". \n";
+			std::cerr << error;
+			std::string error_test_name = "error_name_" + std::to_string(error_name);
+			std::string errorLine = "test: \n";
+			tests.insert(std::make_pair(error_test_name.c_str(), TestInfo(false, fileName, nLine, errorLine.c_str(), error.c_str())));
+			error_name++;
 			for (const char* ptr : first_words)
 				std::free((void*)ptr);
 			file.close();
