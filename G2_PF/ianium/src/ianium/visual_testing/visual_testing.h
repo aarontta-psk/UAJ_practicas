@@ -17,12 +17,11 @@ namespace ianium {
 		bool isImageOnScreen(const char* imagePath);
 		void takeScreenshot();
 
-		//private:
+	private:
 		SDL_Renderer* renderer;
 		SDL_Window* window;
 
 		std::vector<std::pair<double, double>> template_matching(const char* imagePath, const char* templateImagePath, const char* maskPath = nullptr);
-		void testOPENCV(const char* path);
 	};
 };
 #endif // VISUAL_TESTING_H

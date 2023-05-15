@@ -1,46 +1,36 @@
 ﻿#include "functional_testing.h"
 
 #include <iostream>
-#include <SDL2/SDL.h>
 #include <string>
+
+#include <SDL2/SDL.h>
+
 #include <ianium/ianium.h>
+#include <ianium/testable_ui/ui_element.h>
 
 using namespace ianium;
 
-void FunctionalTesting::test(const char* path)
-{
-	std::cout << "Failed to read, " << path << "not found" << std::endl;
+FunctionalTesting::FunctionalTesting(std::unordered_map<std::string, UIElement*>* uiTestElems, SDL_Renderer* sdl_renderer) {
+	uiElems = uiTestElems;
+	renderer = sdl_renderer;
 }
+
+FunctionalTesting::~FunctionalTesting() = default;
 
 #pragma region Funciones
+void FunctionalTesting::click(int id_elem) {
 
-//COMO A�ADIR FUNCIONES AL EVENTO//
-/*
-void myFunction()
-{
-	// C�digo de la funci�n
+	SDL_Event event;
+	event.type = SDL_MOUSEBUTTONDOWN;
+	event.button.x = 0;// x;
+	event.button.y = 0;// y;
+	event.button.clicks = 1;
+	event.button.button = SDL_BUTTON_LEFT;
+
+
+	// Lo pusheamos a la cola de eventos
+	SDL_PushEvent(&event);
 }
-
-[Dentro del metodo que sea]
-	EventData eventData;
-	eventData.functionPointer = &myFunction;
-
-	event.user.data1 = reinterpret_cast<void*>(&eventData);
-
-Esto crea un EventData que tiene un puntero a la funci�n
-
-Para recuperar el puntero en el PollEvents habria que hacer:
-
-  // Recuperamos el puntero a EventData desde data1 o donde este
-  EventData* eventData = reinterpret_cast<EventData*>(event.user.data1);
-
-  // Acceder al puntero a funci�n y llamar a la funci�n correspondiente
-  if (eventData && eventData->functionPointer)
-  {
-	  // Llamar a la funci�n
-	  eventData->functionPointer();
-  }
-*/
 
 void FunctionalTesting::click(int x, int y) {
 
@@ -49,6 +39,21 @@ void FunctionalTesting::click(int x, int y) {
 	event.button.x = x;
 	event.button.y = y;
 	event.button.clicks = 1;
+	event.button.button = SDL_BUTTON_LEFT;
+
+
+	// Lo pusheamos a la cola de eventos
+	SDL_PushEvent(&event);
+}
+
+void FunctionalTesting::clickUp(int x, int y) {
+	SDL_Event event;
+	event.type = SDL_MOUSEBUTTONUP;
+	event.button.x = x;
+	event.button.y = y;
+	event.button.clicks = 1;
+	event.button.state = SDL_RELEASED;
+
 	event.button.button = SDL_BUTTON_LEFT;
 
 
@@ -85,22 +90,7 @@ void FunctionalTesting::pressedClick(int x, int y) {
 	SDL_PushEvent(&event);
 }
 
-void FunctionalTesting::clickUp(int x, int y) {
-	SDL_Event event;
-	event.type = SDL_MOUSEBUTTONUP;
-	event.button.x = x;
-	event.button.y = y;
-	event.button.clicks = 1;
-	event.button.state = SDL_RELEASED;
-
-	event.button.button = SDL_BUTTON_LEFT;
-
-
-	// Lo pusheamos a la cola de eventos
-	SDL_PushEvent(&event);
-}
-
-void ianium::FunctionalTesting::MouseMotion(int x, int y)
+void FunctionalTesting::mouseMotion(int x, int y)
 {
 	SDL_Event event;
 	event.type = SDL_MOUSEMOTION;
@@ -114,29 +104,49 @@ void ianium::FunctionalTesting::MouseMotion(int x, int y)
 	SDL_PushEvent(&event);
 }
 
-void FunctionalTesting::click(int id_elem) {
-
-	SDL_Event event;
-	event.type = SDL_MOUSEBUTTONDOWN;
-	event.button.x = 0;// x;
-	event.button.y = 0;// y;
-	event.button.clicks = 1;
-	event.button.button = SDL_BUTTON_LEFT;
-
-
-	// Lo pusheamos a la cola de eventos
-	SDL_PushEvent(&event);
-}
-
-bool FunctionalTesting::IsElemOnMenu(int id_elem) {
-
-	Ianium::Instance()->searchActiveUIElement(id_elem);
-	return false;
-}
-
-bool FunctionalTesting::Assert() {
+bool FunctionalTesting::isElemOnMenu(int id_elem) {
 
 	return false;
 }
 
+bool FunctionalTesting::assertT() {
+
+	return false;
+}
+
+void FunctionalTesting::run(uint32_t n_frames) {
+	while (!n_frames) {
+		// handle input
+		SDL_Event i_event;
+		while (SDL_PollEvent(&i_event))
+			for (std::pair<std::string, UIElement*> elem : (*uiElems))
+				elem.second->handleInput(i_event);
+		
+		// render
+		SDL_RenderClear(renderer);
+		for (std::pair<std::string, UIElement*> elem : (*uiElems))
+			elem.second->handleInput(i_event);
+		SDL_RenderPresent(renderer);
+
+		n_frames--;
+	}
+}
 #pragma endregion
+
+std::string FunctionalTesting::elemPrefix(UIType uiType) {
+	switch (uiType)
+	{
+	case UIType::BUTTON:
+		return "button_";
+		break;
+	case UIType::TOGGLE:
+		return "toggle_";
+		break;
+	case UIType::SLIDER:
+		return "slider_";
+		break;
+	default:
+		return "";
+		break;
+	}
+}

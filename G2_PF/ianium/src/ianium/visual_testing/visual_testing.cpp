@@ -8,25 +8,12 @@
 
 using namespace ianium;
 
-void VisualTesting::testOPENCV(const char* path)
-{
-	cv::Mat image = cv::imread(path);
-	if (!image.empty()) {
-		cv::imshow("testImage", image);
-		cv::waitKey(0);
-	}
-	else std::cout << "Failed to read, " << path << "not found" << std::endl;
-}
-
 VisualTesting::VisualTesting(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer) {
 	window = sdl_window;
 	renderer = sdl_renderer;
-
 }
 
-VisualTesting::~VisualTesting() {
-	
-}
+VisualTesting::~VisualTesting() = default;
 
 bool VisualTesting::isImageOnScreen(const char* imagePath)
 {
@@ -38,7 +25,6 @@ void VisualTesting::takeScreenshot()
 	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
 	SDL_RenderClear(renderer);
 
-
 	int width, height;
 	SDL_GetRendererOutputSize(renderer, &width, &height);
 	SDL_Surface* sshot = SDL_CreateRGBSurface(0, width, height, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
@@ -49,7 +35,6 @@ void VisualTesting::takeScreenshot()
 
 std::vector<std::pair<double, double>> VisualTesting::template_matching(const char* gameScreenshotImagePath, const char* templateImagePath, const char* maskPath)
 {
-
 	cv::Mat img; cv::Mat templateImg; cv::Mat maskImg; cv::Mat result;
 	std::vector<std::pair<double, double>> resultVector;
 

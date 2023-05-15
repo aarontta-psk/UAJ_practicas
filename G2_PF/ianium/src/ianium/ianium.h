@@ -12,6 +12,7 @@ struct SDL_Window;
 struct SDL_Renderer;
 
 namespace ianium {
+	enum class UIType;
 	class UIElement;
 
 	class VisualTesting;
@@ -30,7 +31,6 @@ namespace ianium {
 
 	class IANIUM_EXPORT Ianium {
 	public:
-		enum class UIType { BUTTON, TOGGLE, SLIDER };
 
 		Ianium();
 		~Ianium();
@@ -39,16 +39,14 @@ namespace ianium {
 		static bool Init(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
 		static void Release();
 
-		VisualTesting* visualTesting;
-		FunctionalTesting* functionalTesting;
-
 		void addTestableUIElem(UIType uiType, UIElement* ui_elem);
-		bool searchActiveUIElement(int UI_ID);
-
 		void runTests(const char* rootPath);
 
 	private:
 		static std::unique_ptr<Ianium> instance;
+
+		VisualTesting* visualTesting;
+		FunctionalTesting* functionalTesting;
 
 		std::unordered_map<std::string, UIElement*> testableUIElems;
 

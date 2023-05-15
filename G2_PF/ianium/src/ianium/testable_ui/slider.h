@@ -1,6 +1,6 @@
 #pragma once
-#ifndef IA_SLIDER_H
-#define IA_SLIDER_H
+#ifndef SLIDER_H
+#define SLIDER_H
 
 #include <ianium/testable_ui/ui_element.h>
 #include <ianium/ianium.h>
@@ -12,8 +12,11 @@ namespace ianium {
 
 		Slider(const int id, const int posX, const int posY, const int w, const int h, const bool active, const char* menu,
 			const float value, const float minValue, const float maxValue, const int rangeSelection, const Orientation orientation)
-			: UIElement(Ianium::UIType::SLIDER, id, posX, posY, w, h, active, menu), value(value), minValue(minValue),
+			: UIElement(UIType::SLIDER, id, posX, posY, w, h, active, menu), value(value), minValue(minValue),
 			maxValue(maxValue), rangeSelection(rangeSelection), orientation(orientation) {}
+
+		virtual void handleInput(const SDL_Event& i_event) = 0;
+		virtual void render(SDL_Renderer* renderer) = 0;
 
 		float getValue() const { return value; }
 		float getMinValue() const { return minValue; }

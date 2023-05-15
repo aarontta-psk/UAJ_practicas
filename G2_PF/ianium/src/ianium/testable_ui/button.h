@@ -1,6 +1,6 @@
 #pragma once
-#ifndef IA_BUTTON_H
-#define IA_BUTTON_H
+#ifndef BUTTON_H
+#define BUTTON_H
 
 #include <ianium/testable_ui/ui_element.h>
 
@@ -10,7 +10,10 @@ namespace ianium {
         enum class State { PRESSED, HOLD, RELEASED };
 
         Button(const int id, const int posX, const int posY, const int w, const int h, const bool active, const char* menu)
-            : UIElement(Ianium::UIType::BUTTON, id, posX, posY, w, h, active, menu), buttonState(State::RELEASED) {}
+            : UIElement(UIType::BUTTON, id, posX, posY, w, h, active, menu), buttonState(State::RELEASED) {}
+
+        virtual void handleInput(const SDL_Event& i_event) = 0;
+        virtual void render(SDL_Renderer* renderer) = 0;
 
         State getStateButton() const { return buttonState; }
 
