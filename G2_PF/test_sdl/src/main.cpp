@@ -89,7 +89,7 @@ public:
 	enum class State { PRESSED, HOLD, RELEASED };
 
 	Button(std::string path, int id, int posXAux, int posYAux, int wAux, int hAux, bool active, SDL_Renderer* renderer) : ianium::Button(id), HudElement(posXAux, posYAux, wAux, hAux, active) {
-
+		buttonState = State::RELEASED;
 		image = new Image(path, renderer);
 	};
 	~Button() {
@@ -156,7 +156,7 @@ public:
 	virtual float getValue() const { return value; }
 	virtual float getMinValue() const { return minValue; }
 	virtual float getMaxValue() const { return maxValue; }
-	virtual int getRangeSelection() const { rangeSelection; }
+	virtual int getRangeSelection() const { return rangeSelection; }
 
 	virtual void render(SDL_Renderer* renderer) override {
 
@@ -314,7 +314,7 @@ int main() {
 	hud.push_back(t);
 
 	//Falta slider por meter
-	Slider* s = new Slider("./sliderRange.png", "./sliderButton.png", 4, 200, 200, 200, 20, true, 80.0, 0.0, 100.0, 10, ianium::Slider::Orientation::HORIZONTAL, renderer);
+	Slider* s = new Slider("./sliderRange.png", "./sliderButton.png", 4, 200, 200, 200, 20, true, 80.0, 0.0, 100.0, 10, Slider::Orientation::HORIZONTAL, renderer);
 	hud.push_back(s);
 
 	try
