@@ -26,84 +26,56 @@ public:
 	virtual void processInput(SDL_Event* event) {}
 
 };
-
 class Image {
 public:
 	Image(std::string path, SDL_Renderer* renderer) {
-
-		//LoadImage
-
-		uint32_t* pxls;
-
-		FILE* file;
-		fopen_s(&file, path.c_str(), "r");
-
-		if (!file)
-			//return alguna excepcion supongo;
-			std::cout << "Failure opening file " << path << ", nullptr returned." << std::endl;
-
-		fread(&w, sizeof(uint32_t), 1, file);
-		fread(&h, sizeof(uint32_t), 1, file);
-
-#if SDL_BYTEORDER == SDL_LIL_ENDIAN
-		w = CONVERT_ENDIANESS_32(w);
-		h = CONVERT_ENDIANESS_32(h);
-#endif // LITTLE_ENDIAN
-
-		//Leemos los pixeles
-		pxls = (uint32_t*)malloc(sizeof(uint32_t) * w * h);
-		for (int i = 0; i < w * h; ++i) { // REVISAR
-			fread(&pxls[i], sizeof(uint32_t), 1, file);
-#if SDL_BYTEORDER == SDL_LIL_ENDIAN
-			pxls[i] = CONVERT_ENDIANESS_32(pxls[i]);
-#endif // LITTLE_ENDIAN
-			pxls[i] = CONVERT_RGBA_TO_ARGB(pxls[i]);	// todos los píxeles en ARGB
+		surface = IMG_Load(path.c_str());
+		if (!surface) {
+			// Error
+			std::cout << "Failure loading image " << path << ": " << IMG_GetError() << std::endl;
+			return;
 		}
 
-		// asumimos pixeles en ARGB siempre, independientemente de la plataforma
+		// Crear una textura a partir de la superficie
+		texture = SDL_CreateTextureFromSurface(renderer, surface);
 
-		 //-------------------------------------
+		if (!texture) {
+			// Manejar error de creación de textura
+			std::cout << "Failure creating texture: " << SDL_GetError() << std::endl;
+			SDL_FreeSurface(surface);
+			return;
+		}
 
-		Uint32 rmask = 0x00FF0000, gmask = 0x0000FF00, bmask = 0x000000FF, amask = 0xFF000000;
+		// Obtener el ancho y alto de la imagen
+		w = surface->w;
+		h = surface->h;
 
-		SDL_Surface* surf = SDL_CreateRGBSurfaceFrom(pxls, w, h, 32, 4 * w, rmask, gmask, bmask, amask);
-
-		//Creamos la textura
-		texture = SDL_CreateTextureFromSurface(renderer, surf);
-
-		//Y liberamos el surface
-		SDL_FreeSurface(surf);
-
-		free(pxls);
-
-		fclose(file);
 	}
 
-	// la imagen se encargará de eliminar la memoria dinámica de los píxeles
-	~Image()
-	{
+	~Image() {
+		SDL_FreeSurface(surface);
+		surface = nullptr;
+
 		SDL_DestroyTexture(texture);
 		texture = nullptr;
-	}
-	void render(SDL_Rect rect, SDL_Renderer* renderer) {
 
-		//Si tienes una imagen guardada...
-		if (texture != nullptr) {
-			// Renderizar la textura en lugar del cuadrado
+	}
+
+	void render(SDL_Rect rect, SDL_Renderer* renderer) {
+		if (texture) {
 			SDL_RenderCopy(renderer, texture, nullptr, &rect);
 		}
-		//Si no has metido imagen...
 		else {
-			//Cuadrado rosita
+			// Cuadrado rosita
 			SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
-
 			SDL_RenderFillRect(renderer, &rect);
 		}
 	}
-private:
 
+private:
 	uint32_t w, h;
 	SDL_Texture* texture;
+	SDL_Surface* surface;
 };
 
 class Button : public ianium::Button, public HudElement {
@@ -293,7 +265,7 @@ int main() {
 	//Button* c = new Button("./azul_0.rgba",2, 0, 70, 20, 20, true, "4", renderer);
 	//hud.push_back(c);
 
-	Toggle* t = new Toggle("./toggleOn.rgba", "./toggleOff.rgba", 3, 500, 300, 100, 100, true, "4", renderer);
+	Toggle* t = new Toggle("./toggleOn.png", "./toggleOff.png", 3, 500, 300, 100, 100, true, "4", renderer);
 	hud.push_back(t);
 
 	//Falta slider por meter
