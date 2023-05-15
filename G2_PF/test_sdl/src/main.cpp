@@ -258,18 +258,18 @@ int main() {
 	std::list<HudElement*> hud;
 	SDL_Surface* image = IMG_Load("testImage.jpg");
 	//Interfaz
-	//Button* a = new Button("./azul_0.rgba", 0, 10, 10, 30, 30, true, "u", renderer);
-	//hud.push_back(a);
-	//Button* b = new Button("./azul_0.rgba",1, 60, 0, 60, 60, true, "e", renderer);
-	//hud.push_back(b);
-	//Button* c = new Button("./azul_0.rgba",2, 0, 70, 20, 20, true, "4", renderer);
-	//hud.push_back(c);
+	Button* a = new Button("./button.png", 0, 10, 10, 30, 30, true, "InterfazSimple", renderer);
+	hud.push_back(a);
+	Button* b = new Button("./button.png",1, 60, 0, 60, 60, true, "InterfazSimple", renderer);
+	hud.push_back(b);
+	Button* c = new Button("./button.png",2, 0, 70, 20, 20, true, "InterfazSimple", renderer);
+	hud.push_back(c);
 
-	Toggle* t = new Toggle("./toggleOn.png", "./toggleOff.png", 3, 500, 300, 100, 100, true, "4", renderer);
+	Toggle* t = new Toggle("./toggleOn.png", "./toggleOff.png", 3, 500, 300, 100, 100, true, "InterfazCompleja", renderer);
 	hud.push_back(t);
 
 	//Falta slider por meter
-	Slider* s = new Slider("./sliderRange.png", "./sliderButton.png", 4, 200, 200, 200, 20, true, "4", 80.0, 0.0, 100.0, 10, ianium::Slider::Orientation::HORIZONTAL, renderer);
+	Slider* s = new Slider("./sliderRange.png", "./sliderButton.png", 4, 200, 200, 200, 20, true, "InterfazCompleja", 80.0, 0.0, 100.0, 10, ianium::Slider::Orientation::HORIZONTAL, renderer);
 	hud.push_back(s);
 
 	try
