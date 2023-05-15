@@ -8,6 +8,8 @@
 #include <ianium/ianium.h>
 #include <ianium/testable_ui/ui_element.h>
 #include <ianium/testable_ui/button.h>
+#include <ianium/testable_ui/toggle.h>
+#include <ianium/testable_ui/slider.h>
 
 using namespace ianium;
 
@@ -121,18 +123,35 @@ void FunctionalTesting::mouseMotion(int x, int y)
 	SDL_PushEvent(&event);
 }
 
-bool FunctionalTesting::isElemOnMenu(int id_elem) {
-
-	return false;
-}
-
 bool FunctionalTesting::assertButton(int idButton, int stateToCheck) {
-	auto elem = uiElems->find("button_" + std::to_string(idButton));
+	auto elem = uiElems->find(elemPrefix(UIType::BUTTON) + std::to_string(idButton));
 	if (elem != uiElems->end()) {
 		Button::State state = ((Button*)elem->second)->getStateButton();
 		return (int)state == stateToCheck;
 	}
 	std::cerr << "Button " << idButton << " not found" << std::endl;
+	return false;
+}
+
+bool ianium::FunctionalTesting::assertToggle(int idToggle, int stateToCheck)
+{
+	auto elem = uiElems->find(elemPrefix(UIType::TOGGLE) + std::to_string(idToggle));
+	if (elem != uiElems->end()) {
+		bool state = ((Toggle*)elem->second)->getToggleState();
+		return state == stateToCheck;
+	}
+	std::cerr << "Toggle " << idToggle << " not found" << std::endl;
+	return false;
+}
+
+bool ianium::FunctionalTesting::assertSlider(int idSlider, float value)
+{
+	auto elem = uiElems->find("toggle_" + std::to_string(idSlider));
+	if (elem != uiElems->end()) {
+		float state = ((Slider*)elem->second)->getValue();
+		return (std::abs(state - value) < 0.01f);
+	}
+	std::cerr << "Slider " << idSlider << " not found" << std::endl;
 	return false;
 }
 

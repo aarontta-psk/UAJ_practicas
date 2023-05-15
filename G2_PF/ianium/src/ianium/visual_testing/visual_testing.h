@@ -14,14 +14,14 @@ namespace ianium {
 		VisualTesting(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
 		~VisualTesting();
 
-		bool isImageOnScreen(const char* imagePath);
-		void takeScreenshot();
+		bool isImageOnScreen(std::string imagePath);
 
 	private:
 		SDL_Renderer* renderer;
 		SDL_Window* window;
 
-		std::vector<std::pair<double, double>> template_matching(const char* imagePath, const char* templateImagePath, const char* maskPath = nullptr);
+		std::vector<std::pair<double, double>> template_matching(std::string imagePath, std::string templateImagePath);
+		void takeScreenshot();
 	};
 };
 #endif // VISUAL_TESTING_H

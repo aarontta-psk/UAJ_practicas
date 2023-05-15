@@ -283,7 +283,7 @@ int main() {
 	std::list<HudElement*> hud;
 
 	//Interfaz
-	Button* a = new Button("./azul_0.rgba", 0, 10, 10, 30, 30, true, "u", renderer);
+	Button* a = new Button("./tempAssets/template.rgba", 0, 10, 10, 30, 30, true, "u", renderer);
 	hud.push_back(a);
 	//Button* b = new Button(1, 60, 0, 60, 60, true, "e", renderer);
 	//hud.push_back(b);

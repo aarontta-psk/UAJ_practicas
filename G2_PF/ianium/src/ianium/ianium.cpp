@@ -260,20 +260,6 @@ bool Ianium::readScript(std::string fileName)
 
 bool Ianium::executeLine(int nLine, const std::vector<std::string>& words)
 {	
-	// igual esto es un poco xd
-#define CHECK_ARG_SIZE(nElems, size, nLine) \
-	if (size != nElems) { \
-	std::cerr << "Wrong number of arguments on line " << nLine << std::endl; \
-	return false; }
-
-#define CHECK_CORRECT_TYPES(code, nLine) \
-	try { \
-		code; \
-	} \
-	catch (std::invalid_argument) { \
-		std::cerr << "Wrong types of arguments on line " << nLine << std::endl; \
-		return false; }
-
 	if (words[0] == "click") {
 		CHECK_ARG_SIZE(3, words.size(), nLine)
 		int x, y;
@@ -288,6 +274,23 @@ bool Ianium::executeLine(int nLine, const std::vector<std::string>& words)
 		int state, idButton;
 		CHECK_CORRECT_TYPES(state = std::stoi(words[2]); idButton = std::stoi(words[1]);, nLine);
 		functionalTesting->assertButton(idButton, state);
+	}
+	else if (words[0] == "assertToggle") {
+		CHECK_ARG_SIZE(3, words.size(), nLine);
+		int state, idToggle;
+		CHECK_CORRECT_TYPES(state = std::stoi(words[2]); idToggle = std::stoi(words[1]); , nLine);
+		functionalTesting->assertToggle(idToggle, state);
+	}
+	else if (words[0] == "assertSlider") {
+		CHECK_ARG_SIZE(3, words.size(), nLine);
+		int value, idSlider;
+		CHECK_CORRECT_TYPES(value = std::stoi(words[2]); idSlider = std::stoi(words[1]);, nLine);
+		functionalTesting->assertSlider(idSlider, value);
+	}
+	else if (words[0] == "isImageOnScreen") {
+		CHECK_ARG_SIZE(2, words.size(), nLine);
+		std::string templateImgPath = words[1];
+		visualTesting->isImageOnScreen(templateImgPath);
 	}
 	else return false;
 
