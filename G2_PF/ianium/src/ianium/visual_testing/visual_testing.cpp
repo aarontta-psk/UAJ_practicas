@@ -6,6 +6,8 @@
 #include <iostream>
 #include <SDL2/SDL.h>
 
+#define TEMP_SCREENSHOT_NAME "tempScreenshot.bmp"
+
 using namespace ianium;
 
 VisualTesting::VisualTesting(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer) {
@@ -15,9 +17,10 @@ VisualTesting::VisualTesting(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer)
 
 VisualTesting::~VisualTesting() = default;
 
-bool VisualTesting::isImageOnScreen(const char* imagePath)
+bool VisualTesting::isImageOnScreen(std::string imagePath)
 {
-	return template_matching("TODO", imagePath).size() != 0;
+	takeScreenshot();
+	return template_matching(TEMP_SCREENSHOT_NAME, imagePath).size() != 0;
 }
 
 void VisualTesting::takeScreenshot()
@@ -29,11 +32,11 @@ void VisualTesting::takeScreenshot()
 	SDL_GetRendererOutputSize(renderer, &width, &height);
 	SDL_Surface* sshot = SDL_CreateRGBSurface(0, width, height, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
 	SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
-	SDL_SaveBMP(sshot, "screenshot.bmp");
+	SDL_SaveBMP(sshot, TEMP_SCREENSHOT_NAME);
 	SDL_FreeSurface(sshot);
 }
 
-std::vector<std::pair<double, double>> VisualTesting::template_matching(const char* gameScreenshotImagePath, const char* templateImagePath, const char* maskPath)
+std::vector<std::pair<double, double>> VisualTesting::template_matching(std::string gameScreenshotImagePath, std::string templateImagePath)
 {
 	cv::Mat img; cv::Mat templateImg; cv::Mat maskImg; cv::Mat result;
 	std::vector<std::pair<double, double>> resultVector;
@@ -41,9 +44,8 @@ std::vector<std::pair<double, double>> VisualTesting::template_matching(const ch
 	// Image, template and mask (if used) are loaded
 	img = cv::imread(gameScreenshotImagePath, cv::IMREAD_COLOR);
 	templateImg = cv::imread(templateImagePath, cv::IMREAD_COLOR);
-	if(maskPath) maskImg = cv::imread(maskPath, cv::IMREAD_COLOR);
 
-	if (img.empty() || templateImg.empty() || (maskPath && maskImg.empty()))
+	if (img.empty() || templateImg.empty())
 	{
 		std::cout << "Can't read one of the images" << std::endl;
 		return resultVector;
@@ -90,9 +92,9 @@ std::vector<std::pair<double, double>> VisualTesting::template_matching(const ch
 		resultVector.push_back(std::make_pair(x,y));
 	}
 
-	imshow("Labeled_image", img_display);
-	imshow("Black and White mask", result);
-	cv::waitKey(0);
+	//imshow("Labeled_image", img_display);
+	//imshow("Black and White mask", result);
+	//cv::waitKey(0);
 
 	return resultVector;
 }
