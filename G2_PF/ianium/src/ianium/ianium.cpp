@@ -3,19 +3,20 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <windows.h>
 #include <cstring>
+#include <windows.h>
 #include <shlwapi.h>
 
 #include <SDL2/SDL.h>
 #include <opencv2/opencv.hpp>
 
+#include <ianium/visual_testing/visual_testing.h>
+#include <ianium/functional_testing/functional_testing.h>
+
 #include <ianium/testable_ui/ui_element.h>
 #include <ianium/testable_ui/button.h>
 #include <ianium/testable_ui/toggle.h>
 #include <ianium/testable_ui/slider.h>
-
-#include <SDL2/SDL.h>
 
 using namespace ianium;
 
@@ -29,16 +30,13 @@ Ianium* Ianium::Instance() {
 	return instance.get();
 }
 
-bool Ianium::Init(const char* rootPath_, SDL_Window* sdl_window, SDL_Renderer* sdl_renderer) {
+bool Ianium::Init(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer) {
 	instance.reset(new Ianium());
 	
-	instance->rootPath = rootPath_;
-	//if (!instance.get()->initPlatform()) {
-	//	instance.reset(nullptr);
-	//	return false;
-	//}
-	instance->initPrivate(sdl_window, sdl_renderer);
-
+	if (!instance.get()->initPrivate(sdl_window, sdl_renderer)) {
+		instance.reset(nullptr);
+		return false;
+	}
 	return true;
 }
 
@@ -47,7 +45,6 @@ void Ianium::Release() {
 		return;
 
 	instance->releasePrivate();
-
 	instance.reset(nullptr);
 }
 
@@ -63,15 +60,37 @@ void Ianium::addTestableUIElem(UIType uiType, UIElement* ui_elem)
 
 bool Ianium::searchActiveUIElement(int UI_ID) {
 
-	for (auto elem : testableUIElems) {
+	for (auto elem : testableUIElems)
 		if (elem.second->getID() == UI_ID)
 			return elem.second->getEnable();
-	}
 	return false;
 }
 
+void Ianium::runTests(const char* rootPath) {
+	readTestDirectoryFiles(rootPath);
+}
 
-bool Ianium::readFolder()
+bool Ianium::initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer)
+{
+	if (SDL_WasInit(SDL_INIT_EVERYTHING) == 0 || !sdl_window || !sdl_renderer)
+		return false;
+
+	window = sdl_window;
+	renderer = sdl_renderer;
+
+	visualTesting = new VisualTesting(window, renderer);
+	functionalTesting = new FunctionalTesting();
+
+	return true;
+}
+
+void Ianium::releasePrivate()
+{
+	SDL_Quit();
+	delete visualTesting;
+}
+
+bool Ianium::readTestDirectoryFiles(const char* rootPath)
 {
 	WIN32_FIND_DATAA find_data;
 	HANDLE hFind = INVALID_HANDLE_VALUE;
@@ -110,7 +129,6 @@ bool Ianium::readFolder()
 
 	strcat_s(full_path, full_path_len, "\\*");
 
-
 	hFind = FindFirstFileA(full_path, &find_data);
 	if (hFind == INVALID_HANDLE_VALUE) {
 		free(full_path);
@@ -141,28 +159,10 @@ bool Ianium::readFolder()
 	return true;
 }
 
-bool Ianium::initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer)
+bool Ianium::readScript(const char* fileName)
 {
-	if (SDL_WasInit(SDL_INIT_EVERYTHING) == 0 || !sdl_window || !sdl_renderer)
+	if (strcmp(strrchr(fileName, '.') + 1, "ia") != 0)
 		return false;
-
-	window = sdl_window;
-	renderer = sdl_renderer;
-	visualTesting = new VisualTesting(window, renderer);
-	return true;
-}
-
-void Ianium::releasePrivate()
-{
-	SDL_Quit();
-	delete visualTesting;
-}
-
-bool Ianium::readScript(char* fileName)
-{
-	if (strcmp(strrchr(fileName, '.') + 1, "ia") != 0) {
-		return false;
-	}
 
 	std::ifstream file(fileName);
 
@@ -173,7 +173,7 @@ bool Ianium::readScript(char* fileName)
 
 	std::string line;
 	while (std::getline(file, line)) {
-		std::vector<char*> words;
+		std::vector<const char*> words;
 		std::stringstream ss(line);
 		std::string word_str;
 		while (ss >> word_str) {
@@ -182,21 +182,19 @@ bool Ianium::readScript(char* fileName)
 			words.push_back(word);
 		}
 		if (!executeLine(words)) {
-			for (auto ptr : words) {
-				std::free(ptr);
-			}
+			for (const char* ptr : words)
+				std::free((void*)ptr);
 			file.close();
 			return false;
 		}
-		for (auto ptr : words) {
-			free(ptr);
-		}
+		for (const char* ptr : words)
+			free((void*)ptr);
 	}
 	file.close();
 	return true;
 }
 
-bool Ianium::executeLine(const std::vector<char*>& words)
+bool Ianium::executeLine(const std::vector<const char* >& words)
 {	
 	if (strcmp(words[0], "before") == 0) {
 		
@@ -205,7 +203,7 @@ bool Ianium::executeLine(const std::vector<char*>& words)
 		if (strcmp(words[1], "click") == 0) {
 			int x = std::stoi(words[2]);
 			int y = std::stoi(words[3]);
-			functionalTesting.click(x, y);
+			functionalTesting->click(x, y);
 		}
 	}
 	else if (strcmp(words[0], "end") == 0) {
