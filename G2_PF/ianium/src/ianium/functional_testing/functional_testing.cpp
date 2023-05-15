@@ -77,6 +77,7 @@ void FunctionalTesting::pressedClick(int x, int y) {
 	event.button.x = x;
 	event.button.y = y;
 	event.button.clicks = 0;
+	event.button.state = SDL_PRESSED;
 	event.button.button = SDL_BUTTON_LEFT;
 
 
@@ -90,6 +91,8 @@ void FunctionalTesting::clickUp(int x, int y) {
 	event.button.x = x;
 	event.button.y = y;
 	event.button.clicks = 1;
+	event.button.state = SDL_RELEASED;
+
 	event.button.button = SDL_BUTTON_LEFT;
 
 
