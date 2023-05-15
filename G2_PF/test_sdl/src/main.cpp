@@ -137,8 +137,8 @@ public:
 
 class Slider : public ianium::Slider, public HudElement {
 public:
-	Slider(const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active, const char* menu,
-		const float valueAux, const float minValueAux, const float maxValueAux, const int rangeSelectionAux, const Orientation orientationAux)
+	Slider(std::string pathRange, std::string pathValue, const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active, const char* menu,
+		const float valueAux, const float minValueAux, const float maxValueAux, const int rangeSelectionAux, const Orientation orientationAux, SDL_Renderer* renderer)
 		: ianium::Slider(id, posX, posY, w, h, active, menu, valueAux, minValueAux, maxValueAux, rangeSelectionAux, orientationAux) {
 		posX = posXAux;
 		posY = posYAux;
@@ -149,6 +149,9 @@ public:
 		orientation = orientationAux;
 		maxValue = maxValueAux;
 		minValue = minValueAux;
+
+		imageRange = new Image(pathRange, renderer);
+		imageValue = new Image(pathValue, renderer);
 	};
 	~Slider() = default;
 
@@ -156,25 +159,23 @@ public:
 	float value;
 	Orientation orientation;
 	SDL_Rect rect;
+	Image* imageRange;
+	Image* imageValue;
 
 	virtual void render(SDL_Renderer* renderer) override {
 
-		SDL_SetRenderDrawColor(renderer, 100, 200, 255, 255);
-
 		//Dibujamos su rango
 		rect = { posX,posY,w,h };
-		SDL_RenderFillRect(renderer, &rect);
+
+		imageRange->render(rect, renderer);
 
 		//Y ahora el boton deslizante
-		SDL_SetRenderDrawColor(renderer, 200, 100, 150, 255);
-
 		if (orientation == Orientation::HORIZONTAL)
 			rect = { posX + ((int)value * w / maxValue),posY,w / rangeSelection,h };
 		else
 			rect = { posX ,posY + ((int)value * h / maxValue),w,h / rangeSelection };
 
-		SDL_RenderFillRect(renderer, &rect);
-
+		imageValue->render(rect, renderer);
 	}
 
 	void update(int x, int y, int n_clicks) override {
@@ -208,33 +209,35 @@ public:
 
 class Toggle : public ianium::Toggle, public HudElement {
 public:
-	Toggle(const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active, const char* menu) : ianium::Toggle(id, posX, posY, w, h, active, menu) {
+	Toggle(std::string pathToogleOn, std::string pathToogleOff, const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active, const char* menu, SDL_Renderer* renderer) : ianium::Toggle(id, posX, posY, w, h, active, menu) {
 		posX = posXAux;
 		posY = posYAux;
 		w = wAux;
 		h = hAux;
 		toogleOn = true;
 		buttonPressed = false;
+		imageOn = new Image(pathToogleOn, renderer);
+		imageOff = new Image(pathToogleOff, renderer);
+
 	};
 	~Toggle() = default;
 
 	int posX, posY, w, h;
 	SDL_Rect rect;
 	bool toogleOn, buttonPressed;
+	Image* imageOn;
+	Image* imageOff;
 
 	virtual void render(SDL_Renderer* renderer) override {
+		rect = { posX,posY,w,h };
 
 		//Activao
 		if (toogleOn)
-			//Verde
-			SDL_SetRenderDrawColor(renderer, 0, 220, 10, 255);
+			imageOn->render(rect, renderer);
+
 		//Desactivado
 		else
-			//Rojo
-			SDL_SetRenderDrawColor(renderer, 220, 0, 10, 255);
-
-		rect = { posX,posY,w,h };
-		SDL_RenderFillRect(renderer, &rect);
+			imageOff->render(rect, renderer);
 	}
 
 	void update(int x, int y, int n_clicks) override {
@@ -290,11 +293,11 @@ int main() {
 	//Button* c = new Button(2, 0, 70, 20, 20, true, "4", renderer);
 	//hud.push_back(c);
 
-	Toggle* t = new Toggle(3, 500, 300, 100, 100, true, "4");
+	Toggle* t = new Toggle("./negro_45.rgba", "./azul_0.rgba", 3, 500, 300, 100, 100, true, "4", renderer);
 	hud.push_back(t);
 
 	//Falta slider por meter
-	Slider* s = new Slider(4, 200, 200, 200, 20, true, "4", 80.0, 0.0, 100.0, 10, ianium::Slider::Orientation::HORIZONTAL);
+	Slider* s = new Slider("./negro_45.rgba", "./azul_0.rgba", 4, 200, 200, 200, 20, true, "4", 80.0, 0.0, 100.0, 10, ianium::Slider::Orientation::HORIZONTAL, renderer);
 	hud.push_back(s);
 
 	try
