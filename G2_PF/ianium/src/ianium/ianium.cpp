@@ -58,6 +58,12 @@ void Ianium::addTestableUIElem(UIType uiType, UIElement* ui_elem)
 	testableUIElems.insert(std::pair<std::string, UIElement*>(ui_elem_id, ui_elem));
 }
 
+UIElement* Ianium::returnTestableUIElem(std::string ui_elem_id) {
+		testableUIElems.find(ui_elem_id);
+		return  nullptr;
+}
+
+
 void Ianium::runTests(const char* rootPath) {
 	readTestDirectoryFiles(rootPath);
 }

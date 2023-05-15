@@ -18,15 +18,30 @@ FunctionalTesting::FunctionalTesting(std::unordered_map<std::string, UIElement*>
 FunctionalTesting::~FunctionalTesting() = default;
 
 #pragma region Funciones
-void FunctionalTesting::click(int id_elem) {
+void FunctionalTesting::click(UIType uiType, uint64_t id_elem) {
 
 	SDL_Event event;
 	event.type = SDL_MOUSEBUTTONDOWN;
-	event.button.x = 0;// x;
-	event.button.y = 0;// y;
+
+	/*clicar en medio del elemento de ui*/
+	std::string ui_elem_id = elemPrefix(uiType) + std::to_string(id_elem);
+
+	auto got = uiElems->find(ui_elem_id);
+
+	std::pair<uint32_t, uint32_t> pos = got->second->getPosition();
+	std::pair<uint32_t, uint32_t> size = got->second->getSize();
+
+	int x, y;
+
+	x = pos.first + (size.first / 2);
+	y = pos.second + (size.second / 2);
+	/*calculo terminado aplicar los datos el evento de sdl*/
+
+	event.button.x = x;
+	event.button.y = y;
 	event.button.clicks = 1;
 	event.button.button = SDL_BUTTON_LEFT;
-
+	event.button.state = SDL_PRESSED;
 
 	// Lo pusheamos a la cola de eventos
 	SDL_PushEvent(&event);
@@ -40,6 +55,7 @@ void FunctionalTesting::click(int x, int y) {
 	event.button.y = y;
 	event.button.clicks = 1;
 	event.button.button = SDL_BUTTON_LEFT;
+	event.button.state = SDL_PRESSED;
 
 
 	// Lo pusheamos a la cola de eventos
