@@ -17,6 +17,15 @@ namespace ianium {
 	class VisualTesting;
 	class FunctionalTesting;
 
+	struct TestInfo {
+		bool passed;
+		int errorLineNumber;
+		const char* errorLine;
+
+		TestInfo(bool _passed, int _errorLineNumber, char* _errorLine)
+			: passed(_passed), errorLineNumber(_errorLineNumber), errorLine(_errorLine) {};
+	};
+
 	class IANIUM_EXPORT Ianium {
 	public:
 		enum class UIType { BUTTON, TOGGLE, SLIDER };
@@ -44,12 +53,15 @@ namespace ianium {
 		SDL_Window* window;
 		SDL_Renderer* renderer;
 
+		std::unordered_map<const char*, TestInfo> tests;
+
 		bool initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
 		void releasePrivate();
 
 		bool readTestDirectoryFiles(const char* rootPath);
+		std::vector<const char*> getWords(std::string line);
 		bool readScript(const char* fileName);
-		bool executeLine(const std::vector<const char*>& words);
+		bool executeLine(int nLine, const std::vector<const char*>& words);
 
 		std::string elemPrefix(UIType uiType);
 	};

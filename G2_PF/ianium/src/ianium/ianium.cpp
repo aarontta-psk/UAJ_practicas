@@ -159,6 +159,22 @@ bool Ianium::readTestDirectoryFiles(const char* rootPath)
 	return true;
 }
 
+std::vector<const char*> ianium::Ianium::getWords(std::string line)
+{
+	std::vector<const char*> words;
+	std::stringstream ss(line);
+	std::string word_str;
+
+	while (ss >> word_str) {
+		char* word = new char[word_str.length() + 1];
+		//por que
+		strcpy_s(word, word_str.length() + 1, word_str.c_str());
+		words.push_back(word);
+	}
+
+	return words;
+}
+
 bool Ianium::readScript(const char* fileName)
 {
 	if (strcmp(strrchr(fileName, '.') + 1, "ia") != 0)
@@ -172,43 +188,102 @@ bool Ianium::readScript(const char* fileName)
 	}
 
 	std::string line;
+	int nLine = 1;
 	while (std::getline(file, line)) {
-		std::vector<const char*> words;
-		std::stringstream ss(line);
-		std::string word_str;
-		while (ss >> word_str) {
-			char* word = new char[word_str.length() + 1];
-			strcpy_s(word, word_str.length() + 1, word_str.c_str());
-			words.push_back(word);
+
+		std::vector<const char*> first_words = getWords(line);
+
+		if (first_words.size() == 0) {
+			nLine++;
+			continue;
 		}
-		if (!executeLine(words)) {
-			for (const char* ptr : words)
-				std::free((void*)ptr);
-			file.close();
+
+		if (strcmp(first_words[0], "before:") == 0) {
+
+		}
+		else if (strcmp(first_words[0],"test:") == 0) {
+			if (first_words.size() != 2) {
+				std::cerr << "Wrong \"test:\" section label. Try \"test: TEST_NAME\" " << std::endl;
+				return false;
+			}
+
+			auto DEUSEXMAKINAAAA = tests.find(first_words[1]);
+			if (DEUSEXMAKINAAAA != tests.end())
+			{
+				std::cerr << "Test name " << first_words[1] << " was already in use" << std::endl;
+				return false;
+			}
+
+			tests.insert(std::make_pair(first_words[1], TestInfo(false, 0, nullptr)));
+			auto test = tests.find(first_words[1]);
+
+			while (std::getline(file, line) && line != "end") {
+				nLine++;
+				std::vector<const char*> words = getWords(line);
+
+				if (words.size() == 0) {
+					nLine++;
+					continue;
+				}
+
+				if (!executeLine(nLine, words)) {
+					tests.find(first_words[1])->second.errorLineNumber = nLine;
+					tests.find(first_words[1])->second.errorLine = line.c_str();
+
+					for (const char* ptr : words)
+						std::free((void*)ptr);
+					file.close();
+					std::cerr << "Error on script " << fileName << " on line " << nLine << ": \"" << line << "\". Command not recognized." << std::endl;
+					test->second.errorLineNumber = nLine;
+					test->second.errorLine = line.c_str();
+					return false;
+				}
+				for (const char* ptr : words)
+					free((void*)ptr);
+			}
+
+			nLine++;
+
+			if (line != "end") {
+				std::cerr << "Error on script " << fileName << ". Missing \"end\" on line " << nLine << std::endl;
+				test->second.errorLineNumber = nLine;
+				test->second.errorLine = line.c_str();
+				return false;
+			}
+			test->second.passed = true;
+		}
+		else {
+			std::cerr << "Error on script " << fileName << ". Line " << nLine << "(" << line << ") not recognized as"
+				<< " section label of script. Try \"before:\" or \"test: TEST_NAME\"." << std::endl;
 			return false;
 		}
-		for (const char* ptr : words)
-			free((void*)ptr);
+		nLine++;
 	}
 	file.close();
+	
 	return true;
 }
 
-bool Ianium::executeLine(const std::vector<const char* >& words)
+bool Ianium::executeLine(int nLine, const std::vector<const char* >& words)
 {	
-	if (strcmp(words[0], "before") == 0) {
-		
-	}
-	else if (strcmp(words[0], "test") == 0) {
-		if (strcmp(words[1], "click") == 0) {
-			int x = std::stoi(words[2]);
-			int y = std::stoi(words[3]);
-			functionalTesting->click(x, y);
+	if (strcmp(words[0], "click") == 0) {
+		if (words.size() != 3) {
+			std::cerr << "Wrong number of arguments on line " << nLine << std::endl;
+			return false;
 		}
+		int x, y;
+		try {
+			x = std::stoi(words[1]);
+			y = std::stoi(words[2]);
+		}
+		catch (std::invalid_argument) {
+			std::cerr << "Wrong types of arguments on line " << nLine << std::endl;
+			return false;
+		}
+
+		functionalTesting->click(x, y);
 	}
-	else if (strcmp(words[0], "end") == 0) {
-		//ultima llamada
-	}
+	else return false;
 
 	return true;
 }
