@@ -146,7 +146,7 @@ bool ianium::FunctionalTesting::assertToggle(int idToggle, int stateToCheck)
 
 bool ianium::FunctionalTesting::assertSlider(int idSlider, float value)
 {
-	auto elem = uiElems->find("toggle_" + std::to_string(idSlider));
+	auto elem = uiElems->find(elemPrefix(UIType::SLIDER) + std::to_string(idSlider));
 	if (elem != uiElems->end()) {
 		float state = ((Slider*)elem->second)->getValue();
 		return (std::abs(state - value) < 0.01f);

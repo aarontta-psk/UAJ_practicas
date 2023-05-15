@@ -18,14 +18,19 @@
 
 class HudElement {
 public:
-	HudElement() {};
+	HudElement(int posXAux,int posYAux,int widthAux,int heightAux,bool isActiveAux):posX(posXAux),posY(posYAux),width(widthAux),height(heightAux),isActive(isActiveAux) {};
 	~HudElement() = default;
 
 	virtual void render(SDL_Renderer* renderer) {}
 	virtual void update(int x, int y, int n_clicks) {}
 	virtual void processInput(SDL_Event* event) {}
 
+protected:
+	uint32_t posX, posY;    // Posición X e Y del elemento
+	uint32_t width, height; // Ancho y alto del elemento                
+	bool isActive;          // Estado del elemento (Activado o desactivado)         
 };
+
 class Image {
 public:
 	Image(std::string path, SDL_Renderer* renderer) {
@@ -80,56 +85,59 @@ private:
 
 class Button : public ianium::Button, public HudElement {
 public:
-	Button(std::string path, int id, int posXAux, int posYAux, int wAux, int hAux, bool active, const char* menu, SDL_Renderer* renderer) : ianium::Button(id, posX, posY, w, h, active, menu) {
-		posX = posXAux;
-		posY = posYAux;
-		w = wAux;
-		h = hAux;
+	enum class State { PRESSED, HOLD, RELEASED };
 
+	Button(std::string path, int id, int posXAux, int posYAux, int wAux, int hAux, bool active, SDL_Renderer* renderer) : ianium::Button(id),HudElement(posXAux,posYAux,wAux,hAux,active) {
+		
 		image = new Image(path, renderer);
 	};
 	~Button() {
 		delete image;
 	};
 
-	int posX, posY, w, h;
+private:
+	//TODO FALTA ESTE ESTADO DE KK
+	State buttonState;
 
 	SDL_Rect rect;
 	Image* image;
 
 	virtual void render(SDL_Renderer* renderer) override {
 
-		rect = { posX,posY,w,h };
+		rect = { posX,posY,width,height };
 
 		image->render(rect, renderer);
 	}
-
+	
+	//TODO AAA METER AQUI QUE EL ESTADO DEL BOTON SEA PRESSED HOLD O RELEASED
 	virtual void handleInput(const SDL_Event& i_event) {};
 };
 
 class Slider : public ianium::Slider, public HudElement {
 public:
-	Slider(std::string pathRange, std::string pathValue, const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active, const char* menu,
+	enum class Orientation { VERTICAL, HORIZONTAL };
+
+	Slider(std::string pathRange, std::string pathValue, const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active,
 		const float valueAux, const float minValueAux, const float maxValueAux, const int rangeSelectionAux, const Orientation orientationAux, SDL_Renderer* renderer)
-		: ianium::Slider(id, posX, posY, w, h, active, menu, valueAux, minValueAux, maxValueAux, rangeSelectionAux, orientationAux) {
-		posX = posXAux;
-		posY = posYAux;
-		w = wAux;
-		h = hAux;
-		rangeSelection = rangeSelectionAux;
+		: ianium::Slider(id),HudElement(posXAux,posYAux,wAux,hAux,active) {
+
 		value = valueAux;
-		orientation = orientationAux;
-		maxValue = maxValueAux;
 		minValue = minValueAux;
+		maxValue = maxValueAux;
+		rangeSelection = rangeSelectionAux;
+		orientation = orientationAux;
 
 		imageRange = new Image(pathRange, renderer);
 		imageValue = new Image(pathValue, renderer);
 	};
 	~Slider() = default;
 
-	int posX, posY, w, h, rangeSelection, maxValue, minValue;
-	float value;
-	Orientation orientation;
+private:
+	float value;					// Valor actual del slider
+	float minValue, maxValue;		// Valor mínimo y maximo del slider
+	int rangeSelection;				// Cantidad de valores que se pueden seleccionar en el slider      
+	Orientation orientation;		// Orientación del slider (horizontal o vertical)
+
 	SDL_Rect rect;
 	Image* imageRange;
 	Image* imageValue;
@@ -137,15 +145,15 @@ public:
 	virtual void render(SDL_Renderer* renderer) override {
 
 		//Dibujamos su rango
-		rect = { posX,posY,w,h };
+		rect = { posX,posY,width,height };
 
 		imageRange->render(rect, renderer);
 
 		//Y ahora el boton deslizante
 		if (orientation == Orientation::HORIZONTAL)
-			rect = { posX + ((int)value * w / maxValue),posY,w / rangeSelection,h };
+			rect = { posX + ((int)value * width / (int)maxValue),posY,width / rangeSelection,height };
 		else
-			rect = { posX ,posY + ((int)value * h / maxValue),w,h / rangeSelection };
+			rect = { posX ,posY + ((int)value * height / (int)maxValue),width,height / rangeSelection };
 
 		imageValue->render(rect, renderer);
 	}
@@ -153,14 +161,14 @@ public:
 	void update(int x, int y, int n_clicks) override {
 
 		// Verificamos si el ratón está dentro de los límites del slider
-		if (x >= posX && x < posX + w && y >= posY && y < posY + h) {
+		if (x >= posX && x < posX + width && y >= posY && y < posY + height) {
 			// Calculamos el nuevo valor del slider según la posición del ratón
 			float newValue;
 			if (orientation == Orientation::HORIZONTAL) {
-				newValue = (x - posX) * maxValue / w;
+				newValue = (x - posX) * maxValue / width;
 			}
 			else {
-				newValue = (y - posY) * maxValue / h;
+				newValue = (y - posY) * maxValue / height;
 			}
 
 			// Actualizar el valor del slider
@@ -170,7 +178,7 @@ public:
 			if (value < minValue) {
 				value = minValue;
 			}
-			else if (value > maxValue - (w / rangeSelection)) {
+			else if (value > maxValue - (width / rangeSelection)) {
 				value = maxValue - (maxValue / rangeSelection);
 			}
 		}
@@ -181,30 +189,27 @@ public:
 
 class Toggle : public ianium::Toggle, public HudElement {
 public:
-	Toggle(std::string pathToogleOn, std::string pathToogleOff, const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active, const char* menu, SDL_Renderer* renderer) : ianium::Toggle(id, posX, posY, w, h, active, menu) {
-		posX = posXAux;
-		posY = posYAux;
-		w = wAux;
-		h = hAux;
-		toogleOn = true;
-		buttonPressed = false;
+	Toggle(std::string pathToogleOn, std::string pathToogleOff, const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active,
+		SDL_Renderer* renderer) : ianium::Toggle(id),HudElement(posXAux, posYAux, wAux, hAux, active){
+
+		toggleOn = false;
 		imageOn = new Image(pathToogleOn, renderer);
 		imageOff = new Image(pathToogleOff, renderer);
 
 	};
 	~Toggle() = default;
 
-	int posX, posY, w, h;
 	SDL_Rect rect;
-	bool toogleOn, buttonPressed;
+	bool toggleOn;
+
 	Image* imageOn;
 	Image* imageOff;
 
 	virtual void render(SDL_Renderer* renderer) override {
-		rect = { posX,posY,w,h };
+		rect = { posX,posY,width,height };
 
 		//Activao
-		if (toogleOn)
+		if (toggleOn)
 			imageOn->render(rect, renderer);
 
 		//Desactivado
@@ -221,12 +226,12 @@ public:
 		// Verificar si se ha pulsado el bot�n izquierdo del rat�n
 		//if (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)) {
 			// Verificar si el rat�n est� dentro de los l�mites del bot�n
-		if (x >= posX && x < posX + w && y >= posY && y < posY + h) {
+		if (x >= posX && x < posX + width && y >= posY && y < posY + height) {
 			// Si el bot�n no estaba presionado previamente
 			//if (!buttonPressed) {
 				// Cambiar el valor del booleano toogleOn
 			for (int i = 0; i < n_clicks; i++)
-				toogleOn = !toogleOn;
+				toggleOn = !toggleOn;
 			// Establecer el estado de bot�n como presionado
 			//buttonPressed = true;
 		//}
@@ -256,20 +261,20 @@ int main() {
 	ianium::Ianium::Init(window, renderer);
 
 	std::list<HudElement*> hud;
-	SDL_Surface* image = IMG_Load("testImage.jpg");
+	//SDL_Surface* image = IMG_Load("testImage.jpg");
 	//Interfaz
-	Button* a = new Button("./button.png", 0, 10, 10, 30, 30, true, "InterfazSimple", renderer);
+	Button* a = new Button("./button.png", 0,10, 10, 30, 30, true, renderer);
 	hud.push_back(a);
-	Button* b = new Button("./button.png",1, 60, 0, 60, 60, true, "InterfazSimple", renderer);
+	Button* b = new Button("./button.png",1, 60, 0, 60, 60, true, renderer);
 	hud.push_back(b);
-	Button* c = new Button("./tempAssets/template.jpg",2, 0, 300, 355, 255, true, "InterfazSimple", renderer);
+	Button* c = new Button("./template.jpg",2, 0, 300, 355, 255, true, renderer);
 	hud.push_back(c);
 
-	Toggle* t = new Toggle("./toggleOn.png", "./toggleOff.png", 3, 500, 300, 100, 100, true, "InterfazCompleja", renderer);
+	Toggle* t = new Toggle("./toggleOn.png", "./toggleOff.png", 3, 500, 300, 100, 100, true, renderer);
 	hud.push_back(t);
 
 	//Falta slider por meter
-	Slider* s = new Slider("./sliderRange.png", "./sliderButton.png", 4, 200, 200, 200, 20, true, "InterfazCompleja", 80.0, 0.0, 100.0, 10, ianium::Slider::Orientation::HORIZONTAL, renderer);
+	Slider* s = new Slider("./sliderRange.png", "./sliderButton.png", 4, 200, 200, 200, 20, true, 80.0, 0.0, 100.0, 10, ianium::Slider::Orientation::HORIZONTAL, renderer);
 	hud.push_back(s);
 
 	try
@@ -295,8 +300,6 @@ int main() {
 						elem->update(event.button.x, event.button.y, event.button.clicks);
 					}
 				}
-
-
 			}
 
 			// Renderizar elementos
