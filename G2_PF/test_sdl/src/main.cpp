@@ -151,7 +151,7 @@ int main() {
 	if (!renderer)
 		return EXIT_FAILURE;
 
-	Ianium::Init(window, renderer);
+	ianium::Ianium::Init(window, renderer);
 
 	std::list<HudElement*> hud;
 
@@ -170,14 +170,9 @@ int main() {
 	//Slider* s = new Slider(4, 40, 40, 20, 20, true, "4", 20.0, 0.0, 50.0, 50, IASlider::Orientation::HORIZONTAL);
 	//hud.push_back(s);
 
-	ianium::Ianium::Instance()->visualTesting->testOPENCV("./tempAssets/testImage.jpg");
-
 	try
 	{
-		//Ianium::Instance()->visualTesting.template_matching("./tempAssets/imageSource.jpg", "./tempAssets/template.jpg");");
-		ianium::Ianium::Instance()->visualTesting->takeScreenshot();
-
-		Ianium::Instance()->runTests("./scripts");
+		ianium::Ianium::Instance()->runTests("./scripts");
 		// Bucle principal
 		bool gameRunning = true;
 		while (gameRunning) {
@@ -217,7 +212,7 @@ int main() {
 
 			//insertamos un evento de ianium aqui como testeo
 			
-			ianium::Ianium::Instance()->functionalTesting.click(501, 301);
+			//ianium::Ianium::Instance()->functionalTesting.click(501, 301);
 		}
 	}
 	catch (std::exception& e)
