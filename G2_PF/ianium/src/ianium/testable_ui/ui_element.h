@@ -14,30 +14,24 @@ namespace ianium {
 
 	class IANIUM_EXPORT UIElement {
 	public:
-		UIElement(const UIType type, const int id, const int posX, const int posY, const int w, const int h, const bool active, const char* menu)
-			: id(id), posX(posX), posY(posY), width(w), height(h), isActive(active), menu(menu)
-		{ Ianium::Instance()->addTestableUIElem(type, this); }
+		UIElement(const UIType type, const uint64_t id) : id(id) { Ianium::Instance()->addTestableUIElem(type, this); }
 
 		virtual void handleInput(const SDL_Event& i_event) = 0;
 		virtual void render(SDL_Renderer* renderer) = 0;
 
 		// Devuelve la ID del elemento
-		uint64_t getID() const { return id; }
+		virtual uint64_t getID() const { return id; }
 		// Devuelve la posición (X, Y) del elemento
-		std::pair<uint32_t, uint32_t> getPosition() const { return std::make_pair(posX, posY); }
+		virtual std::pair<uint32_t, uint32_t> getPosition() const = 0;
 		// Devuelve el tamaño (ancho, alto) del elemento
-		std::pair<uint32_t, uint32_t> getSize() const { return std::make_pair(width, height); }
+		virtual std::pair<uint32_t, uint32_t> getSize() const = 0;
 		// Devuelve el estado del elemento
-		bool getEnable() const { return isActive; }
+		virtual bool getEnable() const = 0;
 		// Devuelve el menú al que pertenece el elemento
-		const char* getMenu() const { return menu; }
+		virtual const char* getMenu() = 0;
 
-	private:
+	protected:
 		uint64_t id;            // ID único del elemento
-		uint32_t posX, posY;    // Posición X e Y del elemento
-		uint32_t width, height; // Ancho y alto del elemento                
-		bool isActive;          // Estado del elemento (Activado o desactivado)             
-		const char* menu;       // Menú al que pertenece el elemento     
 	};
 };
 #endif // UI_ELEMENT_H

@@ -8,27 +8,15 @@
 namespace ianium {
 	class IANIUM_EXPORT Slider : public UIElement {
 	public:
-		enum class Orientation { VERTICAL, HORIZONTAL };
-
-		Slider(const int id, const int posX, const int posY, const int w, const int h, const bool active, const char* menu,
-			const float value, const float minValue, const float maxValue, const int rangeSelection, const Orientation orientation)
-			: UIElement(UIType::SLIDER, id, posX, posY, w, h, active, menu), value(value), minValue(minValue),
-			maxValue(maxValue), rangeSelection(rangeSelection), orientation(orientation) {}
+		Slider(const uint64_t id) : UIElement(UIType::SLIDER, id) {}
 
 		virtual void handleInput(const SDL_Event& i_event) = 0;
 		virtual void render(SDL_Renderer* renderer) = 0;
 
-		float getValue() const { return value; }
-		float getMinValue() const { return minValue; }
-		float getMaxValue() const { return maxValue; }
-		int getRangeSelection() const { return rangeSelection; }
-		Orientation getOrientation() const { return orientation; }
-
-	private:
-		float value;					// Valor actual del slider
-		float minValue, maxValue;		// Valor mínimo y maximo del slider
-		int rangeSelection;				// Cantidad de valores que se pueden seleccionar en el slider      
-		Orientation orientation;		// Orientación del slider (horizontal o vertical)
+		virtual float getValue() const = 0;
+		virtual float getMinValue() const = 0;
+		virtual float getMaxValue() const = 0;
+		virtual int getRangeSelection() const = 0;
 	};
 };
-#endif // IA_SLIDER_H
+#endif // SLIDER_H

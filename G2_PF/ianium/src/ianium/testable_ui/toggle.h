@@ -8,16 +8,12 @@
 namespace ianium {
 	class IANIUM_EXPORT Toggle : public UIElement {
 	public:
-		Toggle(const int id, const int posX, const int posY, const int w, const int h, const bool active, const char* menu)
-			: UIElement(UIType::TOGGLE, id, posX, posY, w, h, active, menu), toggleOn(false) {}        
-		
+		Toggle(const uint64_t id): UIElement(UIType::TOGGLE, id) {}
+
 		virtual void handleInput(const SDL_Event& i_event) = 0;
 		virtual void render(SDL_Renderer* renderer) = 0;
 
-		bool getToggleState() const { return toggleOn; }
-
-	private:
-		bool toggleOn;	// Estado del Toogle (Pulsado o sin pulsar)
+		virtual bool getToggleState() const = 0;
 	};
 };
-#endif // IA_TOGGLE_H
+#endif // TOGGLE_H

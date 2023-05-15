@@ -104,7 +104,7 @@ private:
 
 	virtual void render(SDL_Renderer* renderer) override {
 
-		rect = { posX,posY,width,height };
+		rect = { (int)posX,(int)posY,(int)width,(int)height };
 
 		image->render(rect, renderer);
 	}
