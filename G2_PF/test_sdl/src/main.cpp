@@ -12,19 +12,13 @@
 
 #include <list>
 
-#define CONVERT_RGBA_TO_ARGB(value) ((value & 0xFF000000) >> 8) | ((value & 0x00FF0000) >> 8) | ((value & 0x0000FF00) >> 8) | ((value & 0x000000FF) << 24)
-#define CONVERT_ENDIANESS_32(value) ((value & 0xFF000000) >> 24) | ((value & 0x00FF0000) >> 8) | ((value & 0x0000FF00) << 8) | ((value & 0x000000FF) << 24)
-
-
 class HudElement {
 public:
 	HudElement(int posXAux, int posYAux, int widthAux, int heightAux, bool isActiveAux) :posX(posXAux), posY(posYAux), width(widthAux), height(heightAux), isActive(isActiveAux) {};
 	~HudElement() = default;
 
-	virtual void render(SDL_Renderer* renderer) {}
-	virtual void update(int x, int y, int n_clicks) {}
-	virtual void processInput(SDL_Event* event) {}
-
+	virtual void render(SDL_Renderer* renderer) = 0;
+	virtual void handleInput(const SDL_Event& event) {};
 
 protected:
 	uint32_t posX, posY;    // Posición X e Y del elemento
@@ -174,8 +168,11 @@ public:
 		imageValue->render(rect, renderer);
 	}
 
-	//WEWE TODO ESTO CREO QUE YA NO VA ASI
-	void update(int x, int y, int n_clicks) override {
+
+
+	virtual void handleInput(const SDL_Event& i_event) {
+		int x = i_event.button.x;
+		int y = i_event.button.y;
 
 		// Verificamos si el ratón está dentro de los límites del slider
 		if (x >= posX && x < posX + width && y >= posY && y < posY + height) {
@@ -199,9 +196,7 @@ public:
 				value = maxValue - (maxValue / rangeSelection);
 			}
 		}
-	}
-
-	virtual void handleInput(const SDL_Event& i_event) {};
+	};
 
 private:
 	float value;					// Valor actual del slider
@@ -250,15 +245,18 @@ public:
 			imageOff->render(rect, renderer);
 	}
 
-	void update(int x, int y, int n_clicks) override {
+	virtual void handleInput(const SDL_Event& i_event) {
+		int x = i_event.button.x;
+		int y = i_event.button.y;
+		int n_clicks = i_event.button.clicks;
 
 		// Obtener el estado actual del rat�n
-		/*int mouseX, mouseY;
-		Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);*/
+			/*int mouseX, mouseY;
+			Uint32 mouseState = SDL_GetMouseState(&mouseX, &mouseY);*/
 
-		// Verificar si se ha pulsado el bot�n izquierdo del rat�n
-		//if (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)) {
-			// Verificar si el rat�n est� dentro de los l�mites del bot�n
+			// Verificar si se ha pulsado el bot�n izquierdo del rat�n
+			//if (mouseState & SDL_BUTTON(SDL_BUTTON_LEFT)) {
+				// Verificar si el rat�n est� dentro de los l�mites del bot�n
 		if (x >= posX && x < posX + width && y >= posY && y < posY + height) {
 			// Si el bot�n no estaba presionado previamente
 			//if (!buttonPressed) {
@@ -274,8 +272,7 @@ public:
 		//	// Si se ha soltado el bot�n, establecer el estado de bot�n como no presionado
 		//	buttonPressed = false;
 		//}
-	}
-	virtual void handleInput(const SDL_Event& i_event) {};
+	};
 
 private:
 	SDL_Rect rect;
@@ -337,7 +334,7 @@ int main() {
 					//Update
 					for (HudElement* elem : hud)
 					{
-						elem->update(event.button.x, event.button.y, event.button.clicks);
+						elem->handleInput(event);
 					}
 				}
 			}
