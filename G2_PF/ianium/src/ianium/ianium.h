@@ -62,7 +62,7 @@ namespace ianium {
 		void releasePrivate();
 
 		bool readTestDirectoryFiles(const char* rootPath);
-		bool writeTestResults();
+		bool writeTestResults(const char* rootPath);
 		std::vector<const char*> getWords(std::string line);
 		bool readScript(const char* fileName);
 		bool executeLine(int nLine, const std::vector<const char*>& words);
