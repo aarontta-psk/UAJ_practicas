@@ -91,7 +91,7 @@ bool Ianium::readTestDirectoryFiles(std::string rootPath)
 
 	if (std::filesystem::exists(rootPath)) {
 		for (const auto& archivo : std::filesystem::directory_iterator(rootPath)) {
-			readScript(archivo.path().filename().string());
+			readScript(rootPath + "/" + archivo.path().filename().string());
 		}
 	}
 	else {
@@ -104,7 +104,7 @@ bool Ianium::readTestDirectoryFiles(std::string rootPath)
 
 bool ianium::Ianium::writeTestResults(std::string rootPath)
 {
-	std::filesystem::path file_path("./Output/" + rootPath + ".iaout");
+	std::filesystem::path file_path("./output/" + rootPath + ".iaout");
 
 	if (!std::filesystem::exists(file_path.parent_path())) {
 		std::filesystem::create_directory(file_path.parent_path());
@@ -204,7 +204,7 @@ bool Ianium::readScript(std::string fileName)
 				return false;
 			}
 
-			tests.insert(std::make_pair(first_words[1], TestInfo(false, fileName, 0, nullptr, nullptr)));
+			tests.insert(std::make_pair(first_words[1], TestInfo(false, fileName, 0, "", "")));
 			auto test = tests.find(first_words[1]);
 
 			while (std::getline(file, line) && line != "end") {
