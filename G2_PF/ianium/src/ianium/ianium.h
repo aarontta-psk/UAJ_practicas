@@ -40,6 +40,7 @@ namespace ianium {
 		static void Release();
 
 		void addTestableUIElem(UIType uiType, UIElement* ui_elem);
+		void returnTestableUIElem(std::string ui_elem_id);
 		void runTests(const char* rootPath);
 
 	private:
