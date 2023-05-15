@@ -15,7 +15,7 @@
 class HudElement {
 public:
 	HudElement(int posXAux, int posYAux, int widthAux, int heightAux, bool isActiveAux) :posX(posXAux), posY(posYAux), width(widthAux), height(heightAux), isActive(isActiveAux) {};
-	~HudElement() = default;
+	virtual ~HudElement() = default;
 
 	virtual void render(SDL_Renderer* renderer) = 0;
 	virtual void handleInput(const SDL_Event& event) {};
@@ -49,7 +49,6 @@ public:
 		// Obtener el ancho y alto de la imagen
 		w = surface->w;
 		h = surface->h;
-
 	}
 
 	~Image() {
@@ -86,7 +85,7 @@ public:
 		buttonState = State::RELEASED;
 		image = new Image(path, renderer);
 	};
-	~Button() {
+	virtual ~Button() {
 		delete image;
 	};
 
@@ -101,16 +100,14 @@ public:
 	//REDEFINICIONES CLASE BUTTON
 	virtual int getStateButton() const { return (int)buttonState; }
 
-
 	virtual void render(SDL_Renderer* renderer) override {
-
 		rect = { (int)posX,(int)posY,(int)width,(int)height };
-
 		image->render(rect, renderer);
 	}
 
 	//TODO AAA METER AQUI QUE EL ESTADO DEL BOTON SEA PRESSED HOLD O RELEASED
 	virtual void handleInput(const SDL_Event& i_event) {};
+
 private:
 	//TODO FALTA ESTE ESTADO DE KK
 	State buttonState;
@@ -136,7 +133,10 @@ public:
 		imageRange = new Image(pathRange, renderer);
 		imageValue = new Image(pathValue, renderer);
 	};
-	~Slider() = default;
+	virtual ~Slider() {
+		delete imageRange;
+		delete imageValue;
+	};
 
 	//REDEFINICIONES CLASE UIELEMENT
 	// Devuelve la posición (X, Y) del elemento
@@ -153,7 +153,6 @@ public:
 	virtual int getRangeSelection() const { return rangeSelection; }
 
 	virtual void render(SDL_Renderer* renderer) override {
-
 		//Dibujamos su rango
 		rect = { (int)posX,(int)posY,(int)width,(int)height };
 
@@ -167,8 +166,6 @@ public:
 
 		imageValue->render(rect, renderer);
 	}
-
-
 
 	virtual void handleInput(const SDL_Event& i_event) {
 		int x = i_event.button.x;
@@ -218,9 +215,12 @@ public:
 		toggleOn = false;
 		imageOn = new Image(pathToogleOn, renderer);
 		imageOff = new Image(pathToogleOff, renderer);
-
 	};
-	~Toggle() = default;
+
+	virtual ~Toggle() {
+		delete imageOn;
+		delete imageOff;
+	};
 
 	//REDEFINICIONES CLASE UIELEMENT
 	// Devuelve la posición (X, Y) del elemento
@@ -298,21 +298,15 @@ int main() {
 	ianium::Ianium::Init(window, renderer);
 
 	std::list<HudElement*> hud;
-	//SDL_Surface* image = IMG_Load("testImage.jpg");
+
 	//Interfaz
-	Button* a = new Button("./button.png", 0, 10, 10, 30, 30, true, renderer);
-	hud.push_back(a);
-	Button* b = new Button("./button.png", 1, 60, 0, 60, 60, true, renderer);
-	hud.push_back(b);
-	Button* c = new Button("./template.jpg", 2, 0, 300, 355, 255, true, renderer);
-	hud.push_back(c);
+	hud.push_back(new Button("./button.png", 0, 10, 10, 30, 30, true, renderer));
+	hud.push_back(new Button("./button.png", 1, 60, 0, 60, 60, true, renderer));
+	hud.push_back(new Button("./template.jpg", 2, 0, 300, 355, 255, true, renderer));
 
-	Toggle* t = new Toggle("./toggleOn.png", "./toggleOff.png", 3, 500, 300, 100, 100, true, renderer);
-	hud.push_back(t);
+	hud.push_back(new Toggle("./toggleOn.png", "./toggleOff.png", 3, 500, 300, 100, 100, true, renderer));
 
-	//Falta slider por meter
-	Slider* s = new Slider("./sliderRange.png", "./sliderButton.png", 4, 200, 200, 200, 20, true, 80.0, 0.0, 100.0, 10, Slider::Orientation::HORIZONTAL, renderer);
-	hud.push_back(s);
+	hud.push_back(new Slider("./sliderRange.png", "./sliderButton.png", 4, 200, 200, 200, 20, true, 80.0, 0.0, 100.0, 10, Slider::Orientation::HORIZONTAL, renderer));
 
 	try
 	{
@@ -361,6 +355,11 @@ int main() {
 	{
 		std::cout << e.what() << std::endl; // output exception message
 	}
+	
+	for (HudElement* elem : hud)
+		delete elem;
+	hud.clear();
+
 	ianium::Ianium::Release();
 
 	return 0;

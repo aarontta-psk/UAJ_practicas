@@ -82,8 +82,10 @@ bool Ianium::initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer)
 
 void Ianium::releasePrivate()
 {
-	SDL_Quit();
 	delete visualTesting;
+	delete functionalTesting;
+
+	SDL_Quit();
 }
 
 bool Ianium::readTestDirectoryFiles(std::string rootPath)
