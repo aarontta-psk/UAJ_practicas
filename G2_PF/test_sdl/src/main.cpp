@@ -1,5 +1,6 @@
 #define SDL_MAIN_HANDLED
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 
 #include <ianium/testable_ui/button.h>
 #include <ianium/testable_ui/slider.h>
@@ -194,7 +195,7 @@ int main() {
 	ianium::Ianium::Init(window, renderer);
 
 	std::list<HudElement*> hud;
-
+	SDL_Surface* image = IMG_Load("testImage.jpg");
 	//Interfaz
 	Button* a = new Button(0, 10, 10, 30, 30, true, "u");
 	hud.push_back(a);
