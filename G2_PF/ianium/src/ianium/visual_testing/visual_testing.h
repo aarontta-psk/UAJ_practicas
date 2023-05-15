@@ -4,6 +4,7 @@
 
 #include <common/macros.h>
 #include <vector>
+#include <string>
 
 struct SDL_Renderer;
 struct SDL_Window;
