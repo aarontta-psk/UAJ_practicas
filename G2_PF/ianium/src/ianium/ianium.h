@@ -21,11 +21,11 @@ namespace ianium {
 	struct TestInfo {
 		bool passed;
 		int errorLineNumber;
-		const char* errorFile;
-		const char* errorLine;
-		const char* errorDescription;
+		std::string errorFile;
+		std::string errorLine;
+		std::string errorDescription;
 
-		TestInfo(bool _passed, const char* _errorFile, int _errorLineNumber, const char* _errorLine, const char* _errorDescription)
+		TestInfo(bool _passed, std::string _errorFile, int _errorLineNumber, std::string _errorLine, std::string _errorDescription)
 			: passed(_passed), errorFile(_errorFile), errorLineNumber(_errorLineNumber), errorLine(_errorLine), errorDescription(_errorDescription) {};
 	};
 
@@ -40,7 +40,6 @@ namespace ianium {
 		static void Release();
 
 		void addTestableUIElem(UIType uiType, UIElement* ui_elem);
-		void returnTestableUIElem(std::string ui_elem_id);
 		void runTests(const char* rootPath);
 
 	private:
@@ -54,17 +53,17 @@ namespace ianium {
 		SDL_Window* window;
 		SDL_Renderer* renderer;
 
-		std::unordered_map<const char*, TestInfo> tests;
+		std::unordered_map<std::string, TestInfo> tests;
 		int error_name;
 
 		bool initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
 		void releasePrivate();
 
-		bool readTestDirectoryFiles(const char* rootPath);
-		bool writeTestResults(const char* rootPath);
-		std::vector<const char*> getWords(std::string line);
-		bool readScript(const char* fileName);
-		bool executeLine(int nLine, const std::vector<const char*>& words);
+		bool readTestDirectoryFiles(std::string rootPath);
+		bool writeTestResults(std::string rootPath);
+		std::vector<std::string> getWords(std::string line);
+		bool readScript(std::string fileName);
+		bool executeLine(int nLine, const std::vector<std::string>& words);
 
 		std::string elemPrefix(UIType uiType);
 	};

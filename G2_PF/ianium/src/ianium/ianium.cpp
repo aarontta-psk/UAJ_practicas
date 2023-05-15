@@ -59,12 +59,6 @@ void Ianium::addTestableUIElem(UIType uiType, UIElement* ui_elem)
 	testableUIElems.insert(std::pair<std::string, UIElement*>(ui_elem_id, ui_elem));
 }
 
-UIElement* Ianium::returnTestableUIElem(std::string ui_elem_id) {
-		testableUIElems.find(ui_elem_id);
-		return  nullptr;
-}
-
-
 void Ianium::runTests(const char* rootPath) {
 	error_name = 0;
 	readTestDirectoryFiles(rootPath);
@@ -92,78 +86,25 @@ void Ianium::releasePrivate()
 	delete visualTesting;
 }
 
-bool Ianium::readTestDirectoryFiles(const char* rootPath)
+bool Ianium::readTestDirectoryFiles(std::string rootPath)
 {
-	WIN32_FIND_DATAA find_data;
-	HANDLE hFind = INVALID_HANDLE_VALUE;
 
-	size_t path_len = strlen(rootPath);
-	size_t full_path_len = path_len + 3;
-	char* full_path = (char*)malloc(full_path_len * sizeof(char));
-	if (full_path == 0)
-		return false;
-
-	strcpy_s(full_path, full_path_len, rootPath);
-
-	char dir_path[MAX_PATH];
-
-	DWORD ret_val = GetFullPathNameA(full_path, MAX_PATH, dir_path, NULL);
-
-	if (ret_val == 0) {
-		std::cout << "No se pudo obtener la ruta absoluta del directorio." << std::endl;
-		free(full_path);
-		return false;
-	}
-
-	if (ret_val > MAX_PATH) {
-		std::cout << "La ruta absoluta del directorio es demasiado larga." << std::endl;
-		free(full_path);
-		return false;
-	}
-
-	if (GetFileAttributesA(full_path) == INVALID_FILE_ATTRIBUTES) {
-		std::cout << "El directorio especificado no existe." << std::endl;
-		free(full_path);
-		return false;
-	}
-
-	std::cout << "La ruta absoluta del directorio es: " << full_path << std::endl;
-
-	strcat_s(full_path, full_path_len, "\\*");
-
-	hFind = FindFirstFileA(full_path, &find_data);
-	if (hFind == INVALID_HANDLE_VALUE) {
-		free(full_path);
-		return false;
-	}
-
-	do {
-		//esto comprueba que no sea un directorio
-		if (!(find_data.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY)) {
-			size_t file_len = strlen(find_data.cFileName);
-			size_t full_file_path_len = path_len + file_len + 3;
-			char* full_file_path = (char*)malloc(full_file_path_len * sizeof(char));
-
-			if (full_file_path == 0) {
-				free(full_path);
-				return false;
-			}
-
-			strcpy_s(full_file_path, full_file_path_len, rootPath);
-			strcat_s(full_file_path, full_file_path_len, "/");
-			strcat_s(full_file_path, full_file_path_len, find_data.cFileName);
-			readScript(full_file_path);
-			free(full_file_path);
+	if (std::filesystem::exists(rootPath)) {
+		for (const auto& archivo : std::filesystem::directory_iterator(rootPath)) {
+			readScript(archivo.path().filename().string());
 		}
-	} while (FindNextFileA(hFind, &find_data) != 0);
+	}
+	else {
+		std::cerr << "El directorio especificado no existe." << std::endl;
+		return false;
+	}
 
-	free(full_path);
 	return true;
 }
 
-bool ianium::Ianium::writeTestResults(const char* rootPath)
+bool ianium::Ianium::writeTestResults(std::string rootPath)
 {
-	std::filesystem::path file_path("./Output/" + std::string(rootPath) + ".iaout");
+	std::filesystem::path file_path("./Output/" + rootPath + ".iaout");
 
 	if (!std::filesystem::exists(file_path.parent_path())) {
 		std::filesystem::create_directory(file_path.parent_path());
@@ -176,11 +117,11 @@ bool ianium::Ianium::writeTestResults(const char* rootPath)
 		for (auto it = tests.begin(); it != tests.end(); ++it) {
 			std::string data;
 			if (it->second.passed == true) {
-				data = "Tests on script " + std::string(it->second.errorFile) + " succesfully passed \n";
+				data = "Tests on script " + it->second.errorFile + " succesfully passed \n";
 			}
 			else {
-				data = "Error on script " + std::string(it->second.errorFile) + ", test: " + std::string(it->first) + " line: " + std::string(it->second.errorLine) + " " + std::string(it->second.errorLine) + "\n" +
-					"error description: " + std::string(it->second.errorDescription);
+				data = "Error on script " + it->second.errorFile + ", test: " + std::string(it->first) + " line: " + std::string(it->second.errorLine) + " " + std::string(it->second.errorLine) + "\n" +
+					"error description: " + it->second.errorDescription;
 			}
 			file << data;
 		}
@@ -194,26 +135,27 @@ bool ianium::Ianium::writeTestResults(const char* rootPath)
 	return true;
 }
 
-std::vector<const char*> ianium::Ianium::getWords(std::string line)
+std::vector<std::string> ianium::Ianium::getWords(std::string line)
 {
-	std::vector<const char*> words;
+	std::vector<std::string> words;
 	std::stringstream ss(line);
 	std::string word_str;
 
 	while (ss >> word_str) {
-		char* word = new char[word_str.length() + 1];
-		//por que
-		strcpy_s(word, word_str.length() + 1, word_str.c_str());
-		words.push_back(word);
+		words.push_back(word_str);
 	}
-
 	return words;
 }
 
-bool Ianium::readScript(const char* fileName)
+bool Ianium::readScript(std::string fileName)
 {
-	if (strcmp(strrchr(fileName, '.') + 1, "ia") != 0)
+
+	int longitud = fileName.length();
+	std::string extension = fileName.substr(longitud - 3);
+	if (extension != ".ia") {
+		std::cerr << "Wrong extension" << std::endl;
 		return false;
+	}
 
 	std::ifstream file(fileName);
 
@@ -226,27 +168,25 @@ bool Ianium::readScript(const char* fileName)
 	int nLine = 1;
 	while (std::getline(file, line)) {
 
-		std::vector<const char*> first_words = getWords(line);
+		std::vector<std::string> first_words = getWords(line);
 
 		if (first_words.size() == 0) {
 			nLine++;
 			continue;
 		}
 
-		if (strcmp(first_words[0], "before:") == 0) {
+		if (first_words[0] == "before:") {
 
 		}
 
-		else if (strcmp(first_words[0],"test:") == 0) {
+		else if (first_words[0] == "test:") {
 			if (first_words.size() != 2) {
 				std::string error = "Wrong \"test:\" section label. Try \"test: TEST_NAME\" \n";
 				std::cerr << error;
 				std::string error_test_name = "error_name_" + std::to_string(error_name);
 				std::string errorLine = "test: \n";
-				tests.insert(std::make_pair(error_test_name.c_str(), TestInfo(false, fileName, nLine, errorLine.c_str(), error.c_str())));
+				tests.insert(std::make_pair(error_test_name, TestInfo(false, fileName, nLine, errorLine, error)));
 				error_name++;
-				for (const char* ptr : first_words)
-					std::free((void*)ptr);
 				file.close();
 				return false;
 			}
@@ -254,14 +194,12 @@ bool Ianium::readScript(const char* fileName)
 			auto test_name = tests.find(first_words[1]);
 			if (test_name != tests.end())
 			{
-				std::string error = "Test name " + std::string(first_words[1]) + " was already in use. \n";
+				std::string error = "Test name " + first_words[1] + " was already in use. \n";
 				std::cerr << error;
 				std::string error_test_name = "error_name_" + std::to_string(error_name);
-				std::string errorLine = "test: " + std::string(first_words[1]) + "\n";
-				tests.insert(std::make_pair(error_test_name.c_str(), TestInfo(false, fileName, nLine, errorLine.c_str(), error.c_str())));
+				std::string errorLine = "test: " + first_words[1] + "\n";
+				tests.insert(std::make_pair(error_test_name, TestInfo(false, fileName, nLine, errorLine, error)));
 				error_name++;
-				for (const char* ptr : first_words)
-					std::free((void*)ptr);
 				file.close();
 				return false;
 			}
@@ -271,7 +209,7 @@ bool Ianium::readScript(const char* fileName)
 
 			while (std::getline(file, line) && line != "end") {
 				nLine++;
-				std::vector<const char*> words = getWords(line);
+				std::vector<std::string> words = getWords(line);
 
 				if (words.size() == 0) {
 					nLine++;
@@ -279,64 +217,50 @@ bool Ianium::readScript(const char* fileName)
 				}
 
 				if (!executeLine(nLine, words)) {
-					for (const char* ptr : words)
-						std::free((void*)ptr);
-					for (const char* ptr : first_words)
-						std::free((void*)ptr);
-
 					file.close();
-					std::string error = "Error on script " + std::string(fileName) + " on line " + std::to_string(nLine) + ": \"" + line + "\". Command not recognized." + "\n";
+					std::string error = "Error on script " + fileName + " on line " + std::to_string(nLine) + ": \"" + line + "\". Command not recognized." + "\n";
 					std::cerr << error;
 					test->second.errorLineNumber = nLine;
-					test->second.errorLine = line.c_str();
-					test->second.errorDescription = error.c_str();
+					test->second.errorLine = line;
+					test->second.errorDescription = error;
 					return false;
 				}
-				for (const char* ptr : words)
-					free((void*)ptr);
 			}
 
 			nLine++;
 
 			if (line != "end") {
-				std::string error = "Error on script " + std::string(fileName) + ". Missing \"end\" on line " + std::to_string(nLine) + "\n";
+				std::string error = "Error on script " + fileName + ". Missing \"end\" on line " + std::to_string(nLine) + "\n";
 				std::cerr << error;
 				test->second.errorLineNumber = nLine;
-				test->second.errorLine = line.c_str();
-				test->second.errorDescription = error.c_str();
-				for (const char* ptr : first_words)
-					std::free((void*)ptr);
+				test->second.errorLine = line;
+				test->second.errorDescription = error;
 				file.close();
 				return false;
 			}
 			test->second.passed = true;
 		}
 		else {
-			std::string error = "Error on script " + std::string(fileName) + ". Line " + std::to_string(nLine) + "(" + line + ") not recognized as"
+			std::string error = "Error on script " + fileName + ". Line " + std::to_string(nLine) + "(" + line + ") not recognized as"
 				+ " section label of script. Try \"before:\" or \"test: TEST_NAME\". \n";
 			std::cerr << error;
 			std::string error_test_name = "error_name_" + std::to_string(error_name);
 			std::string errorLine = "test: \n";
-			tests.insert(std::make_pair(error_test_name.c_str(), TestInfo(false, fileName, nLine, errorLine.c_str(), error.c_str())));
+			tests.insert(std::make_pair(error_test_name, TestInfo(false, fileName, nLine, errorLine, error)));
 			error_name++;
-			for (const char* ptr : first_words)
-				std::free((void*)ptr);
 			file.close();
 			return false;
 		}
 		nLine++;
-
-		for (const char* ptr : first_words)
-			std::free((void*)ptr);
 	}
 	file.close();
 	
 	return true;
 }
 
-bool Ianium::executeLine(int nLine, const std::vector<const char* >& words)
+bool Ianium::executeLine(int nLine, const std::vector<std::string>& words)
 {	
-	if (strcmp(words[0], "click") == 0) {
+	if (words[0] == "click") {
 		if (words.size() != 3) {
 			std::cerr << "Wrong number of arguments on line " << nLine << std::endl;
 			return false;
