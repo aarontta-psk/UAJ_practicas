@@ -126,8 +126,8 @@ void FunctionalTesting::mouseMotion(int x, int y)
 bool FunctionalTesting::assertButton(int idButton, int stateToCheck) {
 	auto elem = uiElems->find(elemPrefix(UIType::BUTTON) + std::to_string(idButton));
 	if (elem != uiElems->end()) {
-		Button::State state = ((Button*)elem->second)->getStateButton();
-		return (int)state == stateToCheck;
+		uint32_t state = ((Button*)elem->second)->getStateButton();
+		return state == stateToCheck;
 	}
 	std::cerr << "Button " << idButton << " not found" << std::endl;
 	return false;

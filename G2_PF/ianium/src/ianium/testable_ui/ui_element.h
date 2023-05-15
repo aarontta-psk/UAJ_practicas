@@ -27,8 +27,6 @@ namespace ianium {
 		virtual std::pair<uint32_t, uint32_t> getSize() const = 0;
 		// Devuelve el estado del elemento
 		virtual bool getEnable() const = 0;
-		// Devuelve el menú al que pertenece el elemento
-		virtual const char* getMenu() = 0;
 
 	protected:
 		uint64_t id;            // ID único del elemento

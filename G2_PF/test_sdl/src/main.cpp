@@ -18,12 +18,13 @@
 
 class HudElement {
 public:
-	HudElement(int posXAux,int posYAux,int widthAux,int heightAux,bool isActiveAux):posX(posXAux),posY(posYAux),width(widthAux),height(heightAux),isActive(isActiveAux) {};
+	HudElement(int posXAux, int posYAux, int widthAux, int heightAux, bool isActiveAux) :posX(posXAux), posY(posYAux), width(widthAux), height(heightAux), isActive(isActiveAux) {};
 	~HudElement() = default;
 
 	virtual void render(SDL_Renderer* renderer) {}
 	virtual void update(int x, int y, int n_clicks) {}
 	virtual void processInput(SDL_Event* event) {}
+
 
 protected:
 	uint32_t posX, posY;    // Posición X e Y del elemento
@@ -87,20 +88,25 @@ class Button : public ianium::Button, public HudElement {
 public:
 	enum class State { PRESSED, HOLD, RELEASED };
 
-	Button(std::string path, int id, int posXAux, int posYAux, int wAux, int hAux, bool active, SDL_Renderer* renderer) : ianium::Button(id),HudElement(posXAux,posYAux,wAux,hAux,active) {
-		
+	Button(std::string path, int id, int posXAux, int posYAux, int wAux, int hAux, bool active, SDL_Renderer* renderer) : ianium::Button(id), HudElement(posXAux, posYAux, wAux, hAux, active) {
+
 		image = new Image(path, renderer);
 	};
 	~Button() {
 		delete image;
 	};
 
-private:
-	//TODO FALTA ESTE ESTADO DE KK
-	State buttonState;
+	//REDEFINICIONES CLASE UUIELEMENT
+	// Devuelve la posición (X, Y) del elemento
+	virtual std::pair<uint32_t, uint32_t> getPosition() const { return std::make_pair(posX, posY); };
+	// Devuelve el tamaño (ancho, alto) del elemento
+	virtual std::pair<uint32_t, uint32_t> getSize() const { return std::make_pair(width, height); };
+	// Devuelve el estado del elemento
+	virtual bool getEnable() const { return isActive; }
 
-	SDL_Rect rect;
-	Image* image;
+	//REDEFINICIONES CLASE BUTTON
+	virtual int getStateButton() const { return (int)buttonState; }
+
 
 	virtual void render(SDL_Renderer* renderer) override {
 
@@ -108,9 +114,15 @@ private:
 
 		image->render(rect, renderer);
 	}
-	
+
 	//TODO AAA METER AQUI QUE EL ESTADO DEL BOTON SEA PRESSED HOLD O RELEASED
 	virtual void handleInput(const SDL_Event& i_event) {};
+private:
+	//TODO FALTA ESTE ESTADO DE KK
+	State buttonState;
+
+	SDL_Rect rect;
+	Image* image;
 };
 
 class Slider : public ianium::Slider, public HudElement {
@@ -119,7 +131,7 @@ public:
 
 	Slider(std::string pathRange, std::string pathValue, const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active,
 		const float valueAux, const float minValueAux, const float maxValueAux, const int rangeSelectionAux, const Orientation orientationAux, SDL_Renderer* renderer)
-		: ianium::Slider(id),HudElement(posXAux,posYAux,wAux,hAux,active) {
+		: ianium::Slider(id), HudElement(posXAux, posYAux, wAux, hAux, active) {
 
 		value = valueAux;
 		minValue = minValueAux;
@@ -132,32 +144,37 @@ public:
 	};
 	~Slider() = default;
 
-private:
-	float value;					// Valor actual del slider
-	float minValue, maxValue;		// Valor mínimo y maximo del slider
-	int rangeSelection;				// Cantidad de valores que se pueden seleccionar en el slider      
-	Orientation orientation;		// Orientación del slider (horizontal o vertical)
+	//REDEFINICIONES CLASE UIELEMENT
+	// Devuelve la posición (X, Y) del elemento
+	virtual std::pair<uint32_t, uint32_t> getPosition() const { return std::make_pair(posX, posY); };
+	// Devuelve el tamaño (ancho, alto) del elemento
+	virtual std::pair<uint32_t, uint32_t> getSize() const { return std::make_pair(width, height); };
+	// Devuelve el estado del elemento
+	virtual bool getEnable() const { return isActive; }
 
-	SDL_Rect rect;
-	Image* imageRange;
-	Image* imageValue;
+	//REDEFINICIONES CLASE SLIDER
+	virtual float getValue() const { return value; }
+	virtual float getMinValue() const { return minValue; }
+	virtual float getMaxValue() const { return maxValue; }
+	virtual int getRangeSelection() const { rangeSelection; }
 
 	virtual void render(SDL_Renderer* renderer) override {
 
 		//Dibujamos su rango
-		rect = { posX,posY,width,height };
+		rect = { (int)posX,(int)posY,(int)width,(int)height };
 
 		imageRange->render(rect, renderer);
 
 		//Y ahora el boton deslizante
 		if (orientation == Orientation::HORIZONTAL)
-			rect = { posX + ((int)value * width / (int)maxValue),posY,width / rangeSelection,height };
+			rect = { (int)posX + ((int)value * (int)width / (int)maxValue),(int)posY,(int)width / rangeSelection,(int)height };
 		else
-			rect = { posX ,posY + ((int)value * height / (int)maxValue),width,height / rangeSelection };
+			rect = { (int)posX ,(int)posY + ((int)value * (int)height / (int)maxValue),(int)width,(int)height / rangeSelection };
 
 		imageValue->render(rect, renderer);
 	}
 
+	//WEWE TODO ESTO CREO QUE YA NO VA ASI
 	void update(int x, int y, int n_clicks) override {
 
 		// Verificamos si el ratón está dentro de los límites del slider
@@ -185,12 +202,23 @@ private:
 	}
 
 	virtual void handleInput(const SDL_Event& i_event) {};
+
+private:
+	float value;					// Valor actual del slider
+	float minValue, maxValue;		// Valor mínimo y maximo del slider
+	int rangeSelection;				// Cantidad de valores que se pueden seleccionar en el slider      
+	Orientation orientation;		// Orientación del slider (horizontal o vertical)
+
+	SDL_Rect rect;
+	Image* imageRange;
+	Image* imageValue;
+
 };
 
 class Toggle : public ianium::Toggle, public HudElement {
 public:
 	Toggle(std::string pathToogleOn, std::string pathToogleOff, const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active,
-		SDL_Renderer* renderer) : ianium::Toggle(id),HudElement(posXAux, posYAux, wAux, hAux, active){
+		SDL_Renderer* renderer) : ianium::Toggle(id), HudElement(posXAux, posYAux, wAux, hAux, active) {
 
 		toggleOn = false;
 		imageOn = new Image(pathToogleOn, renderer);
@@ -199,14 +227,19 @@ public:
 	};
 	~Toggle() = default;
 
-	SDL_Rect rect;
-	bool toggleOn;
+	//REDEFINICIONES CLASE UIELEMENT
+	// Devuelve la posición (X, Y) del elemento
+	virtual std::pair<uint32_t, uint32_t> getPosition() const { return std::make_pair(posX, posY); };
+	// Devuelve el tamaño (ancho, alto) del elemento
+	virtual std::pair<uint32_t, uint32_t> getSize() const { return std::make_pair(width, height); };
+	// Devuelve el estado del elemento
+	virtual bool getEnable() const { return isActive; }
 
-	Image* imageOn;
-	Image* imageOff;
+	//REDEFINICIONES CLASE TOGGLE
+	virtual bool getToggleState() const { return toggleOn; }
 
 	virtual void render(SDL_Renderer* renderer) override {
-		rect = { posX,posY,width,height };
+		rect = { (int)posX,(int)posY,(int)width,(int)height };
 
 		//Activao
 		if (toggleOn)
@@ -243,6 +276,13 @@ public:
 		//}
 	}
 	virtual void handleInput(const SDL_Event& i_event) {};
+
+private:
+	SDL_Rect rect;
+	bool toggleOn;
+
+	Image* imageOn;
+	Image* imageOff;
 };
 
 
@@ -263,11 +303,11 @@ int main() {
 	std::list<HudElement*> hud;
 	//SDL_Surface* image = IMG_Load("testImage.jpg");
 	//Interfaz
-	Button* a = new Button("./button.png", 0,10, 10, 30, 30, true, renderer);
+	Button* a = new Button("./button.png", 0, 10, 10, 30, 30, true, renderer);
 	hud.push_back(a);
-	Button* b = new Button("./button.png",1, 60, 0, 60, 60, true, renderer);
+	Button* b = new Button("./button.png", 1, 60, 0, 60, 60, true, renderer);
 	hud.push_back(b);
-	Button* c = new Button("./template.jpg",2, 0, 300, 355, 255, true, renderer);
+	Button* c = new Button("./template.jpg", 2, 0, 300, 355, 255, true, renderer);
 	hud.push_back(c);
 
 	Toggle* t = new Toggle("./toggleOn.png", "./toggleOff.png", 3, 500, 300, 100, 100, true, renderer);
