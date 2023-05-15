@@ -19,16 +19,13 @@ void VisualTesting::testOPENCV(const char* path)
 }
 
 VisualTesting::VisualTesting(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer) {
-	std::cout << "aaa" << std::endl;
 	window = sdl_window;
 	renderer = sdl_renderer;
-	initPrivate();
-	std::cout << "aaa" << std::endl;
 
 }
 
 VisualTesting::~VisualTesting() {
-	releasePrivate();
+	
 }
 
 bool VisualTesting::isImageOnScreen(const char* imagePath)
@@ -48,17 +45,6 @@ void VisualTesting::takeScreenshot()
 	SDL_RenderReadPixels(renderer, NULL, SDL_PIXELFORMAT_ARGB8888, sshot->pixels, sshot->pitch);
 	SDL_SaveBMP(sshot, "screenshot.bmp");
 	SDL_FreeSurface(sshot);
-}
-
-bool VisualTesting::initPrivate()
-{
-	return true;
-}
-
-void VisualTesting::releasePrivate()
-{
-	//instance.get()->closePlatform();
-	
 }
 
 std::vector<std::pair<double, double>> VisualTesting::template_matching(const char* gameScreenshotImagePath, const char* templateImagePath, const char* maskPath)

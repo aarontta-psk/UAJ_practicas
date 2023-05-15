@@ -21,9 +21,6 @@ namespace ianium {
 		SDL_Renderer* renderer;
 		SDL_Window* window;
 
-		bool initPrivate();
-		void releasePrivate();
-
 		std::vector<std::pair<double, double>> template_matching(const char* imagePath, const char* templateImagePath, const char* maskPath = nullptr);
 		void testOPENCV(const char* path);
 	};
