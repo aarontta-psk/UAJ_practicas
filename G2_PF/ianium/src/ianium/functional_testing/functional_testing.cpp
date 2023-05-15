@@ -100,6 +100,20 @@ void FunctionalTesting::clickUp(int x, int y) {
 	SDL_PushEvent(&event);
 }
 
+void ianium::FunctionalTesting::MouseMotion(int x, int y)
+{
+	SDL_Event event;
+	event.type = SDL_MOUSEMOTION;
+	event.button.x = x;
+	event.button.y = y;
+	//event.button.clicks = 1;
+	//event.button.button = SDL_BUTTON_LEFT;
+
+
+	// Lo pusheamos a la cola de eventos
+	SDL_PushEvent(&event);
+}
+
 void FunctionalTesting::click(int id_elem) {
 
 	SDL_Event event;

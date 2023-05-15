@@ -17,6 +17,8 @@ namespace ianium {
 
 		void clickUp(int x, int y);
 
+		void MouseMotion(int x, int y);
+
 		void click(int id_elem);
 
 		bool IsElemOnMenu(int id_elem);
