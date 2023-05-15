@@ -59,11 +59,6 @@ void Ianium::addTestableUIElem(UIType uiType, UIElement* ui_elem)
 	testableUIElems.insert(std::pair<std::string, UIElement*>(ui_elem_id, ui_elem));
 }
 
-UIElement* Ianium::returnTestableUIElem(std::string ui_elem_id) {
-		testableUIElems.find(ui_elem_id);
-		return  nullptr;
-}
-
 
 void Ianium::runTests(const char* rootPath) {
 	error_name = 0;
@@ -354,18 +349,16 @@ bool Ianium::executeLine(int nLine, const std::vector<const char* >& words)
 		CHECK_ARG_SIZE(3, words.size(), nLine)
 		int x, y;
 
-		CHECK_CORRECT_TYPES(x = std::stoi(words[1]); y = std::stoi(words[2]), nLine);
+		CHECK_CORRECT_TYPES(x = std::stoi(words[1]); y = std::stoi(words[2]); , nLine);
 
 		functionalTesting->click(x, y);
 	}
 
-	else if (strcmp(words[0], "assertButton")) {
+	else if (strcmp(words[0], "assertButton") == 0) {
 		CHECK_ARG_SIZE(3, words.size(), nLine);
-		std::string idButton;
-		int state;
-		idButton = words[1];
-		CHECK_CORRECT_TYPES(state = std::stoi(words[2]);, nLine);
-		functionalTesting->assertButton(words[1], state);
+		int state, idButton;
+		CHECK_CORRECT_TYPES(state = std::stoi(words[2]); idButton = std::stoi(words[1]);, nLine);
+		functionalTesting->assertButton(idButton, state);
 	}
 	else return false;
 

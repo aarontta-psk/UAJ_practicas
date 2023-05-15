@@ -126,13 +126,13 @@ bool FunctionalTesting::isElemOnMenu(int id_elem) {
 	return false;
 }
 
-bool FunctionalTesting::assertButton(std::string idButton, int stateToCheck) {
-	auto elem = uiElems->find(idButton);
+bool FunctionalTesting::assertButton(int idButton, int stateToCheck) {
+	auto elem = uiElems->find("button_" + std::to_string(idButton));
 	if (elem != uiElems->end()) {
 		Button::State state = ((Button*)elem->second)->getStateButton();
 		return (int)state == stateToCheck;
 	}
-	std::cerr << "Button " << idButton << " not found";
+	std::cerr << "Button " << idButton << " not found" << std::endl;
 	return false;
 }
 
