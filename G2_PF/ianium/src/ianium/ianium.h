@@ -19,7 +19,7 @@ namespace ianium {
 	class FunctionalTesting;
 
 	struct TestInfo {
-		bool passed;
+		int passed;
 		int errorLineNumber;
 		std::string errorFile;
 		std::string errorLine;
@@ -63,7 +63,7 @@ namespace ianium {
 		bool writeTestResults(std::string rootPath);
 		std::vector<std::string> getWords(std::string line);
 		bool readScript(std::string fileName);
-		bool executeLine(int nLine, const std::vector<std::string>& words);
+		int executeLine(int nLine, const std::vector<std::string>& words);
 
 		std::string elemPrefix(UIType uiType);
 	};

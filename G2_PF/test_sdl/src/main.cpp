@@ -262,7 +262,7 @@ int main() {
 	hud.push_back(a);
 	Button* b = new Button("./button.png",1, 60, 0, 60, 60, true, "InterfazSimple", renderer);
 	hud.push_back(b);
-	Button* c = new Button("./button.png",2, 0, 70, 20, 20, true, "InterfazSimple", renderer);
+	Button* c = new Button("./tempAssets/template.jpg",2, 0, 300, 355, 255, true, "InterfazSimple", renderer);
 	hud.push_back(c);
 
 	Toggle* t = new Toggle("./toggleOn.png", "./toggleOff.png", 3, 500, 300, 100, 100, true, "InterfazCompleja", renderer);

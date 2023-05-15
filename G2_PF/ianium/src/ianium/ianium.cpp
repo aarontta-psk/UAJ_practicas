@@ -116,10 +116,13 @@ bool ianium::Ianium::writeTestResults(std::string rootPath)
 		// Escribe en el archivo
 		for (auto it = tests.begin(); it != tests.end(); ++it) {
 			std::string data;
-			if (it->second.passed == true) {
-				data = "Tests on script " + it->second.errorFile + " succesfully passed \n";
+			if (it->second.passed == TEST_PASSED) {
+				data = "[+] Tests on script " + it->second.errorFile + " succesfully passed \n";
 			}
-			else {
+			else if (it->second.passed == TEST_FAILED) {
+				data = "[-] Tests on script " + it->second.errorFile + " failed \n";
+			}
+			else if (it->second.passed == TEST_WRONG_FORMAT) {
 				data = "Error on script " + it->second.errorFile + ", test: " + std::string(it->first) + " line: " + std::string(it->second.errorLine) + " " + std::string(it->second.errorLine) + "\n" +
 					"error description: " + it->second.errorDescription;
 			}
@@ -216,15 +219,28 @@ bool Ianium::readScript(std::string fileName)
 					continue;
 				}
 
-				if (!executeLine(nLine, words)) {
-					file.close();
-					std::string error = "Error on script " + fileName + " on line " + std::to_string(nLine) + ": \"" + line + "\". Command not recognized." + "\n";
-					std::cerr << error;
-					test->second.errorLineNumber = nLine;
-					test->second.errorLine = line;
-					test->second.errorDescription = error;
-					return false;
+				switch (executeLine(nLine, words)) {
+					case TEST_WRONG_FORMAT: {
+						test->second.passed = TEST_WRONG_FORMAT;
+						file.close();
+						std::string error = "Error on script " + fileName + " on line " + std::to_string(nLine) + ": \"" + line + "\". Command not recognized." + "\n";
+						std::cerr << error;
+						test->second.errorLineNumber = nLine;
+						test->second.errorLine = line;
+						test->second.errorDescription = error;
+						return false;
+						break;
+					}
+					case TEST_FAILED:
+						test->second.passed = TEST_FAILED;
+						break;
+					case TEST_PASSED:
+						test->second.passed = TEST_PASSED;
+						break;
+					default:
+						break;
 				}
+
 			}
 
 			nLine++;
@@ -238,7 +254,6 @@ bool Ianium::readScript(std::string fileName)
 				file.close();
 				return false;
 			}
-			test->second.passed = true;
 		}
 		else {
 			std::string error = "Error on script " + fileName + ". Line " + std::to_string(nLine) + "(" + line + ") not recognized as"
@@ -258,8 +273,9 @@ bool Ianium::readScript(std::string fileName)
 	return true;
 }
 
-bool Ianium::executeLine(int nLine, const std::vector<std::string>& words)
+int Ianium::executeLine(int nLine, const std::vector<std::string>& words)
 {	
+	int returnValue = TEST_PASSED;
 	if (words[0] == "click") {
 		CHECK_ARG_SIZE(3, words.size(), nLine)
 		int x, y;
@@ -273,28 +289,34 @@ bool Ianium::executeLine(int nLine, const std::vector<std::string>& words)
 		CHECK_ARG_SIZE(3, words.size(), nLine);
 		int state, idButton;
 		CHECK_CORRECT_TYPES(state = std::stoi(words[2]); idButton = std::stoi(words[1]);, nLine);
-		functionalTesting->assertButton(idButton, state);
+		functionalTesting->assertButton(idButton, state) ? returnValue = TEST_PASSED : returnValue = TEST_FAILED;
 	}
 	else if (words[0] == "assertToggle") {
 		CHECK_ARG_SIZE(3, words.size(), nLine);
 		int state, idToggle;
 		CHECK_CORRECT_TYPES(state = std::stoi(words[2]); idToggle = std::stoi(words[1]); , nLine);
-		functionalTesting->assertToggle(idToggle, state);
+		functionalTesting->assertToggle(idToggle, state) ? returnValue = TEST_PASSED : returnValue = TEST_FAILED;
 	}
 	else if (words[0] == "assertSlider") {
 		CHECK_ARG_SIZE(3, words.size(), nLine);
 		int value, idSlider;
 		CHECK_CORRECT_TYPES(value = std::stoi(words[2]); idSlider = std::stoi(words[1]);, nLine);
-		functionalTesting->assertSlider(idSlider, value);
+		functionalTesting->assertSlider(idSlider, value) ? returnValue = TEST_PASSED : returnValue = TEST_FAILED;
 	}
-	else if (words[0] == "isImageOnScreen") {
+	else if (words[0] == "assertImageOnScreen") {
 		CHECK_ARG_SIZE(2, words.size(), nLine);
 		std::string templateImgPath = words[1];
-		visualTesting->isImageOnScreen(templateImgPath);
+		visualTesting->assertImageOnScreen(templateImgPath) ? returnValue = TEST_PASSED : returnValue = TEST_FAILED;
 	}
-	else return false;
+	else if (words[0] == "runFrames") {
+		CHECK_ARG_SIZE(2, words.size(), nLine);
+		int frames;
+		CHECK_CORRECT_TYPES(frames = std::stoi(words[1]);, nLine);
+		functionalTesting->runFrames(frames);
+	}
+	else return TEST_WRONG_FORMAT;
 
-	return true;
+	return returnValue;
 }
 
 std::string Ianium::elemPrefix(UIType uiType) {

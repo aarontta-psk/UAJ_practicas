@@ -155,8 +155,8 @@ bool ianium::FunctionalTesting::assertSlider(int idSlider, float value)
 	return false;
 }
 
-void FunctionalTesting::run(uint32_t n_frames) {
-	while (!n_frames) {
+void FunctionalTesting::runFrames(uint32_t n_frames) {
+	while (n_frames) {
 		// handle input
 		SDL_Event i_event;
 		while (SDL_PollEvent(&i_event))
@@ -166,7 +166,7 @@ void FunctionalTesting::run(uint32_t n_frames) {
 		// render
 		SDL_RenderClear(renderer);
 		for (std::pair<std::string, UIElement*> elem : (*uiElems))
-			elem.second->handleInput(i_event);
+			elem.second->render(renderer);
 		SDL_RenderPresent(renderer);
 
 		n_frames--;

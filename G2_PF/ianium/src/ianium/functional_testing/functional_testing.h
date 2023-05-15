@@ -30,7 +30,7 @@ namespace ianium {
 		bool assertToggle(int idToggle, int statetoCheck);
 		bool assertSlider(int idSlider, float value);
 
-		void run(uint32_t n_frames);
+		void runFrames(uint32_t n_frames);
 
 	private:
 		std::unordered_map<std::string, UIElement*>* uiElems;

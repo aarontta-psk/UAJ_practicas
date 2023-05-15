@@ -17,7 +17,7 @@ VisualTesting::VisualTesting(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer)
 
 VisualTesting::~VisualTesting() = default;
 
-bool VisualTesting::isImageOnScreen(std::string imagePath)
+bool VisualTesting::assertImageOnScreen(std::string imagePath)
 {
 	takeScreenshot();
 	return template_matching(TEMP_SCREENSHOT_NAME, imagePath).size() != 0;
@@ -25,9 +25,6 @@ bool VisualTesting::isImageOnScreen(std::string imagePath)
 
 void VisualTesting::takeScreenshot()
 {
-	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-	SDL_RenderClear(renderer);
-
 	int width, height;
 	SDL_GetRendererOutputSize(renderer, &width, &height);
 	SDL_Surface* sshot = SDL_CreateRGBSurface(0, width, height, 32, 0x00ff0000, 0x0000ff00, 0x000000ff, 0xff000000);
@@ -92,9 +89,11 @@ std::vector<std::pair<double, double>> VisualTesting::template_matching(std::str
 		resultVector.push_back(std::make_pair(x,y));
 	}
 
-	//imshow("Labeled_image", img_display);
-	//imshow("Black and White mask", result);
-	//cv::waitKey(0);
+	if (DEBUG_TEST) {
+		imshow("Labeled_image", img_display);
+		imshow("Black and White mask", result);
+		cv::waitKey(0);
+	}
 
 	return resultVector;
 }

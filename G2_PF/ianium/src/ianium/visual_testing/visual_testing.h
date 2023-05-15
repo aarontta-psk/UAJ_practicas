@@ -15,7 +15,7 @@ namespace ianium {
 		VisualTesting(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
 		~VisualTesting();
 
-		bool isImageOnScreen(std::string imagePath);
+		bool assertImageOnScreen(std::string imagePath);
 
 	private:
 		SDL_Renderer* renderer;
