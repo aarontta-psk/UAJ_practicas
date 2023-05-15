@@ -283,7 +283,7 @@ bool Ianium::executeLine(int nLine, const std::vector<std::string>& words)
 		functionalTesting->click(x, y);
 	}
 
-	else if (strcmp(words[0], "assertButton") == 0) {
+	else if (words[0] == "assertButton") {
 		CHECK_ARG_SIZE(3, words.size(), nLine);
 		int state, idButton;
 		CHECK_CORRECT_TYPES(state = std::stoi(words[2]); idButton = std::stoi(words[1]);, nLine);
