@@ -35,7 +35,8 @@ int main() {
 
 	//Interfaz
 	hud.push_back(new Button("./buttonPressed.png", "./buttonReleased.png", 0, 350, 150, 100, 50, true, renderer));
-	hud.push_back(new Button("./buttonPressed.png", "./buttonReleased.png", 1, 350, 300, 100, 50, true, renderer));
+	hud.push_back(new Button("./buttonPressed.png", "./buttonReleased.png", 1, 350, 200, 100, 50, true, renderer));
+	hud.push_back(new Button("./buttonPressed.png", "./buttonReleased.png", 1, 350, 250, 100, 50, true, renderer));
 	hud.push_back(new Button("./mainmenu.png", "./mainmenu.png", 2, 300, 20, 200, 100, true, renderer));
 
 	hud.push_back(new Toggle("./toggleOn.png", "./toggleOff.png", 3, 500, 300, 100, 100, true, renderer));
