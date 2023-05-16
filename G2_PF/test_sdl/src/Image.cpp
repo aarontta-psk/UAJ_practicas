@@ -5,7 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-Image::Image(const std::string & path, SDL_Renderer* renderer) : surface(nullptr), texture(nullptr)
+Image::Image(const std::string & path, SDL_Renderer* renderer) : texture(nullptr)
 {
 	SDL_Surface* surface = IMG_Load(path.c_str());
 	if (!surface) {
