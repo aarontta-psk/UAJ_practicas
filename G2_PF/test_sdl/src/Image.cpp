@@ -7,7 +7,7 @@
 
 Image::Image(const std::string & path, SDL_Renderer* renderer) : surface(nullptr), texture(nullptr)
 {
-	surface = IMG_Load(path.c_str());
+	SDL_Surface* surface = IMG_Load(path.c_str());
 	if (!surface) {
 		std::cout << "Failure loading image " << path << ": " << IMG_GetError() << std::endl;
 		return;
@@ -30,11 +30,6 @@ Image::Image(const std::string & path, SDL_Renderer* renderer) : surface(nullptr
 
 Image::~Image()
 {
-	if (surface != nullptr) {
-		SDL_FreeSurface(surface);
-		surface = nullptr;
-	}
-
 	if (texture != nullptr) {
 		SDL_DestroyTexture(texture);
 		texture = nullptr;

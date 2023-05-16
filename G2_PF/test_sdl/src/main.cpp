@@ -18,9 +18,6 @@
 
 
 int main() {
-
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0)
 		return EXIT_FAILURE;
 
