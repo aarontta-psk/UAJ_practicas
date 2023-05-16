@@ -83,7 +83,7 @@ namespace ianium {
 		/// <returns>true if it's correct, false if it isn't</returns>
 		bool assertToggle(uint64_t idToggle, uint32_t statetoCheck);
 		/// <summary>
-		/// Asserts if a sldier has the correct internal value.
+		/// Asserts if a slider has the correct internal value.
 		/// </summary>
 		/// <param name="idButton">Slider ID</param>
 		/// <param name="stateToCheck">Value that the sldier should have</param>
