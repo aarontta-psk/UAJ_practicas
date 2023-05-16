@@ -4,7 +4,7 @@ Ianium es una herramienta que facilita la realización de tests de unidad para u
 Para más información sobre la estructura de clases a seguir, consultar el proyecto ejemplo "test_sdl" o [la memoria del proyecto](https://docs.google.com/document/d/1fGLfiWiWpbZlCSRJFyDYRxK_tCla1uQhhHJsEO_23l0/edit?usp=sharing)
 
 ## Compilación automatica
-- Mover/copiar las carpetas *example/assets/* y *example/scripts/* a la carpeta *test_sdl/*, y luego ejecutar el archivo build.bat utilizando **Visual Studio 2022 Developer Command Prompt**.
+- Mover/copiar las carpetas *example/assets/* y *example/scripts/* a la carpeta *test_sdl/*, y luego ejecutar el archivo build.bat utilizando **Visual Studio 2022 Developer Command Prompt**. Abrir test_sdl.sln, y ejecutar una vez.
 - En *example/output/* se puede ver un ejemplo de salida.
 
 ## API
