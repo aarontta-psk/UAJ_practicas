@@ -17,6 +17,5 @@ public:
 private:
 	uint32_t w, h;
 	SDL_Texture* texture;
-	SDL_Surface* surface;
 };
 #endif // IMAGE_H
