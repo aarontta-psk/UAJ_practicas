@@ -1,13 +1,14 @@
 #pragma once
-#ifndef VISUAL_TESTING_H
-#define VISUAL_TESTING_H
+#ifndef IA_VISUAL_TESTING_H
+#define IA_VISUAL_TESTING_H
 
-#include <common/macros.h>
 #include <vector>
 #include <string>
 
-struct SDL_Renderer;
+#include <common/macros.h>
+
 struct SDL_Window;
+struct SDL_Renderer;
 
 namespace ianium {
 	class IANIUM_EXPORT VisualTesting {
@@ -15,21 +16,29 @@ namespace ianium {
 		VisualTesting(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
 		~VisualTesting();
 
+		/// <summary>
+		/// Asserts that a certain image is present on the SDL window.
+		/// </summary>
+		/// <param name="imagePath">Image to be searched on screen</param>
+		/// <returns>true if the image appears on screen, false if it doesn't</returns>
 		bool assertImageOnScreen(std::string imagePath);
 
 	private:
-		SDL_Renderer* renderer;
 		SDL_Window* window;
+		SDL_Renderer* renderer;
 
+		/// <summary>
+		/// Takes a screenshot of the SDL window.
+		/// </summary>
+		void takeScreenshot();
 		/// <summary>
 		/// Finds the number of occurrences of a template image inside another one. Uses internally OpenCV to get a mask and separates 
 		/// the connected regions to get how many images were detected
 		/// </summary>
-		/// <param name="imagePath"></param> Original image where the template image is searched on
-		/// <param name="templateImagePath"></param> Template image 
-		/// <returns></returns> Number of occurrences of the template image inside the original image
+		/// <param name="imagePath">Original image where the template image is searched on</param> 
+		/// <param name="templateImagePath">Template image</param>  
+		/// <returns>Number of occurrences of the template image inside the original image</returns> 
 		std::vector<std::pair<double, double>> template_matching(std::string imagePath, std::string templateImagePath);
-		void takeScreenshot();
 	};
 };
-#endif // VISUAL_TESTING_H
+#endif // IA_VISUAL_TESTING_H

@@ -29,73 +29,67 @@ int main() {
 	if (!renderer)
 		return EXIT_FAILURE;
 
-	ianium::Ianium::Init(window, renderer);
-
-	std::list<HudElement*> hud;
+	if (!ianium::Ianium::Init(window, renderer))
+		return EXIT_FAILURE;
 
 	//Interfaz
-	hud.push_back(new Button("./buttonPressed.png", "./buttonReleased.png", 0, 350, 150, 100, 50, true, renderer));
-	hud.push_back(new Button("./buttonPressed.png", "./buttonReleased.png", 1, 350, 200, 100, 50, true, renderer));
-	hud.push_back(new Button("./buttonPressed.png", "./buttonReleased.png", 1, 350, 250, 100, 50, true, renderer));
-	hud.push_back(new Button("./mainmenu.png", "./mainmenu.png", 2, 300, 20, 200, 100, true, renderer));
+	std::list<HudElement*> hud;
 
-	hud.push_back(new Toggle("./toggleOn.png", "./toggleOff.png", 3, 500, 300, 100, 100, true, renderer));
-	hud.push_back(new Slider("./sliderRange.png", "./sliderButton.png", 4, 200, 200, 200, 20, true, 80.0, 0.0, 100.0, 10, Slider::Orientation::HORIZONTAL, renderer));
+	hud.push_back(new Button(renderer, "./buttonPressed.png", "./buttonReleased.png", 0, 350, 150, 100, 50, true));
+	hud.push_back(new Button(renderer, "./buttonPressed.png", "./buttonReleased.png", 1, 350, 200, 100, 50, true));
+	hud.push_back(new Button(renderer, "./buttonPressed.png", "./buttonReleased.png", 2, 350, 250, 100, 50, true));
+	hud.push_back(new Button(renderer, "./mainmenu.png", "./mainmenu.png", 3, 300, 20, 200, 100, true));
 
+	hud.push_back(new Toggle(renderer, "./toggleOn.png", "./toggleOff.png", 3, 500, 300, 100, 100, true));
+	hud.push_back(new Slider(renderer, "./sliderRange.png", "./sliderButton.png", 4, 200, 200, 200, 20, true, 80.0, 0.0, 100.0, 10, Slider::Orientation::HORIZONTAL));
 
 	try
 	{
+		// test running
 		ianium::Ianium::Instance()->runTests("./scripts");
-		// Bucle principal
+
+		// game loop
 		bool gameRunning = true;
 		while (gameRunning) {
 			// Manejar eventos
 			SDL_Event event;
 			while (SDL_PollEvent(&event)) {
-				if (event.type == SDL_QUIT) {
+				if (event.type == SDL_QUIT || (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE))
 					gameRunning = false;
-				}
-				else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
-					gameRunning = false;
-				}
-				else if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP) {
-					//eventos de clickado
-					//Update
+				else if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP)
+					// handle input
 					for (HudElement* elem : hud)
-					{
 						elem->handleInput(event);
-					}
-				}
 			}
 
-			// Renderizar elementos
+			// render clear
 			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 			SDL_RenderClear(renderer);
 
-			//Renderitamos los elementos de la interfaz
+			// render elements
 			for (HudElement* elem : hud)
-			{
 				elem->render(renderer);
-			}
 
-			//Y lo muestra en pantalla
+			// render present
 			SDL_RenderPresent(renderer);
-
-			//insertamos un evento de ianium aqui como testeo
-
-			//ianium::Ianium::Instance()->functionalTesting.click(501, 301);
 		}
 	}
-	catch (std::exception& e)
-	{
+	catch (std::exception& e) {
 		std::cout << e.what() << std::endl; // output exception message
 	}
 	
+	// delete ui elements
 	for (HudElement* elem : hud)
 		delete elem;
 	hud.clear();
 
+	// release Ianium
 	ianium::Ianium::Release();
+
+	// delete SDL
+	SDL_DestroyRenderer(renderer);
+	SDL_DestroyWindow(window); 
+	SDL_Quit();
 
 	return 0;
 }

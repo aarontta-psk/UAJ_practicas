@@ -20,6 +20,7 @@ VisualTesting::~VisualTesting() = default;
 bool VisualTesting::assertImageOnScreen(std::string imagePath)
 {
 	takeScreenshot();
+
 	return template_matching(TEMP_SCREENSHOT_NAME, imagePath).size() != 0;
 }
 
@@ -38,49 +39,39 @@ std::vector<std::pair<double, double>> VisualTesting::template_matching(std::str
 	cv::Mat img; cv::Mat templateImg; cv::Mat maskImg; cv::Mat result;
 	std::vector<std::pair<double, double>> resultVector;
 
-	// Image, template and mask (if used) are loaded
+	// image, template and mask (if used) are loaded
 	img = cv::imread(gameScreenshotImagePath, cv::IMREAD_COLOR);
 	templateImg = cv::imread(templateImagePath, cv::IMREAD_COLOR);
 
-	if (img.empty() || templateImg.empty())
-	{
+	if (img.empty() || templateImg.empty()) {
 		std::cout << "Can't read one of the images" << std::endl;
 		return resultVector;
 	}
 
-	// Matching method selector
+	// matching method selector
 	cv::Mat img_display;
 	img.copyTo(img_display);
+
 	int result_cols = img.cols - templateImg.cols + 1;
 	int result_rows = img.rows - templateImg.rows + 1;
 
 	result.create(result_rows, result_cols, CV_32FC1);
-	/*bool method_accepts_mask = cv::TM_SQDIFF
-	if (use_mask && method_accepts_mask)
-	{
-		matchTemplate(img, templ, result, match_method, mask);
-	}*/
-	/*else*/
 	
 	cv::matchTemplate(img, templateImg, result, cv::TM_CCOEFF_NORMED);
 
-	//cv::normalize(result, result, 0, 1, cv::NORM_MINMAX, -1, cv::Mat());
+	double thresh = 0.8;				// set threshold value
+	cv::Mat mask = (result >= thresh);	// create binary mask
 
-	double thresh = 0.8; // set threshold value
-	cv::Mat mask = (result >= thresh); // create binary mask
+	std::vector<cv::Point> locations;	// store template locations
+	cv::findNonZero(mask, locations);	// find non-zero locations in mask
 
-	std::vector<cv::Point> locations; // store template locations
-	cv::findNonZero(mask, locations); // find non-zero locations in mask
-
-	for (const auto& loc : locations) {
+	for (const auto& loc : locations)
 		cv::rectangle(img_display, cv::Rect(loc, templateImg.size()), cv::Scalar(0, 0, 255), 2); // draw rectangles around template
-	}
 	
 	// label connected components in binary mask
 	cv::Mat labels, stats, centroids;
-	int num_groups = cv::connectedComponentsWithStats(mask, labels, stats, centroids);
 	// the background group isn't counted
-	std::cout << num_groups - 1 << std::endl;
+	int num_groups = cv::connectedComponentsWithStats(mask, labels, stats, centroids);
 
 	// loop over connected components and get center positions
 	for (int i = 1; i < num_groups; i++) {

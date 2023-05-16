@@ -9,7 +9,6 @@
 
 #define DEBUG_TEST false
 
-//maybe this could be done better
 #define CHECK_ARG_SIZE(nElems, size, nLine) \
 	if (size != nElems) { \
 	std::cerr << "Wrong number of arguments on line " << nLine << std::endl; \

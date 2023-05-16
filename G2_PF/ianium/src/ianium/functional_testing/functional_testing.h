@@ -1,6 +1,6 @@
 ﻿#pragma once
-#ifndef FUNCTIONAL_TESTING_H
-#define FUNCTIONAL_TESTING_H
+#ifndef IA_FUNCTIONAL_TESTING_H
+#define IA_FUNCTIONAL_TESTING_H
 
 #include <string>
 #include <utility>
@@ -19,27 +19,100 @@ namespace ianium {
 		FunctionalTesting(std::unordered_map<std::string, UIElement*>* uiTestElems, SDL_Renderer* sdl_renderer);
 		~FunctionalTesting();
 
-		void click(int x, int y);
+		/// <summary>
+		/// Clicks an UI element by using it's ID.
+		/// </summary>
+		/// <param name="uiType">UI element type</param>
+		/// <param name="id_elem">UI element ID</param>
 		void click(UIType uiType, uint64_t id_elem);
-		void clickUp(int x, int y);
-		void clickUp(UIType uiType, uint64_t id_elem);
-		void doubleClick(int x, int y);
+		/// <summary>
+		/// Clicks on the screen at an specified spot.
+		/// </summary>
+		/// <param name="x">X coordinate of the spot</param>
+		/// <param name="y">Y coordinate of the spot</param>
+		void click(uint32_t x, uint32_t y);
+		/// <summary>
+		/// Releases a click on the screen at an specified spot determined by the element position.
+		/// </summary>
+		/// <param name="uiType">UI element type</param>
+		/// <param name="id_elem">UI element ID</param>
+		void releaseClick(UIType uiType, uint64_t id_elem);
+		/// <summary>
+		/// Releases a click on the screen at an specified spot.
+		/// </summary>
+		/// <param name="x">X coordinate of the spot</param>
+		/// <param name="y">Y coordinate of the spot</param>
+		void releaseClick(uint32_t x, uint32_t y);
+		/// <summary>
+		/// Double clicks on the screen at an specified spot determined by the element position.
+		/// </summary>
+		/// <param name="uiType">UI element type</param>
+		/// <param name="id_elem">UI element ID</param>
 		void doubleClick(UIType uiType, uint64_t id_elem);
-		void pressedClick(int x, int y);
-		void mouseMotion(int x, int y);
+		/// <summary>
+		/// Double clicks on the screen at an specified spot.
+		/// </summary>
+		/// <param name="x">X coordinate of the spot</param>
+		/// <param name="y">Y coordinate of the spot</param>
+		void doubleClick(uint32_t x, uint32_t y);
+		/// <summary>
+		/// Press on the screen at an specified spot.
+		/// </summary>
+		/// <param name="x">X coordinate of the spot</param>
+		/// <param name="y">Y coordinate of the spot</param>
+		void pressedClick(uint32_t x, uint32_t y);
+		/// <summary>
+		/// Moves the mouse to an specified spot of the screen.
+		/// </summary>
+		/// <param name="x">X coordinate of the spot</param>
+		/// <param name="y">Y coordinate of the spot</param>
+		void mouseMotion(uint32_t x, uint32_t y);
 
-		bool assertButton(int idButton, int stateToCheck);
-		bool assertToggle(int idToggle, int statetoCheck);
-		bool assertSlider(int idSlider, float value);
+		/// <summary>
+		/// Asserts if a button has the correct state.
+		/// </summary>
+		/// <param name="idButton">Button ID</param>
+		/// <param name="stateToCheck">State that the button should have</param>
+		/// <returns>true if it's correct, false if it isn't</returns>
+		bool assertButton(uint64_t idButton, uint32_t stateToCheck);
+		/// <summary>
+		/// Asserts if a toggle has the correct state.
+		/// </summary>
+		/// <param name="idToggle">Toggle ID</param>
+		/// <param name="stateToCheck">State that the toggle should have</param>
+		/// <returns>true if it's correct, false if it isn't</returns>
+		bool assertToggle(uint64_t idToggle, uint32_t statetoCheck);
+		/// <summary>
+		/// Asserts if a sldier has the correct internal value.
+		/// </summary>
+		/// <param name="idButton">Slider ID</param>
+		/// <param name="stateToCheck">Value that the sldier should have</param>
+		/// <returns>true if it's correct, false if it isn't</returns>
+		bool assertSlider(uint64_t idSlider, float value);
 
+		/// <summary>
+		/// Runs a specified number of frames of simulation.
+		/// </summary>
+		/// <param name="n_frames">Number of frames to simulate</param>
 		void runFrames(uint32_t n_frames);
 
 	private:
 		std::unordered_map<std::string, UIElement*>* uiElems;
 		SDL_Renderer* renderer;
 
+		/// <summary>
+		/// Returns the prefix ID of each type of UI element.
+		/// </summary>
+		/// <param name="uiType">UI element type</param>
+		/// <returns>prefix ID</returns>
 		std::string elemPrefix(UIType uiType);
+		/// <summary>
+		/// Adjust a given X and Y coordinate to get n the middle of an object
+		/// </summary>
+		/// <param name="x">X coordinate to adjust</param>
+		/// <param name="y">Y coordinate to adjust</param>
+		/// <param name="ui_elem_id">Element ID</param>
 		void middleElem(int *x, int *y, std::string ui_elem_id);
 	};
 };
-#endif // FUNCTIONAL_TESTING_H
+#endif // IA_FUNCTIONAL_TESTING_H

@@ -66,10 +66,12 @@ void Ianium::runTests(const char* rootPath) {
 	tests.clear();
 }
 
-bool Ianium::initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer)
-{
-	if (SDL_WasInit(SDL_INIT_EVERYTHING) == 0 || !sdl_window || !sdl_renderer)
+bool Ianium::initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer) {
+	if (SDL_WasInit(SDL_INIT_EVERYTHING) == 0 || !sdl_window || !sdl_renderer) {
+		std::cout << "SDL should have been initialised previously, " <<
+			"and the window and renderer sent directly to Ianium through the initialisation.\n";
 		return false;
+	}
 
 	window = sdl_window;
 	renderer = sdl_renderer;
@@ -80,22 +82,18 @@ bool Ianium::initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer)
 	return true;
 }
 
-void Ianium::releasePrivate()
-{
+void Ianium::releasePrivate() {
 	delete visualTesting;
 	delete functionalTesting;
 
-	SDL_Quit();
+	window = nullptr;
+	renderer = nullptr;
 }
 
-bool Ianium::readTestDirectoryFiles(std::string rootPath)
-{
-
-	if (std::filesystem::exists(rootPath)) {
-		for (const auto& archivo : std::filesystem::directory_iterator(rootPath)) {
+bool Ianium::readTestDirectoryFiles(std::string rootPath) {
+	if (std::filesystem::exists(rootPath))
+		for (const auto& archivo : std::filesystem::directory_iterator(rootPath))
 			readScript(rootPath + "/" + archivo.path().filename().string());
-		}
-	}
 	else {
 		std::cerr << "El directorio especificado no existe." << std::endl;
 		return false;
@@ -104,13 +102,11 @@ bool Ianium::readTestDirectoryFiles(std::string rootPath)
 	return true;
 }
 
-bool ianium::Ianium::writeTestResults(std::string rootPath)
-{
+bool ianium::Ianium::writeTestResults(std::string rootPath) {
 	std::filesystem::path file_path("./output/" + rootPath + ".iaout");
 
-	if (!std::filesystem::exists(file_path.parent_path())) {
+	if (!std::filesystem::exists(file_path.parent_path()))
 		std::filesystem::create_directory(file_path.parent_path());
-	}
 
 	std::ofstream file(file_path.string());
 
@@ -118,16 +114,13 @@ bool ianium::Ianium::writeTestResults(std::string rootPath)
 		// Escribe en el archivo
 		for (auto it = tests.begin(); it != tests.end(); ++it) {
 			std::string data;
-			if (it->second.passed == TEST_PASSED) {
+			if (it->second.passed == TEST_PASSED)
 				data = "[+] Tests on script " + it->second.errorFile + " succesfully passed \n";
-			}
-			else if (it->second.passed == TEST_FAILED) {
+			else if (it->second.passed == TEST_FAILED)
 				data = "[-] Tests on script " + it->second.errorFile + " failed \n";
-			}
-			else if (it->second.passed == TEST_WRONG_FORMAT) {
+			else if (it->second.passed == TEST_WRONG_FORMAT)
 				data = "Error on script " + it->second.errorFile + ", test: " + std::string(it->first) + " line: " + std::string(it->second.errorLine) + " " + std::string(it->second.errorLine) + "\n" +
 					"error description: " + it->second.errorDescription;
-			}
 			file << data;
 		}
 		file.close();
@@ -140,21 +133,7 @@ bool ianium::Ianium::writeTestResults(std::string rootPath)
 	return true;
 }
 
-std::vector<std::string> ianium::Ianium::getWords(std::string line)
-{
-	std::vector<std::string> words;
-	std::stringstream ss(line);
-	std::string word_str;
-
-	while (ss >> word_str) {
-		words.push_back(word_str);
-	}
-	return words;
-}
-
-bool Ianium::readScript(std::string fileName)
-{
-
+bool Ianium::readScript(std::string fileName) {
 	int longitud = fileName.length();
 	std::string extension = fileName.substr(longitud - 3);
 	if (extension != ".ia") {
@@ -163,7 +142,6 @@ bool Ianium::readScript(std::string fileName)
 	}
 
 	std::ifstream file(fileName);
-
 	if (file.fail()) {
 		std::cerr << "Error opening file!" << std::endl;
 		return false;
@@ -172,18 +150,13 @@ bool Ianium::readScript(std::string fileName)
 	std::string line;
 	int nLine = 1;
 	while (std::getline(file, line)) {
-
 		std::vector<std::string> first_words = getWords(line);
-
 		if (first_words.size() == 0) {
 			nLine++;
 			continue;
 		}
 
-		if (first_words[0] == "before:") {
-
-		}
-
+		if (first_words[0] == "before:") {}
 		else if (first_words[0] == "test:") {
 			if (first_words.size() != 2) {
 				std::string error = "Wrong \"test:\" section label. Try \"test: TEST_NAME\" \n";
@@ -197,8 +170,7 @@ bool Ianium::readScript(std::string fileName)
 			}
 
 			auto test_name = tests.find(first_words[1]);
-			if (test_name != tests.end())
-			{
+			if (test_name != tests.end()) {
 				std::string error = "Test name " + first_words[1] + " was already in use. \n";
 				std::cerr << error;
 				std::string error_test_name = "error_name_" + std::to_string(error_name);
@@ -214,8 +186,8 @@ bool Ianium::readScript(std::string fileName)
 
 			while (std::getline(file, line) && line != "end") {
 				nLine++;
-				std::vector<std::string> words = getWords(line);
 
+				std::vector<std::string> words = getWords(line);
 				if (words.size() == 0) {
 					nLine++;
 					continue;
@@ -277,8 +249,7 @@ bool Ianium::readScript(std::string fileName)
 	return true;
 }
 
-int Ianium::executeLine(int nLine, const std::vector<std::string>& words)
-{	
+int Ianium::executeLine(int nLine, const std::vector<std::string>& words) {	
 	int returnValue = TEST_PASSED;
 	if (words[0] == "click") {
 		CHECK_ARG_SIZE(3, words.size(), nLine)
@@ -349,9 +320,19 @@ int Ianium::executeLine(int nLine, const std::vector<std::string>& words)
 	return returnValue;
 }
 
+std::vector<std::string> ianium::Ianium::getWords(std::string line)
+{
+	std::vector<std::string> words;
+	std::stringstream ss(line);
+	std::string word_str;
+
+	while (ss >> word_str)
+		words.push_back(word_str);
+	return words;
+}
+
 std::string Ianium::elemPrefix(UIType uiType) {
-	switch (uiType)
-	{
+	switch (uiType) {
 	case UIType::BUTTON:
 		return "button_";
 		break;

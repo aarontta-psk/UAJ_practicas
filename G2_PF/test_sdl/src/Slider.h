@@ -1,4 +1,9 @@
 #pragma once
+#ifndef SLIDER_H
+#define SLIDER_H
+
+#include <ianium/testable_ui/slider.h>
+
 #include "HudElement.h"
 #include "Image.h"
 
@@ -6,46 +11,34 @@ class Slider : public ianium::Slider, public HudElement {
 public:
 	enum class Orientation { VERTICAL, HORIZONTAL };
 
-	Slider(std::string pathRange, std::string pathValue, const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active,
-		const float valueAux, const float minValueAux, const float maxValueAux, const int rangeSelectionAux, const Orientation orientationAux, SDL_Renderer* renderer);
-
+	Slider(SDL_Renderer* renderer, std::string pathRange, std::string pathValue, const uint32_t id, const uint32_t posX, const uint32_t posY, const uint32_t w, const uint32_t h, const bool active,
+		const float val, const float minV, const float maxV, const uint32_t range, const Orientation ori);
 	virtual ~Slider();
 
-	//REDEFINICIONES CLASE UIELEMENT
-	// Devuelve la posición (X, Y) del elemento
-	virtual std::pair<uint32_t, uint32_t> getPosition() const;
-	// Devuelve el tamaño (ancho, alto) del elemento
-	virtual std::pair<uint32_t, uint32_t> getSize() const;
-	// Devuelve el estado del elemento
-	virtual bool getEnable() const;
-
-	//REDEFINICIONES CLASE SLIDER
-	virtual float getValue() const;
-	virtual float getMinValue() const;
-	virtual float getMaxValue() const;
-	virtual int getRangeSelection() const;
-
 	virtual void render(SDL_Renderer* renderer) override;
-
 	virtual void handleInput(const SDL_Event& i_event);
-
 	virtual void reset();
 
-private:
-	float value;					// Valor actual del slider
-	float minValue, maxValue;		// Valor mínimo y maximo del slider
-	int rangeSelection;				// Cantidad de valores que se pueden seleccionar en el slider      
-	Orientation orientation;		// Orientación del slider (horizontal o vertical)
+	virtual std::pair<uint32_t, uint32_t> getPosition() const;
+	virtual std::pair<uint32_t, uint32_t> getSize() const;
+	virtual bool getEnable() const;
 
-	//Varaibles para el reseteado
-	float value_original;					// Valor actual del slider
-	float minValue_original, maxValue_original;		// Valor mínimo y maximo del slider
-	int rangeSelection_original;				// Cantidad de valores que se pueden seleccionar en el slider      
-	Orientation orientation_original;		// Orientación del slider (horizontal o vertical)
+	virtual float getValue() const;
+
+	float getMinValue() const;
+	float getMaxValue() const;
+	uint32_t getRangeSelection() const;
+
+private:
+	float value;					// sldier value
+	float minValue, maxValue;		// min & max slider value
+	uint32_t rangeSelection;		// slider range      
+	Orientation orientation;		// orientation
+
+	float value_original;
 
 	SDL_Rect rect;
 	Image* imageRange;
 	Image* imageValue;
-
 };
-
+#endif // SLIDER_H

@@ -1,25 +1,23 @@
 #pragma once
+#ifndef HUD_ELEMENT_H
+#define HUD_ELEMENT_H
 
 #include <SDL2/SDL.h>
 
-/*Ianium*/
-#include <ianium/testable_ui/button.h>
-#include <ianium/testable_ui/slider.h>
-#include <ianium/testable_ui/toggle.h>
-
 #include <ianium/ianium.h>
-/*Ianium*/
 
 class HudElement {
 public:
-	HudElement(int posXAux, int posYAux, int widthAux, int heightAux, bool isActiveAux) :posX(posXAux), posY(posYAux), width(widthAux), height(heightAux), isActive(isActiveAux) {};
+	HudElement(int posXAux, int posYAux, int widthAux, int heightAux, bool isActiveAux) 
+		: posX(posXAux), posY(posYAux), width(widthAux), height(heightAux), isActive(isActiveAux) {};
 	virtual ~HudElement() = default;
 
 	virtual void render(SDL_Renderer* renderer) = 0;
-	virtual void handleInput(const SDL_Event& event) {};
+	virtual void handleInput(const SDL_Event& event) = 0;
 
 protected:
-	uint32_t posX, posY;    // Posición X e Y del elemento
-	uint32_t width, height; // Ancho y alto del elemento                
-	bool isActive;          // Estado del elemento (Activado o desactivado)         
+	uint32_t posX, posY;    // X and Y position of the element
+	uint32_t width, height; // width and height of the element                
+	bool isActive;          // active state of the element         
 };
+#endif // HUD_ELEMENT_H
