@@ -72,3 +72,59 @@ float Slider::getMinValue() const { return minValue; }
 float Slider::getMaxValue() const { return maxValue; }
 
 uint32_t Slider::getRangeSelection() const { return rangeSelection; }
+
+//--------Wrong one
+
+WrongSlider::WrongSlider(SDL_Renderer* renderer, std::string pathRange, std::string pathValue, const uint32_t id,
+	const uint32_t posX, const uint32_t posY, const uint32_t w, const uint32_t h, const bool active,
+	const float val, const float minV, const float maxV, const uint32_t range, const Orientation ori)
+	: ianium::Slider(id), HudElement(posX, posY, w, h, active) {
+	value, value_original = val;
+	minValue = minV;
+	maxValue = 1.5;
+	rangeSelection = range;
+	orientation = ori;
+
+	imageRange = new Image(pathRange, renderer);
+	imageValue = new Image(pathValue, renderer);
+}
+
+WrongSlider::~WrongSlider() {
+	delete imageRange;
+	delete imageValue;
+}
+
+void WrongSlider::render(SDL_Renderer* renderer) {
+	rect = { (int)posX, (int)posY, (int)width, (int)height };
+	imageRange->render(rect, renderer);
+
+	if (orientation == Orientation::HORIZONTAL)
+		rect = { (int)posX + ((int)value * (int)width / (int)maxValue), (int)posY, (int)(width / rangeSelection), (int)height };
+	else
+		rect = { (int)posX, (int)posY + ((int)value * (int)height / (int)maxValue), (int)width, (int)(height / rangeSelection) };
+
+	imageValue->render(rect, renderer);
+}
+
+void WrongSlider::handleInput(const SDL_Event& i_event)
+{
+	value = 42; // wrong value
+}
+
+void WrongSlider::reset() {
+	value = 42; // wrong value
+}
+
+std::pair<uint32_t, uint32_t> WrongSlider::getPosition() const { return std::make_pair(posX, posY); }
+
+std::pair<uint32_t, uint32_t> WrongSlider::getSize() const { return std::make_pair(width, height); }
+
+bool WrongSlider::getEnable() const { return isActive; }
+
+float WrongSlider::getValue() const { return value; }
+
+float WrongSlider::getMinValue() const { return minValue; }
+
+float WrongSlider::getMaxValue() const { return maxValue; }
+
+uint32_t WrongSlider::getRangeSelection() const { return rangeSelection; }
