@@ -4,6 +4,7 @@
 
 #include <string>
 #include <memory>
+#include <set>
 #include <unordered_map>
 
 #include <common/macros.h>
@@ -19,11 +20,32 @@ namespace ianium {
 	class FunctionalTesting;
 
 	struct TestInfo {
-		int passed, errorLineNumber;
+		std::string test_name;
+		uint32_t script_count, test_count;
+		uint32_t passed;
+
+		uint32_t errorLineNumber;
 		std::string errorFile, errorLine, errorDescription;
 
-		TestInfo(bool _passed, std::string _errorFile, int _errorLineNumber, std::string _errorLine, std::string _errorDescription)
-			: passed(_passed), errorFile(_errorFile), errorLineNumber(_errorLineNumber), errorLine(_errorLine), errorDescription(_errorDescription) {};
+		TestInfo(std::string _test_name, uint32_t _script_count, uint32_t _test_count, uint32_t _passed, 
+			std::string _errorFile, int _errorLineNumber, std::string _errorLine, std::string _errorDescription)
+			: test_name(_test_name), script_count(_script_count), test_count(_test_count), passed(_passed), errorFile(_errorFile),
+			errorLineNumber(_errorLineNumber), errorLine(_errorLine), errorDescription(_errorDescription) {};
+	};
+
+	struct TestInfoCompare {
+		bool operator() (const TestInfo& lhs, const TestInfo& rhs) const {
+			return lhs.script_count < rhs.script_count || (lhs.script_count == rhs.script_count && lhs.test_count < rhs.test_count);
+		}
+	};
+
+	struct TestInfoFind {
+		TestInfoFind(const std::string& _name) : name(_name) {}
+		bool operator()(const TestInfo& tInfo) {
+			return tInfo.test_name == name;
+		}
+	private:
+		std::string name;
 	};
 
 	class IANIUM_EXPORT Ianium {
@@ -72,8 +94,8 @@ namespace ianium {
 		SDL_Window* window;
 		SDL_Renderer* renderer;
 
-		std::unordered_map<std::string, TestInfo> tests;
-		int error_name;
+		std::set<TestInfo, TestInfoCompare> tests;
+		int error_name, script_count, test_count;
 
 		bool initPrivate(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
 		void releasePrivate();

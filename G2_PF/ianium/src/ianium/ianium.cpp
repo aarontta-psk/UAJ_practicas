@@ -60,7 +60,7 @@ void Ianium::addTestableUIElem(UIType uiType, UIElement* ui_elem)
 }
 
 void Ianium::runTests(const char* rootPath) {
-	error_name = 0;
+	error_name = script_count = test_count = 0;
 	readTestDirectoryFiles(rootPath);
 	writeTestResults(rootPath);
 	tests.clear();
@@ -91,9 +91,12 @@ void Ianium::releasePrivate() {
 }
 
 bool Ianium::readTestDirectoryFiles(std::string rootPath) {
-	if (std::filesystem::exists(rootPath))
-		for (const auto& archivo : std::filesystem::directory_iterator(rootPath))
+	if (std::filesystem::exists(rootPath)) {
+		for (const auto& archivo : std::filesystem::directory_iterator(rootPath)) {
 			readScript(rootPath + "/" + archivo.path().filename().string());
+			script_count++;
+		}
+	}
 	else {
 		std::cerr << "El directorio especificado no existe." << std::endl;
 		return false;
@@ -112,15 +115,16 @@ bool ianium::Ianium::writeTestResults(std::string rootPath) {
 
 	if (file.is_open()) {
 		// Escribe en el archivo
-		for (auto it = tests.begin(); it != tests.end(); ++it) {
+		for (std::set<TestInfo, TestInfoCompare>::iterator testIt = tests.begin(); testIt != tests.end(); ++testIt) {
 			std::string data;
-			if (it->second.passed == TEST_PASSED)
-				data = "[+] Tests on script " + it->second.errorFile + " succesfully passed \n";
-			else if (it->second.passed == TEST_FAILED)
-				data = "[-] Tests on script " + it->second.errorFile + " failed \n";
-			else if (it->second.passed == TEST_WRONG_FORMAT)
-				data = "Error on script " + it->second.errorFile + ", test: " + std::string(it->first) + " line: " + std::string(it->second.errorLine) + " " + std::string(it->second.errorLine) + "\n" +
-					"error description: " + it->second.errorDescription;
+			if (testIt->passed == TEST_PASSED)
+				data = "[+] Tests on script " + testIt->errorFile + " succesfully passed \n";
+			else if (testIt->passed == TEST_FAILED)
+				data = "[-] Tests on script " + testIt->errorFile + " failed \n";
+			else if (testIt->passed == TEST_WRONG_FORMAT)
+				data = "Error on script " + testIt->errorFile + ", test: " + std::string(testIt->test_name) + " line: " + 
+				std::string(testIt->errorLine) + " " + std::string(testIt->errorLine) + "\n" + "error description: " + 
+				testIt->errorDescription;
 			file << data;
 		}
 		file.close();
@@ -163,26 +167,23 @@ bool Ianium::readScript(std::string fileName) {
 				std::cerr << error;
 				std::string error_test_name = "error_name_" + std::to_string(error_name);
 				std::string errorLine = "test: \n";
-				tests.insert(std::make_pair(error_test_name, TestInfo(false, fileName, nLine, errorLine, error)));
+				tests.insert(TestInfo(error_test_name, script_count, test_count, false, fileName, nLine, errorLine, error));
 				error_name++;
 				file.close();
 				return false;
 			}
 
-			auto test_name = tests.find(first_words[1]);
+			std::set<TestInfo, TestInfoCompare>::iterator test_name = std::find_if(tests.begin(), tests.end(), TestInfoFind(first_words[1]));
 			if (test_name != tests.end()) {
 				std::string error = "Test name " + first_words[1] + " was already in use. \n";
 				std::cerr << error;
 				std::string error_test_name = "error_name_" + std::to_string(error_name);
 				std::string errorLine = "test: " + first_words[1] + "\n";
-				tests.insert(std::make_pair(error_test_name, TestInfo(false, fileName, nLine, errorLine, error)));
+				tests.insert(TestInfo(error_test_name, script_count, test_count, false, fileName, nLine, errorLine, error));
 				error_name++;
 				file.close();
 				return false;
 			}
-
-			tests.insert(std::make_pair(first_words[1], TestInfo(false, fileName, 0, "", "")));
-			auto test = tests.find(first_words[1]);
 
 			while (std::getline(file, line) && line != "end") {
 				nLine++;
@@ -195,22 +196,21 @@ bool Ianium::readScript(std::string fileName) {
 				int testResult = executeLine(nLine, words);
 				switch (testResult) {
 					case TEST_WRONG_FORMAT: {
-						test->second.passed = TEST_WRONG_FORMAT;
-						file.close();
 						std::string error = "Error on script " + fileName + " on line " + std::to_string(nLine) + ": \"" + line + "\". Command not recognized." + "\n";
+						tests.insert(TestInfo(first_words[1], script_count, test_count, TEST_WRONG_FORMAT, fileName, nLine, line, error));
 						std::cerr << error;
-						test->second.errorLineNumber = nLine;
-						test->second.errorLine = line;
-						test->second.errorDescription = error;
+						file.close();
 						return false;
 						break;
 					}
-					case TEST_FAILED:
-						test->second.passed = TEST_FAILED;
+					case TEST_FAILED: {
+						tests.insert(TestInfo(first_words[1], script_count, test_count, TEST_FAILED, fileName, 0, "", ""));
 						break;
-					case TEST_PASSED:
-						test->second.passed = TEST_PASSED;
+					}
+					case TEST_PASSED: {
+						tests.insert(TestInfo(first_words[1], script_count, test_count, TEST_PASSED, fileName, 0, "", ""));
 						break;
+					}
 					default:
 						break;
 				}
@@ -227,12 +227,12 @@ bool Ianium::readScript(std::string fileName) {
 			if (line != "end") {
 				std::string error = "Error on script " + fileName + ". Missing \"end\" on line " + std::to_string(nLine) + "\n";
 				std::cerr << error;
-				test->second.errorLineNumber = nLine;
-				test->second.errorLine = line;
-				test->second.errorDescription = error;
+				tests.insert(TestInfo(first_words[1], script_count, test_count, TEST_WRONG_FORMAT, fileName, nLine, line, error));
 				file.close();
 				return false;
 			}
+
+			test_count++;
 		}
 		else {
 			std::string error = "Error on script " + fileName + ". Line " + std::to_string(nLine) + "(" + line + ") not recognized as"
@@ -240,7 +240,7 @@ bool Ianium::readScript(std::string fileName) {
 			std::cerr << error;
 			std::string error_test_name = "error_name_" + std::to_string(error_name);
 			std::string errorLine = "test: \n";
-			tests.insert(std::make_pair(error_test_name, TestInfo(false, fileName, nLine, errorLine, error)));
+			tests.insert(TestInfo(error_test_name, script_count, test_count, false, fileName, nLine, errorLine, error));
 			error_name++;
 			file.close();
 			return false;
@@ -318,7 +318,6 @@ int Ianium::executeLine(int nLine, const std::vector<std::string>& words) {
 		CHECK_CORRECT_TYPES(frames = std::stoi(words[1]);, nLine);
 		functionalTesting->runFrames(frames);
 	}
-	
 	else return TEST_WRONG_FORMAT;
 
 	return returnValue;

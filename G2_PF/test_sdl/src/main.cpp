@@ -56,7 +56,7 @@ int main() {
 	try
 	{
 		// test running
-		//ianium::Ianium::Instance()->runTests("./scripts");
+		ianium::Ianium::Instance()->runTests("./scripts");
 
 		// game loop
 		bool gameRunning = true;
