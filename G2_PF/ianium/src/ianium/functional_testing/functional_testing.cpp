@@ -118,22 +118,14 @@ void FunctionalTesting::mouseMotion(uint32_t x, uint32_t y) {
 
 bool FunctionalTesting::assertButton(uint64_t idButton, uint32_t stateToCheck) {
 	auto elem = uiElems->find(elemPrefix(UIType::BUTTON) + std::to_string(idButton));
-	if (elem != uiElems->end()) {
-		uint32_t state = ((Button*)elem->second)->getStateButton();
-		return state == stateToCheck;
-	}
-	std::cerr << "Button " << idButton << " not found" << std::endl;
-	return false;
+	uint32_t state = ((Button*)elem->second)->getStateButton();
+	return state == stateToCheck;
 }
 
 bool ianium::FunctionalTesting::assertToggle(uint64_t idToggle, uint32_t stateToCheck) {
 	auto elem = uiElems->find(elemPrefix(UIType::TOGGLE) + std::to_string(idToggle));
-	if (elem != uiElems->end()) {
-		bool state = ((Toggle*)elem->second)->getToggleState();
-		return state == stateToCheck;
-	}
-	std::cerr << "Toggle " << idToggle << " not found" << std::endl;
-	return false;
+	bool state = ((Toggle*)elem->second)->getToggleState();
+	return state == stateToCheck;
 }
 
 bool ianium::FunctionalTesting::assertSlider(uint64_t idSlider, float value) {

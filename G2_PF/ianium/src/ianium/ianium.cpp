@@ -118,11 +118,11 @@ bool ianium::Ianium::writeTestResults(std::string rootPath) {
 		for (std::set<TestInfo, TestInfoCompare>::iterator testIt = tests.begin(); testIt != tests.end(); ++testIt) {
 			std::string data;
 			if (testIt->passed == TEST_PASSED)
-				data = "[+] Tests on script " + testIt->errorFile + " succesfully passed \n";
+				data = "[+] Test " + testIt->test_name + " on script " + testIt->errorFile + " succesfully passed \n";
 			else if (testIt->passed == TEST_FAILED)
-				data = "[-] Tests on script " + testIt->errorFile + " failed \n";
+				data = "[-] Test " + testIt->test_name + " on script " + testIt->errorFile + " failed \n";
 			else if (testIt->passed == TEST_WRONG_FORMAT)
-				data = "Error on script " + testIt->errorFile + ", test: " + std::string(testIt->test_name) + " line: " + 
+				data = "Error on script " + testIt->errorFile + ", test: " + testIt->test_name + " line: " + 
 				std::string(testIt->errorLine) + " " + std::string(testIt->errorLine) + "\n" + "error description: " + 
 				testIt->errorDescription;
 			file << data;
@@ -160,6 +160,7 @@ bool Ianium::readScript(std::string fileName) {
 			continue;
 		}
 
+		int test_end_result = TEST_PASSED;
 		if (first_words[0] == "before:") {}
 		else if (first_words[0] == "test:") {
 			if (first_words.size() != 2) {
@@ -177,7 +178,7 @@ bool Ianium::readScript(std::string fileName) {
 			if (test_name != tests.end()) {
 				std::string error = "Test name " + first_words[1] + " was already in use. \n";
 				std::cerr << error;
-				std::string error_test_name = "error_name_" + std::to_string(error_name);
+				std::string error_test_name = first_words[1] + " error " + std::to_string(error_name);
 				std::string errorLine = "test: " + first_words[1] + "\n";
 				tests.insert(TestInfo(error_test_name, script_count, test_count, false, fileName, nLine, errorLine, error));
 				error_name++;
@@ -196,7 +197,7 @@ bool Ianium::readScript(std::string fileName) {
 				int testResult = executeLine(nLine, words);
 				switch (testResult) {
 					case TEST_WRONG_FORMAT: {
-						std::string error = "Error on script " + fileName + " on line " + std::to_string(nLine) + ": \"" + line + "\". Command not recognized." + "\n";
+						std::string error = "Error on script " + fileName + " on line " + std::to_string(nLine) + ": \"" + line + "\". Command not recognized or id not found." + "\n";
 						tests.insert(TestInfo(first_words[1], script_count, test_count, TEST_WRONG_FORMAT, fileName, nLine, line, error));
 						std::cerr << error;
 						file.close();
@@ -204,21 +205,24 @@ bool Ianium::readScript(std::string fileName) {
 						break;
 					}
 					case TEST_FAILED: {
-						tests.insert(TestInfo(first_words[1], script_count, test_count, TEST_FAILED, fileName, 0, "", ""));
+						test_end_result = TEST_FAILED;
 						break;
 					}
 					case TEST_PASSED: {
-						tests.insert(TestInfo(first_words[1], script_count, test_count, TEST_PASSED, fileName, 0, "", ""));
+						test_end_result = TEST_PASSED;
 						break;
 					}
 					default:
 						break;
 				}
-				if (testResult == TEST_FAILED) {
+				if (test_end_result == TEST_FAILED) {
 					while (std::getline(file, line) && line != "end");
-					break; //no more asserts are needed if test fails once
+					tests.insert(TestInfo(first_words[1], script_count, test_count, TEST_FAILED, fileName, 0, "", ""));
+					break;
 				}
 			}
+
+			tests.insert(TestInfo(first_words[1], script_count, test_count, TEST_PASSED, fileName, 0, "", ""));
 			for (auto elem : testableUIElems)
 				elem.second->reset();
 
@@ -292,20 +296,41 @@ int Ianium::executeLine(int nLine, const std::vector<std::string>& words) {
 		CHECK_ARG_SIZE(3, words.size(), nLine);
 		int state, idButton;
 		CHECK_CORRECT_TYPES(state = std::stoi(words[2]); idButton = std::stoi(words[1]);, nLine);
-		functionalTesting->assertButton(idButton, state) ? returnValue = TEST_PASSED : returnValue = TEST_FAILED;
+		auto elem = testableUIElems.find(elemPrefix(UIType::BUTTON) + std::to_string(idButton));
+		if (elem != testableUIElems.end()) {
+			functionalTesting->assertButton(idButton, state) ? returnValue = TEST_PASSED : returnValue = TEST_FAILED;
+		}
+		else {
+			std::cerr << "Button " << idButton << " not found" << std::endl;
+			return TEST_WRONG_FORMAT;
+		}
 	}
 	else if (words[0] == "assertToggle") {
 		CHECK_ARG_SIZE(3, words.size(), nLine);
 		int state, idToggle;
 		CHECK_CORRECT_TYPES(state = std::stoi(words[2]); idToggle = std::stoi(words[1]); , nLine);
-		functionalTesting->assertToggle(idToggle, state) ? returnValue = TEST_PASSED : returnValue = TEST_FAILED;
+		auto elem = testableUIElems.find(elemPrefix(UIType::TOGGLE) + std::to_string(idToggle));
+		if (elem != testableUIElems.end()) {
+			functionalTesting->assertToggle(idToggle, state) ? returnValue = TEST_PASSED : returnValue = TEST_FAILED;	
+		}
+		else {
+			std::cerr << "Toggle " << idToggle << " not found" << std::endl;
+			return TEST_WRONG_FORMAT;
+		}
 	}
 	else if (words[0] == "assertSlider") {
 		CHECK_ARG_SIZE(3, words.size(), nLine);
 		int idSlider;
 		float value;
 		CHECK_CORRECT_TYPES(value = std::stoi(words[2]); idSlider = std::stoi(words[1]);, nLine);
-		functionalTesting->assertSlider(idSlider, value) ? returnValue = TEST_PASSED : returnValue = TEST_FAILED;
+		auto elem = testableUIElems.find(elemPrefix(UIType::SLIDER) + std::to_string(idSlider));
+		if (elem != testableUIElems.end()) {
+			functionalTesting->assertSlider(idSlider, value) ? returnValue = TEST_PASSED : returnValue = TEST_FAILED;
+		}
+		else {
+			std::cerr << "Slider " << idSlider << " not found" << std::endl;
+			return TEST_WRONG_FORMAT;
+		}
 	}
 	else if (words[0] == "assertImageOnScreen") {
 		CHECK_ARG_SIZE(2, words.size(), nLine);
