@@ -89,11 +89,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Image.cpp" />
+    <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="Toggle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="hudElement.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="HudElement.h" />
     <ClInclude Include="Image.h" />
+    <ClInclude Include="Slider.h" />
+    <ClInclude Include="Toggle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

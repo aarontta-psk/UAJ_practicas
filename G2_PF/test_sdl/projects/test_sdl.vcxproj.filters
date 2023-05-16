@@ -13,21 +13,45 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\UiElements">
+      <UniqueIdentifier>{2bade2af-b7c6-48b1-b30b-705d9abae45f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UiElement">
+      <UniqueIdentifier>{08240bcc-d541-434a-aea0-9d67d8cc1e8a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\UiElements</Filter>
+    </ClCompile>
     <ClCompile Include="Image.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Slider.cpp">
+      <Filter>Source Files\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="Toggle.cpp">
+      <Filter>Source Files\UiElements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="hudElement.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Button.h">
+      <Filter>Header Files\UiElement</Filter>
+    </ClInclude>
+    <ClInclude Include="HudElement.h">
+      <Filter>Header Files\UiElement</Filter>
     </ClInclude>
     <ClInclude Include="Image.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\UiElement</Filter>
+    </ClInclude>
+    <ClInclude Include="Slider.h">
+      <Filter>Header Files\UiElement</Filter>
+    </ClInclude>
+    <ClInclude Include="Toggle.h">
+      <Filter>Header Files\UiElement</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
