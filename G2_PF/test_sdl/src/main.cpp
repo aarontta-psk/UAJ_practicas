@@ -37,8 +37,8 @@ int main() {
 
 	hud.push_back(new Button(renderer, "./buttonPressed.png", "./buttonReleased.png", 0, 350, 150, 100, 50, true));
 	hud.push_back(new Button(renderer, "./buttonPressed.png", "./buttonReleased.png", 1, 350, 200, 100, 50, true));
-	hud.push_back(new Button(renderer, "./buttonPressed.png", "./buttonReleased.png", 1, 350, 250, 100, 50, true));
-	hud.push_back(new Button(renderer, "./mainmenu.png", "./mainmenu.png", 2, 300, 20, 200, 100, true));
+	hud.push_back(new Button(renderer, "./buttonPressed.png", "./buttonReleased.png", 2, 350, 250, 100, 50, true));
+	hud.push_back(new Button(renderer, "./mainmenu.png", "./mainmenu.png", 3, 300, 20, 200, 100, true));
 
 	hud.push_back(new Toggle(renderer, "./toggleOn.png", "./toggleOff.png", 3, 500, 300, 100, 100, true));
 	hud.push_back(new Slider(renderer, "./sliderRange.png", "./sliderButton.png", 4, 200, 200, 200, 20, true, 80.0, 0.0, 100.0, 10, Slider::Orientation::HORIZONTAL));
