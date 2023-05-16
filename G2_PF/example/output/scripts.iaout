@@ -1,0 +1,15 @@
+[+] Test clickPressed0 on script ./scripts/tests1.ia succesfully passed 
+[-] Test clickPressed1 on script ./scripts/tests1.ia failed 
+[+] Test clickHold2 on script ./scripts/tests1.ia succesfully passed 
+[-] Test clickHold3 on script ./scripts/tests1.ia failed 
+[+] Test clickReleased4 on script ./scripts/tests1.ia succesfully passed 
+[+] Test clickReleased5 on script ./scripts/tests2.ia succesfully passed 
+[+] Test clickReleased6 on script ./scripts/tests2.ia succesfully passed 
+[+] Test clickReleased7 on script ./scripts/tests2.ia succesfully passed 
+[+] Test toggleOn8 on script ./scripts/tests2.ia succesfully passed 
+[+] Test toggleOn9 on script ./scripts/tests2.ia succesfully passed 
+[+] Test toggleOff36 on script ./scripts/tests3.ia succesfully passed 
+[-] Test toggleOff24 on script ./scripts/tests3.ia failed 
+[+] Test sliderValue64 on script ./scripts/tests3.ia succesfully passed 
+[-] Test sliderValue69 on script ./scripts/tests3.ia failed 
+[-] Test toggleShowsImage42 on script ./scripts/tests3.ia failed 

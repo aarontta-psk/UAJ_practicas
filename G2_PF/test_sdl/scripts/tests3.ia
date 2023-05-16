@@ -1,0 +1,37 @@
+test: toggleOff36
+runFrames 1
+click 125 330
+runFrames 1
+click 129 335
+runFrames 1
+assertToggle 4 0
+end
+
+test: toggleOff24
+runFrames 1
+click 529 335
+runFrames 1
+assertToggle 9 0
+end
+
+test: sliderValue64
+click 140 460
+runFrames 1
+mouseMotion 101 460
+runFrames 1
+assertSlider 5 0.2
+end
+
+test: sliderValue69
+click 540 460
+runFrames 1
+mouseMotion 501 460
+runFrames 1
+assertSlider 10 0.2
+end
+
+test: toggleShowsImage42
+click 300 220
+runFrames 1
+assertImageOnScreen ./assets/testImage.jpg
+end

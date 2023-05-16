@@ -1,0 +1,36 @@
+test: clickReleased5
+runFrames 1
+assertButton 8 2
+end
+
+test: clickReleased6
+runFrames 1
+click 125 280
+runFrames 1
+releaseClick 300 300
+runFrames 1
+assertButton 2 2
+end
+
+test: clickReleased7
+runFrames 1
+click 525 280
+runFrames 1
+releaseClick 100 100
+runFrames 1
+assertButton 8 2
+end
+
+test: toggleOn8
+runFrames 1
+click 125 330
+runFrames 1
+assertToggle 4 1
+end
+
+test: toggleOn9
+runFrames 1
+click 525 330
+runFrames 1
+assertToggle 9 1
+end

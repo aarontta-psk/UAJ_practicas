@@ -30,3 +30,21 @@ if not exist %TEST_PRJ_DIR%\exe mkdir %TEST_PRJ_DIR%\exe
 xcopy %TEST_PRJ_DEPS_DIR%\ianium\*.dll %TEST_PRJ_DIR%\exe 
 
 echo Plugin files succesfully moved
+
+:: Moving assets and scripts to test project
+echo Moving files
+
+mkdir %TEST_PRJ_DIR%\exe\assets
+mkdir %TEST_PRJ_DIR%\exe\scripts
+xcopy /e /s /i %TEST_PRJ_DIR%\assets %TEST_PRJ_DIR%\exe\assets
+xcopy /e /s /i %TEST_PRJ_DIR%\scripts %TEST_PRJ_DIR%\exe\scripts
+
+echo Files succesfully moved
+
+:: Moving assets and scripts to test project
+echo Compiling project
+
+msbuild %TEST_PRJ_DIR%\test_sdl.sln /t:test_sdl /p:platform=x64 /p:configuration=Debug
+@REM msbuild %TEST_PRJ_DIR%\test_sdl.sln /t:test_sdl /p:platform=x64 /p:configuration=Release
+
+echo Project compiled

@@ -1,7 +1,5 @@
 #include "Slider.h"
 
-#include <iostream>
-
 Slider::Slider(SDL_Renderer* renderer, std::string pathRange, std::string pathValue, const uint32_t id,
 	const uint32_t posX, const uint32_t posY, const uint32_t w, const uint32_t h, const bool active,
 	const float val, const float minV, const float maxV, const Orientation ori)
@@ -54,7 +52,6 @@ void Slider::handleInput(const SDL_Event& i_event)
 			value = minValue;
 		else if (value > maxValue - (width / rangeSelection))
 			value = maxValue - (maxValue / rangeSelection);
-		std::cout << getValue() << std::endl;
 	}
 }
 

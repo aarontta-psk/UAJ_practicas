@@ -3,6 +3,10 @@ Ianium es una herramienta que facilita la realización de tests de unidad para u
 
 Para más información sobre la estructura de clases a seguir, consultar el proyecto ejemplo "test_sdl" o [la memoria del proyecto](https://docs.google.com/document/d/1fGLfiWiWpbZlCSRJFyDYRxK_tCla1uQhhHJsEO_23l0/edit?usp=sharing)
 
+## Compilación automatica
+- Mover/copiar las carpetas *example/assets/* y *example/scripts/* a la carpeta *test_sdl/*, y luego ejecutar el archivo build.bat utilizando **Visual Studio 2022 Developer Command Prompt**.
+- En *example/output/* se puede ver un ejemplo de salida.
+
 ## API
 Soporta varios tipos de instrucciones con formato nombreDeInstrucción parámetro1 parámetro2...:
 
@@ -23,7 +27,8 @@ Soporta varios tipos de instrucciones con formato nombreDeInstrucción parámetr
     - imagePath es un string de la imagen que se quiere buscar en pantalla
  - runFrames frames
     - frames es un int del número de frames que se quieren ejecutar. Típicamente con darle valor 1 sirve.
-## Requesitos
+
+## Requisitos
 - SDL tiene que ser inicializado previamente.
 - Se debe inicializar Ianium, haciendo Ianium::Init
 - Para ejecutar los tests, se debe llamar a Ianium::Instance()->runTests()

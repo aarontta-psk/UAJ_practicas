@@ -280,7 +280,7 @@ int Ianium::executeLine(int nLine, const std::vector<std::string>& words) {
 		}
 		functionalTesting->click(type, id);
 	}
-	else if (words[0] == "clickUp") {
+	else if (words[0] == "releaseClick") {
 		CHECK_ARG_SIZE(3, words.size(), nLine);
 		int x, y;
 		CHECK_CORRECT_TYPES(x = std::stoi(words[1]); y = std::stoi(words[2]);, nLine);
@@ -322,7 +322,7 @@ int Ianium::executeLine(int nLine, const std::vector<std::string>& words) {
 		CHECK_ARG_SIZE(3, words.size(), nLine);
 		int idSlider;
 		float value;
-		CHECK_CORRECT_TYPES(value = std::stoi(words[2]); idSlider = std::stoi(words[1]);, nLine);
+		CHECK_CORRECT_TYPES(value = std::stof(words[2]); idSlider = std::stoi(words[1]);, nLine);
 		auto elem = testableUIElems.find(elemPrefix(UIType::SLIDER) + std::to_string(idSlider));
 		if (elem != testableUIElems.end()) {
 			functionalTesting->assertSlider(idSlider, value) ? returnValue = TEST_PASSED : returnValue = TEST_FAILED;

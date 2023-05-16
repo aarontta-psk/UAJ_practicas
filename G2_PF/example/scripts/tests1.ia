@@ -1,0 +1,34 @@
+test: clickPressed0
+runFrames 1
+click 125 160
+runFrames 1
+assertButton 0 0
+end
+
+test: clickPressed1
+runFrames 1
+click 525 160
+runFrames 1
+assertButton 6 0
+end
+
+test: clickHold2
+runFrames 1
+click 125 230
+runFrames 1
+releaseClick 125 230
+runFrames 1
+assertButton 1 2
+end
+
+test: clickHold3
+runFrames 1
+click 525 230
+runFrames 1
+assertButton 7 1
+end
+
+test: clickReleased4
+runFrames 1
+assertButton 2 2
+end
