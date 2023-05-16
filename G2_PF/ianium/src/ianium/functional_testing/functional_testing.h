@@ -19,10 +19,12 @@ namespace ianium {
 		FunctionalTesting(std::unordered_map<std::string, UIElement*>* uiTestElems, SDL_Renderer* sdl_renderer);
 		~FunctionalTesting();
 
-		void click(UIType uiType, uint64_t id_elem);
 		void click(int x, int y);
+		void click(UIType uiType, uint64_t id_elem);
 		void clickUp(int x, int y);
+		void clickUp(UIType uiType, uint64_t id_elem);
 		void doubleClick(int x, int y);
+		void doubleClick(UIType uiType, uint64_t id_elem);
 		void pressedClick(int x, int y);
 		void mouseMotion(int x, int y);
 
@@ -37,6 +39,7 @@ namespace ianium {
 		SDL_Renderer* renderer;
 
 		std::string elemPrefix(UIType uiType);
+		void middleElem(int *x, int *y, std::string ui_elem_id);
 	};
 };
 #endif // FUNCTIONAL_TESTING_H
