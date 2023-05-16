@@ -32,11 +32,12 @@ namespace ianium {
 		/// </summary>
 		void takeScreenshot();
 		/// <summary>
-		///
+		/// Finds the number of occurrences of a template image inside another one. Uses internally OpenCV to get a mask and separates 
+		/// the connected regions to get how many images were detected
 		/// </summary>
-		/// <param name="imagePath"></param>
-		/// <param name="templateImagePath"></param>
-		/// <returns></returns>
+		/// <param name="imagePath">Original image where the template image is searched on</param> 
+		/// <param name="templateImagePath">Template image</param>  
+		/// <returns>Number of occurrences of the template image inside the original image</returns> 
 		std::vector<std::pair<double, double>> template_matching(std::string imagePath, std::string templateImagePath);
 	};
 };

@@ -32,11 +32,23 @@ namespace ianium {
 		/// <param name="y">Y coordinate of the spot</param>
 		void click(uint32_t x, uint32_t y);
 		/// <summary>
+		/// Releases a click on the screen at an specified spot determined by the element position.
+		/// </summary>
+		/// <param name="uiType">UI element type</param>
+		/// <param name="id_elem">UI element ID</param>
+		void releaseClick(UIType uiType, uint64_t id_elem);
+		/// <summary>
 		/// Releases a click on the screen at an specified spot.
 		/// </summary>
 		/// <param name="x">X coordinate of the spot</param>
 		/// <param name="y">Y coordinate of the spot</param>
 		void releaseClick(uint32_t x, uint32_t y);
+		/// <summary>
+		/// Double clicks on the screen at an specified spot determined by the element position.
+		/// </summary>
+		/// <param name="uiType">UI element type</param>
+		/// <param name="id_elem">UI element ID</param>
+		void doubleClick(UIType uiType, uint64_t id_elem);
 		/// <summary>
 		/// Double clicks on the screen at an specified spot.
 		/// </summary>
@@ -94,6 +106,13 @@ namespace ianium {
 		/// <param name="uiType">UI element type</param>
 		/// <returns>prefix ID</returns>
 		std::string elemPrefix(UIType uiType);
+		/// <summary>
+		/// Adjust a given X and Y coordinate to get n the middle of an object
+		/// </summary>
+		/// <param name="x">X coordinate to adjust</param>
+		/// <param name="y">Y coordinate to adjust</param>
+		/// <param name="ui_elem_id">Element ID</param>
+		void middleElem(int *x, int *y, std::string ui_elem_id);
 	};
 };
 #endif // IA_FUNCTIONAL_TESTING_H

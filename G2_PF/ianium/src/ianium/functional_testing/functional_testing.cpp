@@ -22,16 +22,9 @@ FunctionalTesting::~FunctionalTesting() = default;
 
 #pragma region Funciones
 void FunctionalTesting::click(UIType uiType, uint64_t id_elem) {
-	// clicks in the middle of the element
 	std::string ui_elem_id = elemPrefix(uiType) + std::to_string(id_elem);
-
-	auto got = uiElems->find(ui_elem_id);
-	std::pair<uint32_t, uint32_t> pos = got->second->getPosition();
-	std::pair<uint32_t, uint32_t> size = got->second->getSize();
-
 	int x, y;
-	x = pos.first + (size.first / 2);
-	y = pos.second + (size.second / 2);
+	middleElem(&x, &y, ui_elem_id);
 
 	SDL_Event i_event;
 	i_event.type = SDL_MOUSEBUTTONDOWN;
@@ -54,6 +47,21 @@ void FunctionalTesting::click(uint32_t x, uint32_t y) {
 	SDL_PushEvent(&i_event);
 }
 
+void FunctionalTesting::releaseClick(UIType uiType, uint64_t id_elem) {
+	SDL_Event event;
+	event.type = SDL_MOUSEBUTTONUP;
+	std::string ui_elem_id = elemPrefix(uiType) + std::to_string(id_elem);
+	int x, y;
+	middleElem(&x, &y, ui_elem_id);
+
+	event.button.x = x;
+	event.button.y = y;
+	event.button.clicks = 1;
+	event.button.state = SDL_RELEASED;
+	event.button.button = SDL_BUTTON_LEFT;
+	SDL_PushEvent(&event);
+}
+
 void FunctionalTesting::releaseClick(uint32_t x, uint32_t y) {
 	SDL_Event i_event;
 	i_event.type = SDL_MOUSEBUTTONUP;
@@ -61,6 +69,20 @@ void FunctionalTesting::releaseClick(uint32_t x, uint32_t y) {
 	i_event.button.y = y;
 	i_event.button.clicks = 1;
 	i_event.button.state = SDL_RELEASED;
+	i_event.button.button = SDL_BUTTON_LEFT;
+	SDL_PushEvent(&i_event);
+}
+
+void FunctionalTesting::doubleClick(UIType uiType, uint64_t id_elem) {
+	std::string ui_elem_id = elemPrefix(uiType) + std::to_string(id_elem);
+	int x, y;
+	middleElem(&x, &y, ui_elem_id);
+
+	SDL_Event i_event;
+	i_event.type = SDL_MOUSEBUTTONDOWN;
+	i_event.button.x = x;
+	i_event.button.y = y;
+	i_event.button.clicks = 2;
 	i_event.button.button = SDL_BUTTON_LEFT;
 	SDL_PushEvent(&i_event);
 }
@@ -159,4 +181,15 @@ std::string FunctionalTesting::elemPrefix(UIType uiType) {
 		return "";
 		break;
 	}
+}
+
+void ianium::FunctionalTesting::middleElem(int* x, int* y, std::string ui_elem_id)
+{
+	auto got = uiElems->find(ui_elem_id);
+
+	std::pair<uint32_t, uint32_t> pos = got->second->getPosition();
+	std::pair<uint32_t, uint32_t> size = got->second->getSize();
+
+	*x = pos.first + (size.first / 2);
+	*y = pos.second + (size.second / 2);
 }
