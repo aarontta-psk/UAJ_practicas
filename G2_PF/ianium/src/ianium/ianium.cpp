@@ -284,7 +284,7 @@ int Ianium::executeLine(int nLine, const std::vector<std::string>& words) {
 		CHECK_ARG_SIZE(3, words.size(), nLine);
 		int x, y;
 		CHECK_CORRECT_TYPES(x = std::stoi(words[1]); y = std::stoi(words[2]);, nLine);
-		functionalTesting->pressedClick(x, y);
+		functionalTesting->releaseClick(x, y);
 	}
 	else if (words[0] == "mouseMotion") {
 		CHECK_ARG_SIZE(3, words.size(), nLine);
