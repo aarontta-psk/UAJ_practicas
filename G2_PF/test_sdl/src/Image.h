@@ -9,7 +9,7 @@
 
 class Image {
 public:
-	Image(std::string path, SDL_Renderer* renderer);
+	Image(const std::string& path, SDL_Renderer* renderer);
 	~Image();
 
 	void render(SDL_Rect rect, SDL_Renderer* renderer);

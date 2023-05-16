@@ -9,8 +9,8 @@ Button::Button(SDL_Renderer* renderer, std::string pathPressed, std::string path
 }
 
 Button::~Button(){
-	delete imagePressed;
 	delete imageReleased;
+	delete imagePressed;
 }
 
 void Button::render(SDL_Renderer* renderer) {
@@ -58,8 +58,8 @@ WrongButton::WrongButton(SDL_Renderer* renderer, std::string pathPressed, std::s
 }
 
 WrongButton::~WrongButton() {
-	delete imagePressed;
 	delete imageReleased;
+	delete imagePressed;
 }
 
 void WrongButton::render(SDL_Renderer* renderer) {

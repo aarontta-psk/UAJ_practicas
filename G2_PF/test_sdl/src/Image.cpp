@@ -5,7 +5,7 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-Image::Image(std::string path, SDL_Renderer* renderer)
+Image::Image(const std::string & path, SDL_Renderer* renderer) : surface(nullptr), texture(nullptr)
 {
 	surface = IMG_Load(path.c_str());
 	if (!surface) {
@@ -19,6 +19,7 @@ Image::Image(std::string path, SDL_Renderer* renderer)
 		// Manejar error de creación de textura
 		std::cout << "Failure creating texture: " << SDL_GetError() << std::endl;
 		SDL_FreeSurface(surface);
+		surface = nullptr;
 		return;
 	}
 
@@ -29,11 +30,15 @@ Image::Image(std::string path, SDL_Renderer* renderer)
 
 Image::~Image()
 {
-	SDL_FreeSurface(surface);
-	surface = nullptr;
 
-	SDL_DestroyTexture(texture);
-	texture = nullptr;
+	if (surface != nullptr) {
+		SDL_FreeSurface(surface);
+		surface = nullptr;
+	}
+	if (texture != nullptr) {
+		SDL_DestroyTexture(texture);
+		texture = nullptr;
+	}
 }
 
 void Image::render(SDL_Rect rect, SDL_Renderer* renderer)
