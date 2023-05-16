@@ -1,40 +1,35 @@
 ﻿#pragma once
+#ifndef BUTTON_H
+#define BUTTON_H
+
+#include <ianium/testable_ui/button.h>
+
 #include "HudElement.h"
 #include "Image.h"
 
-
 class Button : public ianium::Button, public HudElement {
 public:
-	enum class State { PRESSED, HOLD, RELEASED };
+	enum class State : uint32_t { PRESSED, HOLD, RELEASED };
 
-	Button(std::string pathPressed, std::string pathReleased, int id, int posXAux, int posYAux, int wAux, int hAux, bool active, SDL_Renderer* renderer) ;
+	Button(SDL_Renderer* renderer, std::string pathPressed, std::string pathReleased, const uint64_t id, 
+		const uint32_t posX, const uint32_t posY, const uint32_t w, const uint32_t h, const bool active);
 	virtual ~Button();
 
-	//REDEFINICIONES CLASE UUIELEMENT
-	// Devuelve la posición (X, Y) del elemento
-	virtual std::pair<uint32_t, uint32_t> getPosition() const;
-	// Devuelve el tamaño (ancho, alto) del elemento
-	virtual std::pair<uint32_t, uint32_t> getSize() const ;
-	// Devuelve el estado del elemento
-	virtual bool getEnable() const;
-
-	//REDEFINICIONES CLASE BUTTON
-	virtual int getStateButton() const;
-
 	virtual void render(SDL_Renderer* renderer) override;
-
-	//TODO AAA METER AQUI QUE EL ESTADO DEL BOTON SEA PRESSED HOLD O RELEASED
 	virtual void handleInput(const SDL_Event& i_event);
-
 	virtual void reset();
 
+	virtual std::pair<uint32_t, uint32_t> getPosition() const;
+	virtual std::pair<uint32_t, uint32_t> getSize() const;
+	virtual bool getEnable() const;
+
+	virtual uint32_t getStateButton() const;
+
 private:
-	//TODO FALTA ESTE ESTADO DE KK
 	State buttonState;
 
 	SDL_Rect rect;
 	Image* imageReleased;
 	Image* imagePressed;
 };
-
-
+#endif // BUTTON_H

@@ -1,13 +1,14 @@
 #pragma once
-#ifndef VISUAL_TESTING_H
-#define VISUAL_TESTING_H
+#ifndef IA_VISUAL_TESTING_H
+#define IA_VISUAL_TESTING_H
 
-#include <common/macros.h>
 #include <vector>
 #include <string>
 
-struct SDL_Renderer;
+#include <common/macros.h>
+
 struct SDL_Window;
+struct SDL_Renderer;
 
 namespace ianium {
 	class IANIUM_EXPORT VisualTesting {
@@ -15,14 +16,28 @@ namespace ianium {
 		VisualTesting(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer);
 		~VisualTesting();
 
+		/// <summary>
+		/// Asserts that a certain image is present on the SDL window.
+		/// </summary>
+		/// <param name="imagePath">Image to be searched on screen</param>
+		/// <returns>true if the image appears on screen, false if it doesn't</returns>
 		bool assertImageOnScreen(std::string imagePath);
 
 	private:
-		SDL_Renderer* renderer;
 		SDL_Window* window;
+		SDL_Renderer* renderer;
 
-		std::vector<std::pair<double, double>> template_matching(std::string imagePath, std::string templateImagePath);
+		/// <summary>
+		/// Takes a screenshot of the SDL window.
+		/// </summary>
 		void takeScreenshot();
+		/// <summary>
+		///
+		/// </summary>
+		/// <param name="imagePath"></param>
+		/// <param name="templateImagePath"></param>
+		/// <returns></returns>
+		std::vector<std::pair<double, double>> template_matching(std::string imagePath, std::string templateImagePath);
 	};
 };
-#endif // VISUAL_TESTING_H
+#endif // IA_VISUAL_TESTING_H

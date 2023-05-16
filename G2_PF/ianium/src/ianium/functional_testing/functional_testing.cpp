@@ -22,108 +22,79 @@ FunctionalTesting::~FunctionalTesting() = default;
 
 #pragma region Funciones
 void FunctionalTesting::click(UIType uiType, uint64_t id_elem) {
-
-	SDL_Event event;
-	event.type = SDL_MOUSEBUTTONDOWN;
-
-	/*clicar en medio del elemento de ui*/
+	// clicks in the middle of the element
 	std::string ui_elem_id = elemPrefix(uiType) + std::to_string(id_elem);
 
 	auto got = uiElems->find(ui_elem_id);
-
 	std::pair<uint32_t, uint32_t> pos = got->second->getPosition();
 	std::pair<uint32_t, uint32_t> size = got->second->getSize();
 
 	int x, y;
-
 	x = pos.first + (size.first / 2);
 	y = pos.second + (size.second / 2);
-	/*calculo terminado aplicar los datos el evento de sdl*/
 
-	event.button.x = x;
-	event.button.y = y;
-	event.button.clicks = 1;
-	event.button.button = SDL_BUTTON_LEFT;
-	event.button.state = SDL_PRESSED;
-
-	// Lo pusheamos a la cola de eventos
-	SDL_PushEvent(&event);
+	SDL_Event i_event;
+	i_event.type = SDL_MOUSEBUTTONDOWN;
+	i_event.button.x = x;
+	i_event.button.y = y;
+	i_event.button.clicks = 1;
+	i_event.button.button = SDL_BUTTON_LEFT;
+	i_event.button.state = SDL_PRESSED;
+	SDL_PushEvent(&i_event);
 }
 
-void FunctionalTesting::click(int x, int y) {
-
-	SDL_Event event;
-	event.type = SDL_MOUSEBUTTONDOWN;
-	event.button.x = x;
-	event.button.y = y;
-	event.button.clicks = 1;
-	event.button.button = SDL_BUTTON_LEFT;
-	event.button.state = SDL_PRESSED;
-
-
-	// Lo pusheamos a la cola de eventos
-	SDL_PushEvent(&event);
+void FunctionalTesting::click(uint32_t x, uint32_t y) {
+	SDL_Event i_event;
+	i_event.type = SDL_MOUSEBUTTONDOWN;
+	i_event.button.x = x;
+	i_event.button.y = y;
+	i_event.button.clicks = 1;
+	i_event.button.button = SDL_BUTTON_LEFT;
+	i_event.button.state = SDL_PRESSED;
+	SDL_PushEvent(&i_event);
 }
 
-void FunctionalTesting::clickUp(int x, int y) {
-	SDL_Event event;
-	event.type = SDL_MOUSEBUTTONUP;
-	event.button.x = x;
-	event.button.y = y;
-	event.button.clicks = 1;
-	event.button.state = SDL_RELEASED;
-
-	event.button.button = SDL_BUTTON_LEFT;
-
-
-	// Lo pusheamos a la cola de eventos
-	SDL_PushEvent(&event);
+void FunctionalTesting::releaseClick(uint32_t x, uint32_t y) {
+	SDL_Event i_event;
+	i_event.type = SDL_MOUSEBUTTONUP;
+	i_event.button.x = x;
+	i_event.button.y = y;
+	i_event.button.clicks = 1;
+	i_event.button.state = SDL_RELEASED;
+	i_event.button.button = SDL_BUTTON_LEFT;
+	SDL_PushEvent(&i_event);
 }
 
-void FunctionalTesting::doubleClick(int x, int y) {
-
-	SDL_Event event;
-	event.type = SDL_MOUSEBUTTONDOWN;
-	event.button.x = x;
-	event.button.y = y;
-	event.button.clicks = 2;
-	event.button.button = SDL_BUTTON_LEFT;
-
-
-	// Lo pusheamos a la cola de eventos
-	SDL_PushEvent(&event);
+void FunctionalTesting::doubleClick(uint32_t x, uint32_t y) {
+	SDL_Event i_event;
+	i_event.type = SDL_MOUSEBUTTONDOWN;
+	i_event.button.x = x;
+	i_event.button.y = y;
+	i_event.button.clicks = 2;
+	i_event.button.button = SDL_BUTTON_LEFT;
+	SDL_PushEvent(&i_event);
 }
 
-void FunctionalTesting::pressedClick(int x, int y) {
-
-	SDL_Event event;
-	event.type = SDL_MOUSEBUTTONDOWN;
-	event.button.x = x;
-	event.button.y = y;
-	event.button.clicks = 0;
-	event.button.state = SDL_PRESSED;
-	event.button.button = SDL_BUTTON_LEFT;
-
-
-	// Lo pusheamos a la cola de eventos
-	SDL_PushEvent(&event);
+void FunctionalTesting::pressedClick(uint32_t x, uint32_t y) {
+	SDL_Event i_event;
+	i_event.type = SDL_MOUSEBUTTONDOWN;
+	i_event.button.x = x;
+	i_event.button.y = y;
+	i_event.button.clicks = 0;
+	i_event.button.state = SDL_PRESSED;
+	i_event.button.button = SDL_BUTTON_LEFT;
+	SDL_PushEvent(&i_event);
 }
 
-void FunctionalTesting::mouseMotion(int x, int y)
-{
+void FunctionalTesting::mouseMotion(uint32_t x, uint32_t y) {
 	SDL_Event event;
 	event.type = SDL_MOUSEMOTION;
 	event.button.x = x;
 	event.button.y = y;
-	//event.button.clicks = 1;
-	//event.button.button = SDL_BUTTON_LEFT;
-
-
-	// Lo pusheamos a la cola de eventos
 	SDL_PushEvent(&event);
 }
 
-bool FunctionalTesting::assertButton(int idButton, int stateToCheck) {
+bool FunctionalTesting::assertButton(uint64_t idButton, uint32_t stateToCheck) {
 	auto elem = uiElems->find(elemPrefix(UIType::BUTTON) + std::to_string(idButton));
 	if (elem != uiElems->end()) {
 		uint32_t state = ((Button*)elem->second)->getStateButton();
@@ -133,8 +104,7 @@ bool FunctionalTesting::assertButton(int idButton, int stateToCheck) {
 	return false;
 }
 
-bool ianium::FunctionalTesting::assertToggle(int idToggle, int stateToCheck)
-{
+bool ianium::FunctionalTesting::assertToggle(uint64_t idToggle, uint32_t stateToCheck) {
 	auto elem = uiElems->find(elemPrefix(UIType::TOGGLE) + std::to_string(idToggle));
 	if (elem != uiElems->end()) {
 		bool state = ((Toggle*)elem->second)->getToggleState();
@@ -144,8 +114,7 @@ bool ianium::FunctionalTesting::assertToggle(int idToggle, int stateToCheck)
 	return false;
 }
 
-bool ianium::FunctionalTesting::assertSlider(int idSlider, float value)
-{
+bool ianium::FunctionalTesting::assertSlider(uint64_t idSlider, float value) {
 	auto elem = uiElems->find(elemPrefix(UIType::SLIDER) + std::to_string(idSlider));
 	if (elem != uiElems->end()) {
 		float state = ((Slider*)elem->second)->getValue();
