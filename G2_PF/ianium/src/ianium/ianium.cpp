@@ -283,25 +283,35 @@ int Ianium::executeLine(int nLine, const std::vector<std::string>& words)
 	if (words[0] == "click") {
 		CHECK_ARG_SIZE(3, words.size(), nLine)
 		int x, y;
-
 		CHECK_CORRECT_TYPES(x = std::stoi(words[1]); y = std::stoi(words[2]); , nLine);
-
 		functionalTesting->click(x, y);
 	}
-	else if (words[0] == "release") {
+	else if (words[0] == "clickElem") {
 		CHECK_ARG_SIZE(3, words.size(), nLine)
-			int x, y;
-
+			int type, id;
+		CHECK_CORRECT_TYPES(type = std::stoi(words[1]); id = std::stoi(words[2]); , nLine);
+		switch (type)
+		{
+			case (int)UIType::BUTTON:
+			case (int)UIType::TOGGLE:
+			case (int)UIType::SLIDER:
+				break;
+			default:
+				return TEST_WRONG_FORMAT;
+				break;
+		}
+		functionalTesting->click(type, id);
+	}
+	else if (words[0] == "clickUp") {
+		CHECK_ARG_SIZE(3, words.size(), nLine);
+		int x, y;
 		CHECK_CORRECT_TYPES(x = std::stoi(words[1]); y = std::stoi(words[2]);, nLine);
-
 		functionalTesting->pressedClick(x, y);
 	}
 	else if (words[0] == "mouseMotion") {
-		CHECK_ARG_SIZE(3, words.size(), nLine)
-			int x, y;
-
+		CHECK_ARG_SIZE(3, words.size(), nLine);
+		int x, y;
 		CHECK_CORRECT_TYPES(x = std::stoi(words[1]); y = std::stoi(words[2]); , nLine);
-
 		functionalTesting->mouseMotion(x, y);
 	}
 	else if (words[0] == "assertButton") {

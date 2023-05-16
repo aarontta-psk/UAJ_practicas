@@ -4,6 +4,8 @@ Ianium es un entorno de pruebas...
 Soporta varios tipos de instruccion;
 
  - Click(x,y)
+ - ClickElem(int tipoElemento, int id)
+    - TipoElemento puede tener los valores {BUTTON = 0, TOGGLE = 1, SLIDER = 2}
  - AssertButton(int id, int estado) 
     - Estado puede tener valores { PRESSED = 0, HOLD = 1, RELEASED = 2 }.
  - AssertToggle(int id, int estado)
