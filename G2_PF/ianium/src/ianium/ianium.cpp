@@ -220,8 +220,8 @@ bool Ianium::readScript(std::string fileName)
 					nLine++;
 					continue;
 				}
-
-				switch (executeLine(nLine, words)) {
+				int testResult = executeLine(nLine, words);
+				switch (testResult) {
 					case TEST_WRONG_FORMAT: {
 						test->second.passed = TEST_WRONG_FORMAT;
 						file.close();
@@ -242,7 +242,7 @@ bool Ianium::readScript(std::string fileName)
 					default:
 						break;
 				}
-
+				if (testResult == TEST_FAILED) break; //no more asserts are needed if test fails once
 			}
 			for (auto elem : testableUIElems)
 				elem.second->reset();
@@ -288,7 +288,22 @@ int Ianium::executeLine(int nLine, const std::vector<std::string>& words)
 
 		functionalTesting->click(x, y);
 	}
+	else if (words[0] == "release") {
+		CHECK_ARG_SIZE(3, words.size(), nLine)
+			int x, y;
 
+		CHECK_CORRECT_TYPES(x = std::stoi(words[1]); y = std::stoi(words[2]);, nLine);
+
+		functionalTesting->pressedClick(x, y);
+	}
+	else if (words[0] == "mouseMotion") {
+		CHECK_ARG_SIZE(3, words.size(), nLine)
+			int x, y;
+
+		CHECK_CORRECT_TYPES(x = std::stoi(words[1]); y = std::stoi(words[2]); , nLine);
+
+		functionalTesting->mouseMotion(x, y);
+	}
 	else if (words[0] == "assertButton") {
 		CHECK_ARG_SIZE(3, words.size(), nLine);
 		int state, idButton;
@@ -318,6 +333,7 @@ int Ianium::executeLine(int nLine, const std::vector<std::string>& words)
 		CHECK_CORRECT_TYPES(frames = std::stoi(words[1]);, nLine);
 		functionalTesting->runFrames(frames);
 	}
+	
 	else return TEST_WRONG_FORMAT;
 
 	return returnValue;
