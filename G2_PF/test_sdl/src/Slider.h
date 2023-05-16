@@ -12,7 +12,7 @@ public:
 	enum class Orientation { VERTICAL, HORIZONTAL };
 
 	Slider(SDL_Renderer* renderer, std::string pathRange, std::string pathValue, const uint32_t id, const uint32_t posX, const uint32_t posY, const uint32_t w, const uint32_t h, const bool active,
-		const float val, const float minV, const float maxV, const uint32_t range, const Orientation ori);
+		const float val, const float minV, const float maxV, const Orientation ori);
 	virtual ~Slider();
 
 	virtual void render(SDL_Renderer* renderer) override;
@@ -49,7 +49,7 @@ public:
 	enum class Orientation { VERTICAL, HORIZONTAL };
 
 	WrongSlider(SDL_Renderer* renderer, std::string pathRange, std::string pathValue, const uint32_t id, const uint32_t posX, const uint32_t posY, const uint32_t w, const uint32_t h, const bool active,
-		const float val, const float minV, const float maxV, const uint32_t range, const Orientation ori);
+		const float val, const float minV, const float maxV, const Orientation ori);
 	virtual ~WrongSlider();
 
 	virtual void render(SDL_Renderer* renderer) override;

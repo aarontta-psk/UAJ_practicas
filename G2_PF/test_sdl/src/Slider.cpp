@@ -1,13 +1,15 @@
 #include "Slider.h"
 
+#include <iostream>
+
 Slider::Slider(SDL_Renderer* renderer, std::string pathRange, std::string pathValue, const uint32_t id,
 	const uint32_t posX, const uint32_t posY, const uint32_t w, const uint32_t h, const bool active,
-	const float val, const float minV, const float maxV, const uint32_t range, const Orientation ori)
+	const float val, const float minV, const float maxV, const Orientation ori)
 	: ianium::Slider(id), HudElement(posX, posY, w, h, active) {
-	value, value_original = val;
+	value = value_original = val;
 	minValue = minV;
 	maxValue = maxV;
-	rangeSelection = range;
+	rangeSelection = maxV-minV;
 	orientation = ori;
 
 	imageRange = new Image(pathRange, renderer);
@@ -24,9 +26,9 @@ void Slider::render(SDL_Renderer* renderer) {
 	imageRange->render(rect, renderer);
 
 	if (orientation == Orientation::HORIZONTAL)
-		rect = { (int)posX + ((int)value * (int)width / (int)maxValue), (int)posY, (int)(width / rangeSelection), (int)height };
+		rect = { (int)posX + ((int)value * (int)width / (int)maxValue), (int)posY, (int)(width / 10), (int)height };
 	else
-		rect = { (int)posX, (int)posY + ((int)value * (int)height / (int)maxValue), (int)width, (int)(height / rangeSelection) };
+		rect = { (int)posX, (int)posY + ((int)value * (int)height / (int)maxValue), (int)width, (int)(height / 10) };
 
 	imageValue->render(rect, renderer);
 }
@@ -52,6 +54,7 @@ void Slider::handleInput(const SDL_Event& i_event)
 			value = minValue;
 		else if (value > maxValue - (width / rangeSelection))
 			value = maxValue - (maxValue / rangeSelection);
+		std::cout << getValue() << std::endl;
 	}
 }
 
@@ -65,7 +68,7 @@ std::pair<uint32_t, uint32_t> Slider::getSize() const {	return std::make_pair(wi
 
 bool Slider::getEnable() const { return isActive; }
 
-float Slider::getValue() const { return value; }
+float Slider::getValue() const { return (value-minValue)/rangeSelection; }
 
 float Slider::getMinValue() const { return minValue; }
 
@@ -77,12 +80,12 @@ uint32_t Slider::getRangeSelection() const { return rangeSelection; }
 
 WrongSlider::WrongSlider(SDL_Renderer* renderer, std::string pathRange, std::string pathValue, const uint32_t id,
 	const uint32_t posX, const uint32_t posY, const uint32_t w, const uint32_t h, const bool active,
-	const float val, const float minV, const float maxV, const uint32_t range, const Orientation ori)
+	const float val, const float minV, const float maxV, const Orientation ori)
 	: ianium::Slider(id), HudElement(posX, posY, w, h, active) {
 	value, value_original = val;
 	minValue = minV;
-	maxValue = 1.5;
-	rangeSelection = range;
+	maxValue = maxV + 10;
+	rangeSelection = maxValue - minValue;
 	orientation = ori;
 
 	imageRange = new Image(pathRange, renderer);
@@ -99,9 +102,9 @@ void WrongSlider::render(SDL_Renderer* renderer) {
 	imageRange->render(rect, renderer);
 
 	if (orientation == Orientation::HORIZONTAL)
-		rect = { (int)posX + ((int)value * (int)width / (int)maxValue), (int)posY, (int)(width / rangeSelection), (int)height };
+		rect = { (int)posX + ((int)value * (int)width / (int)maxValue), (int)posY, (int)(width / 10), (int)height };
 	else
-		rect = { (int)posX, (int)posY + ((int)value * (int)height / (int)maxValue), (int)width, (int)(height / rangeSelection) };
+		rect = { (int)posX, (int)posY + ((int)value * (int)height / (int)maxValue), (int)width, (int)(height / 10) };
 
 	imageValue->render(rect, renderer);
 }

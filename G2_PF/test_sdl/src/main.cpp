@@ -41,14 +41,14 @@ int main() {
 	hud.push_back(new Button(renderer, "./buttonPressed.png", "./buttonReleased.png", 2, 100, 270, 100, 50, true));
 
 	hud.push_back(new Toggle(renderer, "./toggleOn.png", "./toggleOff.png", 4, 100, 320, 100, 100, true));
-	hud.push_back(new Slider(renderer, "./sliderRange.png", "./sliderButton.png", 5, 100, 400, 200, 20, true, 80.0, 0.0, 100.0, 10, Slider::Orientation::HORIZONTAL));
+	hud.push_back(new Slider(renderer, "./sliderRange.png", "./sliderButton.png", 5, 100, 450, 200, 20, true, 0.8, 0.0, 100.0, Slider::Orientation::HORIZONTAL));
 
 	hud.push_back(new WrongButton(renderer, "./buttonPressed.png", "./buttonReleased.png", 6, 500, 150, 100, 50, true));
 	hud.push_back(new WrongButton(renderer, "./buttonPressed.png", "./buttonReleased.png", 7, 500, 210, 100, 50, true));
 	hud.push_back(new WrongButton(renderer, "./buttonPressed.png", "./buttonReleased.png", 8, 500, 270, 100, 50, true));
 
 	hud.push_back(new WrongToggle(renderer, "./toggleOn.png", "./toggleOff.png", 9, 500, 320, 100, 100, true));
-	hud.push_back(new WrongSlider(renderer, "./sliderRange.png", "./sliderButton.png", 10, 500, 400, 200, 20, true, 80.0, 0.0, 100.0, 10, WrongSlider::Orientation::HORIZONTAL));
+	hud.push_back(new WrongSlider(renderer, "./sliderRange.png", "./sliderButton.png", 10, 500, 450, 200, 20, true, 0.8, 0.0, 100.0, WrongSlider::Orientation::HORIZONTAL));
 	
 	try
 	{
