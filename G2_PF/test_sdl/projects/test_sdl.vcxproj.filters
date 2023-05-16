@@ -24,33 +24,33 @@
     <ClCompile Include="..\src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Button.cpp">
+    <ClCompile Include="..\src\Button.cpp">
       <Filter>Source Files\UiElements</Filter>
     </ClCompile>
-    <ClCompile Include="Image.cpp">
+    <ClCompile Include="..\src\Image.cpp">
       <Filter>Source Files\UiElements</Filter>
     </ClCompile>
-    <ClCompile Include="Slider.cpp">
+    <ClCompile Include="..\src\Slider.cpp">
       <Filter>Source Files\UiElements</Filter>
     </ClCompile>
-    <ClCompile Include="Toggle.cpp">
+    <ClCompile Include="..\src\Toggle.cpp">
       <Filter>Source Files\UiElements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.h">
+    <ClInclude Include="..\src\Button.h">
       <Filter>Header Files\UiElement</Filter>
     </ClInclude>
-    <ClInclude Include="HudElement.h">
+    <ClInclude Include="..\src\HudElement.h">
       <Filter>Header Files\UiElement</Filter>
     </ClInclude>
-    <ClInclude Include="Image.h">
+    <ClInclude Include="..\src\Image.h">
       <Filter>Header Files\UiElement</Filter>
     </ClInclude>
-    <ClInclude Include="Slider.h">
+    <ClInclude Include="..\src\Slider.h">
       <Filter>Header Files\UiElement</Filter>
     </ClInclude>
-    <ClInclude Include="Toggle.h">
+    <ClInclude Include="..\src\Toggle.h">
       <Filter>Header Files\UiElement</Filter>
     </ClInclude>
   </ItemGroup>

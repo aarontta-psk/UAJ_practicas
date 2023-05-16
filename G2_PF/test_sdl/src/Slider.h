@@ -29,11 +29,19 @@ public:
 
 	virtual void handleInput(const SDL_Event& i_event);
 
+	virtual void reset();
+
 private:
 	float value;					// Valor actual del slider
 	float minValue, maxValue;		// Valor mínimo y maximo del slider
 	int rangeSelection;				// Cantidad de valores que se pueden seleccionar en el slider      
 	Orientation orientation;		// Orientación del slider (horizontal o vertical)
+
+	//Varaibles para el reseteado
+	float value_original;					// Valor actual del slider
+	float minValue_original, maxValue_original;		// Valor mínimo y maximo del slider
+	int rangeSelection_original;				// Cantidad de valores que se pueden seleccionar en el slider      
+	Orientation orientation_original;		// Orientación del slider (horizontal o vertical)
 
 	SDL_Rect rect;
 	Image* imageRange;

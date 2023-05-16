@@ -17,6 +17,8 @@ namespace ianium {
 		virtual float getMinValue() const = 0;
 		virtual float getMaxValue() const = 0;
 		virtual int getRangeSelection() const = 0;
+
+		virtual void reset() = 0;
 	};
 };
 #endif // SLIDER_H

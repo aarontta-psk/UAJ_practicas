@@ -244,6 +244,8 @@ bool Ianium::readScript(std::string fileName)
 				}
 
 			}
+			for (auto elem : testableUIElems)
+				elem.second->reset();
 
 			nLine++;
 

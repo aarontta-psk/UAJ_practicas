@@ -88,18 +88,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Button.cpp" />
+    <ClCompile Include="..\src\Image.cpp" />
     <ClCompile Include="..\src\main.cpp" />
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Image.cpp" />
-    <ClCompile Include="Slider.cpp" />
-    <ClCompile Include="Toggle.cpp" />
+    <ClCompile Include="..\src\Slider.cpp" />
+    <ClCompile Include="..\src\Toggle.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="HudElement.h" />
-    <ClInclude Include="Image.h" />
-    <ClInclude Include="Slider.h" />
-    <ClInclude Include="Toggle.h" />
+    <ClInclude Include="..\src\Button.h" />
+    <ClInclude Include="..\src\HudElement.h" />
+    <ClInclude Include="..\src\Image.h" />
+    <ClInclude Include="..\src\Slider.h" />
+    <ClInclude Include="..\src\Toggle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

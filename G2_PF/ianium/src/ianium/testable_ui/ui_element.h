@@ -27,6 +27,8 @@ namespace ianium {
 		virtual std::pair<uint32_t, uint32_t> getSize() const = 0;
 		// Devuelve el estado del elemento
 		virtual bool getEnable() const = 0;
+		//Resetea el estado del objeto
+		virtual void reset() = 0;
 
 	protected:
 		uint64_t id;            // ID único del elemento

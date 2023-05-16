@@ -3,11 +3,11 @@
 Slider::Slider(std::string pathRange, std::string pathValue, const int id, const int posXAux, const int posYAux, const int wAux, const int hAux, const bool active, const float valueAux, const float minValueAux, const float maxValueAux, const int rangeSelectionAux, const Orientation orientationAux, SDL_Renderer* renderer)
 	: ianium::Slider(id), HudElement(posXAux, posYAux, wAux, hAux, active) {
 
-	value = valueAux;
-	minValue = minValueAux;
-	maxValue = maxValueAux;
-	rangeSelection = rangeSelectionAux;
-	orientation = orientationAux;
+	value, value_original = valueAux;
+	minValue, minValue_original = minValueAux;
+	maxValue, maxValue_original = maxValueAux;
+	rangeSelection, rangeSelection_original= rangeSelectionAux;
+	orientation, orientation_original = orientationAux;
 
 	imageRange = new Image(pathRange, renderer);
 	imageValue = new Image(pathValue, renderer);
@@ -101,4 +101,13 @@ void Slider::handleInput(const SDL_Event& i_event)
 			value = maxValue - (maxValue / rangeSelection);
 		}
 	}
+}
+
+void Slider::reset()
+{
+	value = value_original;
+	minValue = minValue_original;
+	maxValue = maxValue_original;
+	rangeSelection = rangeSelection_original;
+	orientation = orientation_original;
 }

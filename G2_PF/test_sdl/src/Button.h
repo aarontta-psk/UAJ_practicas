@@ -26,6 +26,8 @@ public:
 	//TODO AAA METER AQUI QUE EL ESTADO DEL BOTON SEA PRESSED HOLD O RELEASED
 	virtual void handleInput(const SDL_Event& i_event);
 
+	virtual void reset();
+
 private:
 	//TODO FALTA ESTE ESTADO DE KK
 	State buttonState;

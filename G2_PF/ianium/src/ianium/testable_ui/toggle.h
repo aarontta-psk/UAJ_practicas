@@ -14,6 +14,8 @@ namespace ianium {
 		virtual void render(SDL_Renderer* renderer) = 0;
 
 		virtual bool getToggleState() const = 0;
+
+		virtual void reset() = 0;
 	};
 };
 #endif // TOGGLE_H

@@ -24,6 +24,8 @@ public:
 
 	virtual void handleInput(const SDL_Event& i_event);
 
+	virtual void reset();
+
 private:
 	SDL_Rect rect;
 	bool toggleOn;

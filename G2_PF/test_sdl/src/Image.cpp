@@ -1,4 +1,6 @@
 #include "Image.h"
+#include <iostream>
+
 
 Image::Image(std::string path, SDL_Renderer* renderer)
 {

@@ -62,3 +62,8 @@ void Button::handleInput(const SDL_Event& i_event)
 	//	buttonPressed = false;
 	//}
 }
+
+void Button::reset()
+{
+	buttonState = State::RELEASED;
+}

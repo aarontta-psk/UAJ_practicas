@@ -80,3 +80,8 @@ void Toggle::handleInput(const SDL_Event& i_event)
 	//	buttonPressed = false;
 	//}
 }
+
+void Toggle::reset()
+{
+	toggleOn = false;
+}

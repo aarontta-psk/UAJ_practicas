@@ -13,6 +13,8 @@ namespace ianium {
 		virtual void render(SDL_Renderer* renderer) = 0;
 
 		virtual int getStateButton() const = 0;
+
+		virtual void reset() = 0;
 	};
 }
 #endif // BUTTON_H
