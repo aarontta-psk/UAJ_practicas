@@ -52,6 +52,8 @@ public:
 	}
 
 	~Image() {
+		std::cout << surface << "\n" << texture << "\n\n";
+
 		SDL_FreeSurface(surface);
 		surface = nullptr;
 
@@ -81,12 +83,14 @@ class Button : public ianium::Button, public HudElement {
 public:
 	enum class State { PRESSED, HOLD, RELEASED };
 
-	Button(std::string path, int id, int posXAux, int posYAux, int wAux, int hAux, bool active, SDL_Renderer* renderer) : ianium::Button(id), HudElement(posXAux, posYAux, wAux, hAux, active) {
+	Button(std::string pathPressed, std::string pathReleased, int id, int posXAux, int posYAux, int wAux, int hAux, bool active, SDL_Renderer* renderer) : ianium::Button(id), HudElement(posXAux, posYAux, wAux, hAux, active) {
 		buttonState = State::RELEASED;
-		image = new Image(path, renderer);
+		imagePressed = new Image(pathPressed, renderer);
+		imageReleased = new Image(pathReleased, renderer);
 	};
 	virtual ~Button() {
-		delete image;
+		delete imagePressed;
+		delete imageReleased;
 	};
 
 	//REDEFINICIONES CLASE UUIELEMENT
@@ -102,18 +106,41 @@ public:
 
 	virtual void render(SDL_Renderer* renderer) override {
 		rect = { (int)posX,(int)posY,(int)width,(int)height };
-		image->render(rect, renderer);
+
+		if (buttonState == State::RELEASED)
+			imageReleased->render(rect, renderer);
+		else if (buttonState == State::PRESSED)
+			imagePressed->render(rect, renderer);
 	}
 
 	//TODO AAA METER AQUI QUE EL ESTADO DEL BOTON SEA PRESSED HOLD O RELEASED
-	virtual void handleInput(const SDL_Event& i_event) {};
+	virtual void handleInput(const SDL_Event& i_event) {
+		int x = i_event.button.x;
+		int y = i_event.button.y;
+		int n_clicks = i_event.button.clicks;
+
+		if (x >= posX && x < posX + width && y >= posY && y < posY + height) {
+			if (i_event.type == SDL_MOUSEBUTTONDOWN) {
+				buttonState = State::PRESSED;
+			}
+		}
+		if (i_event.type == SDL_MOUSEBUTTONUP) {
+			buttonState = State::RELEASED;
+		}
+		//}
+		//else {
+		//	// Si se ha soltado el bot�n, establecer el estado de bot�n como no presionado
+		//	buttonPressed = false;
+		//}
+	};
 
 private:
 	//TODO FALTA ESTE ESTADO DE KK
 	State buttonState;
 
 	SDL_Rect rect;
-	Image* image;
+	Image* imageReleased;
+	Image* imagePressed;
 };
 
 class Slider : public ianium::Slider, public HudElement {
@@ -168,6 +195,10 @@ public:
 	}
 
 	virtual void handleInput(const SDL_Event& i_event) {
+
+		if (i_event.type != SDL_MOUSEBUTTONDOWN)
+			return;
+
 		int x = i_event.button.x;
 		int y = i_event.button.y;
 
@@ -246,6 +277,10 @@ public:
 	}
 
 	virtual void handleInput(const SDL_Event& i_event) {
+
+		if (i_event.type != SDL_MOUSEBUTTONDOWN)
+			return;
+
 		int x = i_event.button.x;
 		int y = i_event.button.y;
 		int n_clicks = i_event.button.clicks;
@@ -300,13 +335,13 @@ int main() {
 	std::list<HudElement*> hud;
 
 	//Interfaz
-	hud.push_back(new Button("./button.png", 0, 10, 10, 30, 30, true, renderer));
-	hud.push_back(new Button("./button.png", 1, 60, 0, 60, 60, true, renderer));
-	hud.push_back(new Button("./template.jpg", 2, 0, 300, 355, 255, true, renderer));
+	hud.push_back(new Button("./buttonPressed.png", "./buttonReleased.png", 0, 350, 150, 100, 50, true, renderer));
+	hud.push_back(new Button("./buttonPressed.png", "./buttonReleased.png", 1, 350, 300, 100, 50, true, renderer));
+	hud.push_back(new Button("./mainmenu.png", "./mainmenu.png", 2, 300, 20, 200, 100, true, renderer));
 
 	hud.push_back(new Toggle("./toggleOn.png", "./toggleOff.png", 3, 500, 300, 100, 100, true, renderer));
-
 	hud.push_back(new Slider("./sliderRange.png", "./sliderButton.png", 4, 200, 200, 200, 20, true, 80.0, 0.0, 100.0, 10, Slider::Orientation::HORIZONTAL, renderer));
+
 
 	try
 	{
@@ -323,7 +358,7 @@ int main() {
 				else if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
 					gameRunning = false;
 				}
-				else if (event.type == SDL_MOUSEBUTTONDOWN) {
+				else if (event.type == SDL_MOUSEBUTTONDOWN || event.type == SDL_MOUSEBUTTONUP) {
 					//eventos de clickado
 					//Update
 					for (HudElement* elem : hud)
