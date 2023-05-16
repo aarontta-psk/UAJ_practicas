@@ -25,4 +25,6 @@ Soporta varios tipos de instrucciones con formato nombreDeInstrucción parámetr
     - frames es un int del número de frames que se quieren ejecutar. Típicamente con darle valor 1 sirve.
 ## Requesitos
 - SDL tiene que ser inicializado previamente.
+- Se debe inicializar Ianium, haciendo Ianium::Init
+- Para ejecutar los tests, se debe llamar a Ianium::Instance()->runTests()
 - runFrames debe llamarse cada vez que se quiere que se procese una instruccion. Si se quiere que en el mismo frame se ejecuten varios clicks por ejemplo, se llamara a click las veces necesarias, y luego a "runFrames 1" para reflejar estas acciones en la interfaz.
