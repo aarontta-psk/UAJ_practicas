@@ -30,11 +30,6 @@ Image::Image(const std::string & path, SDL_Renderer* renderer) : surface(nullptr
 
 Image::~Image()
 {
-	if (surface != nullptr) {
-		SDL_FreeSurface(surface);
-		surface = nullptr;
-	}
-
 	if (texture != nullptr) {
 		SDL_DestroyTexture(texture);
 		texture = nullptr;
