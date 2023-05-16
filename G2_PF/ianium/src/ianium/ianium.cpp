@@ -214,7 +214,10 @@ bool Ianium::readScript(std::string fileName) {
 					default:
 						break;
 				}
-				if (testResult == TEST_FAILED) break; //no more asserts are needed if test fails once
+				if (testResult == TEST_FAILED) {
+					while (std::getline(file, line) && line != "end");
+					break; //no more asserts are needed if test fails once
+				}
 			}
 			for (auto elem : testableUIElems)
 				elem.second->reset();
