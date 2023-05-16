@@ -302,7 +302,8 @@ int Ianium::executeLine(int nLine, const std::vector<std::string>& words) {
 	}
 	else if (words[0] == "assertSlider") {
 		CHECK_ARG_SIZE(3, words.size(), nLine);
-		int value, idSlider;
+		int idSlider;
+		float value;
 		CHECK_CORRECT_TYPES(value = std::stoi(words[2]); idSlider = std::stoi(words[1]);, nLine);
 		functionalTesting->assertSlider(idSlider, value) ? returnValue = TEST_PASSED : returnValue = TEST_FAILED;
 	}
