@@ -15,7 +15,9 @@ VisualTesting::VisualTesting(SDL_Window* sdl_window, SDL_Renderer* sdl_renderer)
 	renderer = sdl_renderer;
 }
 
-VisualTesting::~VisualTesting() = default;
+VisualTesting::~VisualTesting() {
+	cv::destroyAllWindows();
+}
 
 bool VisualTesting::assertImageOnScreen(std::string imagePath)
 {
