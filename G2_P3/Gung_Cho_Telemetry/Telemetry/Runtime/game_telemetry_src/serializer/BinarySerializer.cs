@@ -3,6 +3,9 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace game_telemetry
 {
+    /// <summary>
+    /// Serializer in binary format
+    /// </summary>
     public class BinarySerializer : ISerializer
     {
         public string Serialize(TelemetryEvent t_event)
@@ -18,8 +21,8 @@ namespace game_telemetry
 
                 using (StreamReader streamReader = new StreamReader(memoryStream))
                 {
-                    serialized = streamReader.ReadToEnd();      
-                }                 
+                    serialized = streamReader.ReadToEnd();
+                }
             }
 
             return serialized;

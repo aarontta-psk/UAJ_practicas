@@ -4,10 +4,16 @@ using System.Collections.Concurrent;
 
 namespace game_telemetry
 {
+    /// <summary>
+    /// Defines all the behaviour of the telemetry tracker
+    /// </summary>
     public class Telemetry
     {
         private static Telemetry? instance;
 
+        /// <summary>
+        /// Telemetry thread variables
+        /// </summary>
         private const int ThreadDelay = 1500; // in ms
         private Thread telemetryThread;
         private bool runningThread;
@@ -15,12 +21,21 @@ namespace game_telemetry
         private List<Persistence> persistences;
         private ConcurrentQueue<TelemetryEvent> eventQueue;
 
+        /// <summary>
+        /// Session ID to be used across the telemetry
+        /// </summary>
         private long sessionID;
         public long SessionID { get => sessionID; private set { sessionID = value; } }
 
+        /// <summary>
+        /// Game name to be used across the telemetry
+        /// </summary>
         private string gameName;
         public string GameName { get => gameName; private set { gameName = value; } }
 
+        /// <summary>
+        /// Directory to be used across the telemetry
+        /// </summary>
         private string directory;
         public string Directory { get => directory; private set { directory = value; } }
 
@@ -28,6 +43,14 @@ namespace game_telemetry
 
         public static Telemetry Instance => instance;
 
+        /// <summary>
+        /// Initializes explicitly the telemetry instance.
+        /// If it's not called, Telemetry.Instance will return null.
+        /// </summary>
+        /// <param name="directory_">Directory path to store the data files</param>
+        /// <param name="gameName_">Game name used to be used across the telemetry</param>
+        /// <param name="sessionId_">Session ID to be used across the telemetry</param>
+        /// <returns>true if correctly initialized</returns>
         public static bool Init(string directory_, string gameName_, long sessionId_)
         {
             if (instance != null)
@@ -41,17 +64,28 @@ namespace game_telemetry
             return true;
         }
 
+        /// <summary>
+        /// Releases the telemetry instance.
+        /// Requires previous call to the Init() function.
+        /// </summary>
         public static void Release()
         {
             instance.TelemetryStop();
             instance = null;
         }
 
+        /// <summary>
+        /// Stores the event to track
+        /// </summary>
+        /// <param name="t_event"></param>
         public void TrackEvent(TelemetryEvent t_event)
         {
             eventQueue.Enqueue(t_event);
         }
 
+        /// <summary>
+        /// Telemetry thread
+        /// </summary>
         private void Run()
         {
             while (runningThread)
@@ -62,6 +96,9 @@ namespace game_telemetry
             Persist();
         }
 
+        /// <summary>
+        /// Persists to all the persistences in the telemetry.
+        /// </summary>
         private void Persist()
         {
             TelemetryEvent? t_event;
@@ -72,6 +109,9 @@ namespace game_telemetry
             }
         }
 
+        /// <summary>
+        /// Private method to start the instance
+        /// </summary>
         private void TelemetrySetup(string directory_, string gameName_, long sessionId_)
         {
             Directory = directory_;
@@ -91,6 +131,9 @@ namespace game_telemetry
             telemetryThread.Start();
         }
 
+        /// <summary>
+        /// Private method to stop the instance
+        /// </summary>
         private void TelemetryStop()
         {
             runningThread = false;

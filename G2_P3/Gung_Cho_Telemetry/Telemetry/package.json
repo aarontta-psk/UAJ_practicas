@@ -1,6 +1,6 @@
 {
   "name": "com.g02.game_telemetry_package",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Game Telemetry",
   "description": "This package serves the purpose of letting programmers use a simple tracking tool for their telemetry tests in Unity.",
   "unity": "2020.3",
